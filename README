@@ -1,0 +1,14 @@
+Various useful tools for Zsh
+============================
+
+Contents
+--------
+
+* Zsh prompt addition for Git repos (prompt/git). Forked from:
+
+https://github.com/olivierverdier/zsh-git-prompt
+
+* Zsh prompt addition for Subversion repos (prompt/svn). Derived from zsh-git-prompt above.
+
+Install
+-------
