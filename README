@@ -1,14 +1,27 @@
-Various useful tools for Zsh
-============================
+# Various useful tools for Zsh #
 
-Contents
---------
+## Git prompt ##
 
-* Zsh prompt addition for Git repos (prompt/git). Forked from:
+Zsh prompt addition for Git repos (prompt/git). Forked from:
 
 https://github.com/olivierverdier/zsh-git-prompt
 
-* Zsh prompt addition for Subversion repos (prompt/svn). Derived from zsh-git-prompt above.
+### Install ###
 
-Install
--------
+$ mkdir -p ~/.zsh/git-prompt
+$ cp prompt/git/* ~/.zsh/git-prompt/
+$ vi ~/.zshrc
+$ source ~/.zshrc
+
+In the .zshrc editing step, modify your current PROMPT lines. My previous PROMPT value was:
+
+    PROMPT=$'%{\e[32m%}${HOST}[%{\e[33m%}%~%{\e[32m%}]%{\e[0m%}: '
+
+For using Git prompt I just added a function call to its end, and sourced a file:
+
+    source $HOME/.zsh/git-prompt/zshrc.sh
+    PROMPT=$'%{\e[32m%}${HOST}[%{\e[33m%}%~%{\e[32m%}]%{\e[0m%}$(git_super_status)$(svn_super_status): '
+
+## Subversion prompt ##
+
+Zsh prompt addition for Subversion repos (prompt/svn). Derived from zsh-git-prompt above.
