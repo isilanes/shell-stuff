@@ -8,10 +8,10 @@ https://github.com/olivierverdier/zsh-git-prompt
 
 ### Install ###
 
-  $ mkdir -p ~/.zsh/git-prompt
-  $ cp prompt/git/* ~/.zsh/git-prompt/
-  $ vi ~/.zshrc
-  $ source ~/.zshrc
+    $ mkdir -p ~/.zsh/git-prompt
+    $ cp prompt/git/* ~/.zsh/git-prompt/
+    $ vi ~/.zshrc
+    $ source ~/.zshrc
 
 In the .zshrc editing step, modify your current PROMPT lines. My previous PROMPT value was:
 
