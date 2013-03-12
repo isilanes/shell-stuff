@@ -17,7 +17,7 @@ In the .zshrc editing step, modify your current PROMPT lines. My previous PROMPT
 
     PROMPT=$'%{\e[32m%}${HOST}[%{\e[33m%}%~%{\e[32m%}]%{\e[0m%}: '
 
-For using Git prompt I just added a function call to its end, and sourced a file:
+For using the Git prompt I just added a function call to its end, and sourced a file:
 
     source $HOME/.zsh/git-prompt/zshrc.sh
     PROMPT=$'%{\e[32m%}${HOST}[%{\e[33m%}%~%{\e[32m%}]%{\e[0m%}$(git_super_status): '
@@ -37,7 +37,7 @@ In the .zshrc editing step, modify your current PROMPT lines. My previous PROMPT
 
     PROMPT=$'%{\e[32m%}${HOST}[%{\e[33m%}%~%{\e[32m%}]%{\e[0m%}: '
 
-For using Git prompt I just added a function call to its end, and sourced a file:
+For using the Subversion prompt I just added a function call to its end, and sourced a file:
 
     source $HOME/.zsh/svn-prompt/svn.sh
     PROMPT=$'%{\e[32m%}${HOST}[%{\e[33m%}%~%{\e[32m%}]%{\e[0m%}$(svn_super_status): '
