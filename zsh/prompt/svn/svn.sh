@@ -75,10 +75,10 @@ svn_super_status() {
 }
 
 # Default values for the appearance of the prompt. Configure at will.
-ZSH_THEME_SVN_PROMPT_PREFIX="%{$fg[green]%}{"
-ZSH_THEME_SVN_PROMPT_SUFFIX="%{$fg[green]%}}"
-ZSH_THEME_SVN_PROMPT_SEPARATOR="%{$fg[green]%}|"
-ZSH_THEME_SVN_PROMPT_BRANCH="%{$fg[magenta]%}"
+ZSH_THEME_SVN_PROMPT_PREFIX="%{$fg[blue]%}{"
+ZSH_THEME_SVN_PROMPT_SUFFIX="%{$fg[blue]%}}"
+ZSH_THEME_SVN_PROMPT_SEPARATOR="%{$fg[blue]%}|"
+ZSH_THEME_SVN_PROMPT_BRANCH="%{$fg_bold[blue]%}"
 ZSH_THEME_SVN_PROMPT_TAG="%{$fg_bold[yellow]%}"
 ZSH_THEME_SVN_PROMPT_DIRTY="%{$fg[red]%}*"
 ZSH_THEME_SVN_PROMPT_CLEAN="%{$fg_bold[green]%}✔"
