@@ -18,7 +18,7 @@ if 'not a working copy' in err:
 state = 'clean'
 for line in out.split("\n"):
     if line:
-        if line[0] in '?M':
+        if line[0] in '?MD':
             state = 'dirty'
 
 # If in working copy, get branch/tag from path:
