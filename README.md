@@ -2,6 +2,22 @@
 
 ## Zsh ##
 
+### .zshrc ###
+
+Copy or link the following files:
+
+    shell-stuff/zsh/zshrc
+    shell-stuff/zsh/inputrc.zsh
+    shell-stuff/zsh/dir_colors
+    shell-stuff/zsh/alias.zsh
+
+respectively, into:
+
+    ~/.zshrc
+    ~/.inputrc.zsh
+    ~/.dir_colors
+    ~/.alias.zsh
+
 ### Git prompt ###
 
 Zsh prompt addition for Git repos (prompt/git). Forked from:
