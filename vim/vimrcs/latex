@@ -1,0 +1,161 @@
+" An example for a vimrc file.
+"
+" Maintainer:	Bram Moolenaar <Bram@vim.org>
+" Last change:	1999 Sep 09
+"
+" To use it, copy it to
+"     for Unix and OS/2:  ~/.vimrc
+"             for Amiga:  s:.vimrc
+"  for MS-DOS and Win32:  $VIM\_vimrc
+
+set nocompatible	" Use Vim defaults (much better!)
+set bs=2		" allow backspacing over everything in insert mode
+set ai			" always set autoindenting on
+set nobackup		" don't keep a friggin' backup file
+set viminfo='20,\"50	" read/write a .viminfo file, don't store more
+			" than 50 lines of registers
+set history=50		" keep 50 lines of command line history
+set ruler		" show the cursor position all the time
+
+" By ISC:
+set guioptions=agl
+set guifont=monospace\ 9
+"set guifont=Vera\ Sans\ 9
+
+" For Win32 GUI: remove 't' flag from 'guioptions': no tearoff menu entries
+" let &guioptions = substitute(&guioptions, "t", "", "g")
+
+" Don't use Ex mode, use Q for formatting
+map Q gq
+
+" Make p in Visual mode replace the selected text with the "" register.
+vnoremap p <Esc>:let current_reg = @"<CR>gvdi<C-R>=current_reg<CR><Esc>
+
+" Switch syntax highlighting on, when the terminal has colors
+" Also switch on highlighting the last used search pattern.
+if &t_Co > 2 || has("gui_running")
+  syntax on
+  set hlsearch
+endif
+
+" Only do this part when compiled with support for autocommands.
+if has("autocmd")
+
+ " In text files, always limit the width of text to 78 characters
+ autocmd BufRead *.txt set tw=78
+ autocmd BufRead *.* set filetype=latex "set ALL files read to LaTeX syntax
+
+ augroup cprog
+  " Remove all cprog autocommands
+  au!
+
+  " When starting to edit a file:
+  "   For C and C++ files set formatting of comments and set C-indenting on.
+  "   For other files switch it off.
+  "   Don't change the order, it's important that the line with * comes first.
+  autocmd FileType *      set formatoptions=tcql nocindent comments&
+  autocmd FileType c,cpp  set formatoptions=croql cindent comments=sr:/*,mb:*,el:*/,://
+ augroup END
+
+ augroup gzip
+  " Remove all gzip autocommands
+  au!
+
+  " Enable editing of gzipped files
+  " set binary mode before reading the file
+  autocmd BufReadPre,FileReadPre	*.gz,*.bz2 set bin
+  autocmd BufReadPost,FileReadPost	*.gz call GZIP_read("gunzip")
+  autocmd BufReadPost,FileReadPost	*.bz2 call GZIP_read("bunzip2")
+  autocmd BufWritePost,FileWritePost	*.gz call GZIP_write("gzip")
+  autocmd BufWritePost,FileWritePost	*.bz2 call GZIP_write("bzip2")
+  autocmd FileAppendPre			*.gz call GZIP_appre("gunzip")
+  autocmd FileAppendPre			*.bz2 call GZIP_appre("bunzip2")
+  autocmd FileAppendPost		*.gz call GZIP_write("gzip")
+  autocmd FileAppendPost		*.bz2 call GZIP_write("bzip2")
+
+  " After reading compressed file: Uncompress text in buffer with "cmd"
+  fun! GZIP_read(cmd)
+    let ch_save = &ch
+    set ch=2
+    execute "'[,']!" . a:cmd
+    set nobin
+    let &ch = ch_save
+    execute ":doautocmd BufReadPost " . expand("%:r")
+  endfun
+
+  " After writing compressed file: Compress written file with "cmd"
+  fun! GZIP_write(cmd)
+    if rename(expand("<afile>"), expand("<afile>:r")) == 0
+      execute "!" . a:cmd . " <afile>:r"
+    endif
+  endfun
+
+  " Before appending to compressed file: Uncompress file with "cmd"
+  fun! GZIP_appre(cmd)
+    execute "!" . a:cmd . " <afile>"
+    call rename(expand("<afile>:r"), expand("<afile>"))
+  endfun
+
+ augroup END
+
+ " This is disabled, because it changes the jumplist.  Can't use CTRL-O to go
+ " back to positions in previous files more than once.
+ if 0
+  " When editing a file, always jump to the last cursor position.
+  " This must be after the uncompress commands.
+   autocmd BufReadPost * if line("'\"") && line("'\"") <= line("$") | exe "normal `\"" | endif
+ endif
+
+endif " has("autocmd")
+
+"in EDIT mode
+ " FOR THE THESIS
+  " F3 = B5 PS of the whole Thesis, with cross-refs and bibligraphy (conprehensive but slow)
+  " F4 = DVI of the chapter being edited, w/o cross-references or bibliography (quick-n-dirty)
+  " F5 = B5 PS of the chapter being edited, w/ cross-refs but w/o bibligraphy
+ " GENERAL
+  " F6 = LaTeX  A4 PS with BIBTEX and then delete .aux .bbl .blg .dvi .toc
+  " F7 = pdfTeX A4 PDF with BIBTEX and then delete .aux .bbl .blg .dvi .toc
+
+map <F3> :w<ESC>:! cat ~/Documents/Tesia/Resources/tesia.top ~/Documents/Tesia/tesia.tex > tmp.tex && echo '\\end{document}' >> tmp.tex && latex tmp.tex && bibtex tmp && latex tmp.tex && latex tmp.tex && dvips -t b5 tmp.dvi -o tmp.ps && evince tmp.ps && rm -f tmp.*<ESC><CR>
+map <F4> :w<ESC>:! ~/Documents/Tesia/Resources/run_latex.pl %:r 2 1; sleep 10<ESC><CR>
+
+"map <F6> :w<ESC>:! latex -halt-on-error %<ESC>:! bibtex %:r<ESC>:! latex %<ESC>:! latex %<ESC>:! dvips -t a4 %:r.dvi -o %:r.ps<ESC>:! evince %:r.ps<ESC>:! rm -f *.aux %:r.b?? %:r.toc %:r.dvi %:r.mtc* %:r.log %:r.out<ESC><CR>
+
+map <F5> :w<ESC>:! ~/bin/latex_parser %<ESC><CR>
+map <F6> :w<ESC>:! ~/bin/latex_parser main.tex<ESC><CR>
+
+map <F7> :w<ESC>:! pdflatex -halt-on-error %<ESC>:! bibtex %:r<ESC>:! pdflatex %<ESC>:! pdflatex %<ESC>:! evince %:r.pdf<ESC>:! rm -f *.aux %:r.b?? %:r.toc %:r.dvi %:r.mtc* %:r.log<ESC><CR>
+
+" Abbreviations
+ab 9begin <ESC>:set noai<ESC>a\documentclass[english]{article}<CR>\usepackage[a4paper,top=25mm,bottom=35mm,textwidth=160mm]{geometry}<CR>\usepackage[T1]{fontenc}<CR>\usepackage[dvips]{graphicx}<CR>\usepackage{amssymb}<CR>\usepackage[usenames]{color}<CR>\usepackage[utf8]{inputenc}<CR>%\usepackage{graphics}<CR>\usepackage{babel}<CR>\input{epsf}<CR><CR>\begin{document}<CR>\newcommand{\mc}{\multicolumn}<CR>\newcommand{\mr}{\multirow}<CR>\newcommand{\cw}{\columnwidth}<CR>\newcommand{\ig}[2]{\includegraphics[width=#1\cw]{#2}}<CR><CR>\title{}<CR>\maketitle<CR><CR>\section{}<CR><CR>\end{document}<ESC>:set ai<ESC>a
+
+ab 9eps <ESC>:set noai<ESC>a\begin{figure}[hbt]<CR> \begin{center}<CR>  \ig{0.5}{.eps}<CR> \end{center}<CR> \caption{}<CR> \label{}<CR>\end{figure}<ESC>:set ai<ESC>a
+
+ab 9tab <ESC>:set noai<ESC>a\begin{table}[hbt]<CR> \begin{center}<CR>  \begin{tabular}{c}<CR>   & \\<CR>   &<CR>  \end{tabular}<CR> \end{center}<CR> \caption{}<CR> \label{}<CR>\end{table}<ESC>:set ai<ESC>a
+
+ab 9art @article{,<CR>  author  = "",<CR>  title   = "",<CR>  journal = "",<CR>  volume  = "",<CR>  pages   = "",<CR>  year    = "",<CR>}<CR>
+
+ab 9boo @book{,<CR>  author    = "",<CR>  title     = "",<CR>  publisher = "",<CR>  year      = "",<CR>  note      = "",<CR>}<CR>
+
+ab 9inb @inbook{,<CR>  author    = "",<CR>  title     = "",<CR>  booktitle = "",<CR>  year      = "",<CR>  editor    = "",<CR>  publisher = "",<CR>  address   = "",<CR>  pages     = "",<CR>  note      = "",<CR>}<CR>
+
+"in INSERT mode
+map! á \'a
+map! é \'e
+map! í \'i
+map! ó \'o
+map! ú \'u
+map! Á \'A
+map! É \'E
+map! Í \'I
+map! Ó \'O
+map! Ú \'U
+map! ñ \~n
+
+" Tab-ing:
+execute pathogen#infect()
+map <F5> :NERDTreeToggle<ESC>
+map <C-n> :tabnew<ESC>
+
+colorscheme silanes
