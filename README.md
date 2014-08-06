@@ -1,5 +1,42 @@
 # Various useful shell tools #
 
+## Vim ##
+
+We include a .vim/ directory, and some .vimrc files.
+
+### .vim/ ###
+
+Copy or link the following directory:
+
+    shell-stuff/vim/dotvim/
+
+as:
+
+    ~/.vim/
+
+It is recommended that you use the NERDtree addon. For that:
+
+   $ mkdir ~/.vim/bundle
+   $ cd ~/.vim/bundle/
+   $ git clone https://github.com/scrooloose/nerdtree.git 
+
+### .vimrc files ###
+
+We provide some .vimrc files, for different files, for example LaTeX or Python. I have to improve this, as filetype should be used for that.
+
+Right now, to "install" them, copy or link:
+
+    shell-stuff/vim/vimrcs
+
+as:
+
+    ~/.vimrcs
+
+Then, to use one:
+
+    $ alias vig='gvim -u ~/.vimrcs/program'
+    $ vig file.py
+   
 ## Zsh ##
 
 ### .zshrc ###
@@ -11,7 +48,7 @@ Copy or link the following files:
     shell-stuff/zsh/dir_colors
     shell-stuff/zsh/alias.zsh
 
-respectively, into:
+respectively, as:
 
     ~/.zshrc
     ~/.inputrc.zsh
