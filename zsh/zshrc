@@ -19,9 +19,10 @@ typeset -U path cdpath fpath manpath
 
 # Global aliases -- These do not have to be
 # at the beginning of the command line.
-alias -g M='|more'
-alias -g H='|head'
-alias -g T='|tail'
+#alias -g M='|more'
+#alias -g L='|less'
+#alias -g H='|head'
+#alias -g T='|tail'
 
 # Hosts to use for completion (see later zstyle)
 #hosts=(`hostname` ftp.math.gatech.edu prep.ai.mit.edu wuarchive.wustl.edu)
@@ -29,13 +30,14 @@ alias -g T='|tail'
 # Set/unset  shell options
 setopt   notify globdots correct pushdtohome cdablevars autolist
 setopt   correctall autocd recexact longlistjobs
-setopt   autoresume histignoredups pushdsilent noclobber
+setopt   autoresume histignoredups pushdsilent clobber
 setopt   autopushd pushdminus extendedglob rcquotes mailwarning
 unsetopt bgnice autoparamslash
+setopt   nohup
 unsetopt autoremoveslash
 
 # Autoload zsh modules when they are referenced
-zmodload -a zsh/stat stat
+#zmodload -a zsh/stat stat
 zmodload -a zsh/zpty zpty
 zmodload -a zsh/zprof zprof
 zmodload -ap zsh/mapfile mapfile
@@ -50,7 +52,7 @@ zmodload -ap zsh/mapfile mapfile
 
 #bindkey -v               # vi key bindings
 #bindkey -e               # emacs key bindings
-#
+
 bindkey ' ' magic-space    # also do history expansion on space
 bindkey '^I' complete-word # complete on tab, leave expansion to _expand
 
@@ -106,8 +108,16 @@ eval `dircolors -b $HOME/.dir_colors`
 # Set the prompt line:
 setopt promptsubst
 source $HOME/.zsh/git-prompt/zshrc.sh
-PROMPT=$'%{\e[32m%}${HOST}[%{\e[33m%}%~%{\e[32m%}]%{\e[0m%}$(git_super_status): '
-RPROMPT=$'%{\e[32m%}%T%{\e[0m%}'
+if [[ $HOST == "frink" ]]; then
+    PROMPT=$'%{\e[32m%}${HOST}[%{\e[33m%}%~%{\e[32m%}]%{\e[0m%}$(git_super_status): '
+    RPROMPT=$'%{\e[32m%}%T%{\e[0m%}'
+elif [[ $HOST == "Moe" ]]; then
+    PROMPT=$'%{\e[32;1m%}${HOST}[%{\e[0;32m%}%~%{\e[32;1m%}]%{\e[0m%}$(git_super_status): '
+    RPROMPT=$'%{\e[32m%}%T%{\e[37m%}·%{\e[36m%}$(awk \'{printf "%.1f",$1/86400}\' /proc/uptime)%{\e[0m%}'
+else
+    PROMPT=$'%{\e[32m%}${HOST}[%{\e[32;1m%}%~%{\e[32m%}]%{\e[0m%}$(git_super_status): '
+    RPROMPT=$'%{\e[32m%}%T%{\e[0m%}'
+fi
 
 # History stuff:
 HISTSIZE=5000
