@@ -108,11 +108,12 @@ eval `dircolors -b $HOME/.dir_colors`
 # Set the prompt line:
 setopt promptsubst
 source $HOME/.zsh/git-prompt/zshrc.sh
+source $HOME/.zsh/svn-prompt/svn.sh
 if [[ $HOST == "frink" ]]; then
     PROMPT=$'%{\e[32m%}${HOST}[%{\e[33m%}%~%{\e[32m%}]%{\e[0m%}$(git_super_status): '
     RPROMPT=$'%{\e[32m%}%T%{\e[0m%}'
 elif [[ $HOST == "Moe" ]]; then
-    PROMPT=$'%{\e[32;1m%}${HOST}[%{\e[0;32m%}%~%{\e[32;1m%}]%{\e[0m%}$(git_super_status): '
+    PROMPT=$'%{\e[32;1m%}${HOST}[%{\e[0;32m%}%~%{\e[32;1m%}]%{\e[0m%}$(git_super_status)$(svn_super_status): '
     RPROMPT=$'%{\e[32m%}%T%{\e[37m%}·%{\e[36m%}$(awk \'{printf "%.1f",$1/86400}\' /proc/uptime)%{\e[0m%}'
 else
     PROMPT=$'%{\e[32m%}${HOST}[%{\e[32;1m%}%~%{\e[32m%}]%{\e[0m%}$(git_super_status): '
