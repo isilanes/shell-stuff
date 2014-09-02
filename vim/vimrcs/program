@@ -15,7 +15,7 @@ set ruler		" show the cursor position all the time
 "set guifont=Courier\ Bold\ 12
 "set guifont=-Adobe-Courier-Medium-R-Normal--14-140-75-75-M-90-ISO8859-9
 "set guifont=Courier\ 10\ Pitch\ 13
-set guifont=Bitstream\ Vera\ Sans\ Mono\ 10
+set guifont=Bitstream\ Vera\ Sans\ Mono\ 9
 
 set guioptions=agl
 set shiftwidth=4        " indent with four spaces

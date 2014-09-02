@@ -108,7 +108,7 @@ eval `dircolors -b $HOME/.dir_colors`
 # Set the prompt line:
 setopt promptsubst
 source $HOME/.zsh/git-prompt/zshrc.sh
-if [[ $HOST == "Frink" ]]; then
+if [[ $HOST == "frink" ]]; then
     PROMPT=$'%{\e[32m%}${HOST}[%{\e[33m%}%~%{\e[32m%}]%{\e[0m%}$(git_super_status): '
     RPROMPT=$'%{\e[32m%}%T%{\e[0m%}'
 elif [[ $HOST == "Moe" ]]; then
