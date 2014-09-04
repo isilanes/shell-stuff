@@ -13,7 +13,6 @@ map <buffer> f za
 setlocal foldmethod=expr
 setlocal foldexpr=GetPythonFoldISC(v:lnum)
 setlocal foldtext=PythonFoldText()
-set foldcolumn=1
 
 function! PythonFoldText()
     let line = getline(v:foldstart)
