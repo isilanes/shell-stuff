@@ -6,7 +6,7 @@
 " Version:	2.3
 " Bug fix:	Drexler Christopher, Tom Schumm, Geoff Gerrietts
 
-" Algunos cambios by: Iñaki Silanes (2013)
+" Some changes by: Iñaki Silanes (2013-2014)
 
 map <buffer> f za
 
@@ -15,34 +15,38 @@ setlocal foldexpr=GetPythonFold(v:lnum)
 setlocal foldtext=PythonFoldText()
 
 function! PythonFoldText()
-  let line = getline(v:foldstart)
-  let nnum = nextnonblank(v:foldstart + 1)
-  let nextline = getline(nnum)
-  if nextline =~ '^\s\+"""$'
-    let line = line . getline(nnum + 1)
-  elseif nextline =~ '^\s\+"""'
-    let line = line . ' ' . matchstr(nextline, '"""\zs.\{-}\ze\("""\)\?$')
-  elseif nextline =~ '^\s\+"[^"]\+"$'
-    let line = line . ' ' . matchstr(nextline, '"\zs.*\ze"')
-  elseif nextline =~ '^\s\+pass\s*$'
-    let line = line . ' pass'
-  endif
-  let size = 1 + v:foldend - v:foldstart
-  if size < 10
-    let size = " " . size
-  endif
-  if size < 100
-    let size = " " . size
-  endif
-  if size < 1000
-    let size = " " . size
-  endif
-  return size . " lines: " . line
+    let line = getline(v:foldstart)
+    let nnum = nextnonblank(v:foldstart + 1)
+    let nextline = getline(nnum)
+
+    if nextline =~ '^\s\+"""$'
+        let line = line . getline(nnum + 1)
+    elseif nextline =~ '^\s\+"""'
+        let line = line . ' ' . matchstr(nextline, '"""\zs.\{-}\ze\("""\)\?$')
+    elseif nextline =~ '^\s\+"[^"]\+"$'
+        let line = line . ' ' . matchstr(nextline, '"\zs.*\ze"')
+    elseif nextline =~ '^\s\+pass\s*$'
+        let line = line . ' pass'
+    endif
+
+    let size = 1 + v:foldend - v:foldstart
+
+    if size < 10
+        let size = " " . size
+    endif
+    if size < 100
+        let size = " " . size
+    endif
+    if size < 1000
+        let size = " " . size
+    endif
+
+    return size . " lines: " . line
 endfunction
 
 function! GetPythonFold(lnum)
     " Determine folding level in Python source
-    "
+    
     let line = getline(a:lnum)
     let ind  = indent(a:lnum)
 
@@ -70,7 +74,7 @@ function! GetPythonFold(lnum)
 
     " Classes and functions get their own folds
     if line =~ '^\s*\(class\|def\)\s'
-	return ">" . (ind / &sw + 1)
+        return ">" . (ind / &sw + 1)
     endif
 
     let pnum = prevnonblank(a:lnum - 1)
@@ -110,7 +114,7 @@ function! GetPythonFold(lnum)
 
     " If next line has less indentation we end a fold.
     " This ends folds that aren't there a lot of the time, and this sometimes
-    " confuses vim.  Luckily only rarely.
+    " confuses vim. Luckily only rarely.
     let nind = indent(nnum)
     if nind < ind
 	return "<" . (nind / &sw + 1)

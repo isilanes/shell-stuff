@@ -1,4 +1,4 @@
-ftplugin
+*.pyc
 vim/dotvim/bundle
 vim/dotvim/.netrwhist
 *.swp
