@@ -16,9 +16,9 @@ as:
 
 It is recommended that you use the NERDtree addon. For that:
 
-   $ mkdir ~/.vim/bundle
-   $ cd ~/.vim/bundle/
-   $ git clone https://github.com/scrooloose/nerdtree.git 
+    $ mkdir ~/.vim/bundle
+    $ cd ~/.vim/bundle/
+    $ git clone https://github.com/scrooloose/nerdtree.git 
 
 ### .vimrc files ###
 
