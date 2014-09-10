@@ -157,5 +157,7 @@ map! ñ \~n
 execute pathogen#infect()
 map <F5> :NERDTreeToggle<ESC>
 map <C-n> :tabnew<ESC>
+map <S-left> :tabp<ESC>
+map <S-right> :tabn<ESC>
 
 colorscheme silanes
