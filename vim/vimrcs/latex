@@ -124,8 +124,9 @@ map <F4> :w<ESC>:! ~/Documents/Tesia/Resources/run_latex.pl %:r 2 1; sleep 10<ES
 
 map <F5> :w<ESC>:! ~/bin/latex_parser %<ESC><CR>
 map <F6> :w<ESC>:! ~/bin/latex_parser main.tex<ESC><CR>
+map <F7> :w<ESC>:! ~/bin/latex_parser %:r<ESC><CR>
 
-map <F7> :w<ESC>:! pdflatex -halt-on-error %<ESC>:! bibtex %:r<ESC>:! pdflatex %<ESC>:! pdflatex %<ESC>:! evince %:r.pdf<ESC>:! rm -f *.aux %:r.b?? %:r.toc %:r.dvi %:r.mtc* %:r.log<ESC><CR>
+"map <F7> :w<ESC>:! pdflatex -halt-on-error %<ESC>:! bibtex %:r<ESC>:! pdflatex %<ESC>:! pdflatex %<ESC>:! evince %:r.pdf<ESC>:! rm -f *.aux %:r.b?? %:r.toc %:r.dvi %:r.mtc* %:r.log<ESC><CR>
 
 " Abbreviations
 ab 9begin <ESC>:set noai<ESC>a\documentclass[english]{article}<CR>\usepackage[a4paper,top=25mm,bottom=35mm,textwidth=160mm]{geometry}<CR>\usepackage[T1]{fontenc}<CR>\usepackage[dvips]{graphicx}<CR>\usepackage{amssymb}<CR>\usepackage[usenames]{color}<CR>\usepackage[utf8]{inputenc}<CR>%\usepackage{graphics}<CR>\usepackage{babel}<CR>\input{epsf}<CR><CR>\begin{document}<CR>\newcommand{\mc}{\multicolumn}<CR>\newcommand{\mr}{\multirow}<CR>\newcommand{\cw}{\columnwidth}<CR>\newcommand{\ig}[2]{\includegraphics[width=#1\cw]{#2}}<CR><CR>\title{}<CR>\maketitle<CR><CR>\section{}<CR><CR>\end{document}<ESC>:set ai<ESC>a
