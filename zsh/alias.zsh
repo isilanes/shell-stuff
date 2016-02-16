@@ -30,7 +30,7 @@ alias tarx='tar --xz -cvf'
 alias untarx='tar --xz -xvf'
 alias xz='xz -3'
 alias unxz='xz -d'
-alias pxz='cz -l 3 -n 4'
+#alias pxz='cz -l 3 -n 4'
 
 # Functions:
 function tf { tail "$1"; echo -n "\033[32m" && tail -0f "$1"; }
