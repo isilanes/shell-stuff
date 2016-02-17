@@ -30,7 +30,7 @@ alias tarx='tar --xz -cvf'
 alias untarx='tar --xz -xvf'
 alias xz='xz -3'
 alias unxz='xz -d'
-alias pxz='cz -l 3 -n 4'
+#alias pxz='cz -l 3 -n 4'
 
 # Functions:
 function tf { tail "$1"; echo -n "\033[32m" && tail -0f "$1"; }
@@ -50,7 +50,7 @@ alias h='history 1'
 alias seek='find ./* -name'
 alias itx='ispell -t -x -d american'
 alias ps2pdfgood='ps2pdf -dCompatibilityLevel=1.3 -dEmbedAllFonts=true  -dSubsetFonts=true  -dMaxSubsetPct=100 -dAutoFilterColorImages=false -dAutoFilterGrayImages=false -dColorImageFilter=/FlateEncode -dGrayImageFilter=/FlateEncode -dMonoImageFilter=/FlateEncode'
-alias df='/bin/df -h | grep -e dev/sd -e File -e 192'
+alias df='/bin/df -h | grep -e "dev/[sm]" -e File -e 192'
 alias sind='rsync -rltouvh --progress --dry-run --delete --no-whole-file '
 alias sindt='rsync -rltouvh --progress --delete --no-whole-file '
 alias sin='rsync -rltouvh --progress --dry-run --no-whole-file '
