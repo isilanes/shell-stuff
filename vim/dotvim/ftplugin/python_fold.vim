@@ -6,7 +6,7 @@
 " Version:	2.3
 " Bug fix:	Drexler Christopher, Tom Schumm, Geoff Gerrietts
 
-" Some changes by: Iñaki Silanes (2013-2014)
+" Some changes by: Iñaki Silanes (2013-2014, 2016)
 
 map <buffer> f za
 
@@ -71,6 +71,13 @@ function! GetPythonFoldISC(lnum)
     let line = getline(a:lnum)
     let ind  = indent(a:lnum)
 
+    " Dictionaries fold too [ISC]:
+    if line =~ '\( = \|: \){$'
+        return ">" . (ind / &sw + 1)
+    elseif line =~ '^\s*},\=$' " only either } or }, in line
+        return "s1"
+    endif
+
     " Blank lines maintain the folding level, unless the following line
     " has an indentation level equal to the def or class that started
     " the current fold, in which case the fold ends here.
@@ -80,6 +87,10 @@ function! GetPythonFoldISC(lnum)
         let psnum = PrevSameLevel(nnum)
         let psline = getline(psnum)
         if psline =~ '^\s*\(class\|def\)\s'
+            return "<" . (nind / &sw + 1)
+        elseif psline =~ 'parser.add_argument'
+            return "<" . (nind / &sw + 1)
+        elseif psline =~ '\( =\|:\) {$'
             return "<" . (nind / &sw + 1)
         else
             return "="
@@ -106,6 +117,18 @@ function! GetPythonFoldISC(lnum)
     " Classes and functions open their own folds:
     if line =~ '^\s*\(class\|def\)\s'
         return ">" . (ind / &sw + 1)
+    endif
+
+    " Argparse args fold too [ISC]:
+    if line =~ 'parser.add_argument'
+        return ">" . (ind / &sw + 1)
+    elseif line =~ ')$'
+        let pnum = prevnonblank(a:lnum - 1)
+        let psnum = PrevSameLevel(pnum) " line number with same ind level as previous non-blank
+        let psline = getline(psnum) " line content
+        if psline =~ 'parser.add_argument'
+            return "s1"
+        endif
     endif
 
     let pnum = prevnonblank(a:lnum - 1)
