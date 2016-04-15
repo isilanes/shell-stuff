@@ -74,6 +74,7 @@ function! GetPythonFold(lnum)
     
     let line = getline(a:lnum)
     let prevline = getline(a:lnum - 1)
+    let prevprevline = getline(a:lnum - 2)
     let nextline = getline(a:lnum + 1)
     let indlevel = IndentLevel(v:lnum) + 1
 
@@ -94,7 +95,7 @@ function! GetPythonFold(lnum)
     if line =~ '^\s*$'
         if prevline =~ '^\s*},\=$' " only either } or }, in line
             return "<" . indlevel
-        elseif GetPythonFold(v:lnum - 1) =~ "<"
+        elseif prevprevline =~ '^\s*},\=$'
             return "0"
         endif
     endif
@@ -116,7 +117,7 @@ function! GetPythonFold(lnum)
     if line =~ '^\s*$'
         if prevline =~ '^\s*\],\=$' " only either ] or ], in line
             return "<" . indlevel
-        elseif GetPythonFold(v:lnum - 1) =~ "<"
+        elseif prevprevline =~ '^\s*],\=$'
             return "0"
         endif
     endif
