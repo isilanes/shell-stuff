@@ -78,6 +78,13 @@ function! GetPythonFoldISC(lnum)
         return "s1"
     endif
 
+    " Multi-line lists fold too [ISC]:
+    if line =~ '\( = \|: \)[$'
+        return ">" . (ind / &sw + 1)
+    elseif line =~ '^\s*],\=$' " only either } or }, in line
+        return "s1"
+    endif
+
     " Blank lines maintain the folding level, unless the following line
     " has an indentation level equal to the def or class that started
     " the current fold, in which case the fold ends here.
@@ -91,6 +98,8 @@ function! GetPythonFoldISC(lnum)
         elseif psline =~ 'parser.add_argument'
             return "<" . (nind / &sw + 1)
         elseif psline =~ '\( =\|:\) {$'
+            return "<" . (nind / &sw + 1)
+        elseif psline =~ '\( =\|:\) [$'
             return "<" . (nind / &sw + 1)
         else
             return "="
