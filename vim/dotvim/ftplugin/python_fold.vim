@@ -11,7 +11,7 @@
 map <buffer> f za
 
 setlocal foldmethod=expr
-setlocal foldexpr=GetPythonFoldISC(v:lnum)
+setlocal foldexpr=GetPythonFold(v:lnum)
 setlocal foldtext=PythonFoldText()
 
 function! PythonFoldText()
@@ -65,22 +65,28 @@ function! PrevSameLevel(nnum)
     return pnum
 endfunction
 
-function! GetPythonFoldISC(lnum)
+function! IndentLevel(lnum)
+    return indent(a:lnum) / &shiftwidth
+endfunction
+
+function! GetPythonFold(lnum)
     " Determine folding level in Python source.
     
     let line = getline(a:lnum)
     let ind  = indent(a:lnum)
+    let indlevel = IndentLevel(v:lnum) + 1
 
-    " Dictionaries fold too [ISC]:
+    " Dictionaries fold [ISC]:
     if line =~ '\( = \|: \){$'
-        return ">" . (ind / &sw + 1)
+        return ">" . indlevel
     elseif line =~ '^\s*},\=$' " only either } or }, in line
         return "s1"
     endif
 
     " Multi-line lists fold too [ISC]:
     if line =~ '\( = \|: \)[$'
-        return ">" . (ind / &sw + 1)
+        "return ">" . (ind / &sw + 1)
+        return ">" . indlevel
     elseif line =~ '^\s*],\=$' " only either } or }, in line
         return "s1"
     endif
