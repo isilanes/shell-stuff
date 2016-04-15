@@ -73,42 +73,51 @@ function! GetPythonFold(lnum)
     " Determine folding level in Python source.
     
     let line = getline(a:lnum)
-    let ind  = indent(a:lnum)
+    let prevline = getline(a:lnum - 1)
+    let nextline = getline(a:lnum + 1)
     let indlevel = IndentLevel(v:lnum) + 1
 
-    " Dictionaries fold [ISC]:
+    " [ISC] How dictionaries open:
     if line =~ '\( = \|: \){$'
         return ">" . indlevel
-    elseif line =~ '^\s*},\=$' " only either } or }, in line
-        return "s1"
     endif
 
-    " Multi-line lists fold too [ISC]:
-    if line =~ '\( = \|: \)[$'
-        "return ">" . (ind / &sw + 1)
-        return ">" . indlevel
-    elseif line =~ '^\s*],\=$' " only either } or }, in line
-        return "s1"
-    endif
-
-    " Blank lines maintain the folding level, unless the following line
-    " has an indentation level equal to the def or class that started
-    " the current fold, in which case the fold ends here.
-    if line =~ '^\s*$'
-        let nnum = nextnonblank(a:lnum + 1)
-        let nind = indent(nnum)
-        let psnum = PrevSameLevel(nnum)
-        let psline = getline(psnum)
-        if psline =~ '^\s*\(class\|def\)\s'
-            return "<" . (nind / &sw + 1)
-        elseif psline =~ 'parser.add_argument'
-            return "<" . (nind / &sw + 1)
-        elseif psline =~ '\( =\|:\) {$'
-            return "<" . (nind / &sw + 1)
-        elseif psline =~ '\( =\|:\) [$'
-            return "<" . (nind / &sw + 1)
-        else
+    " [ISC] How dictionaries close:
+    if line =~ '^\s*},\=$' " only either } or }, in line
+        if nextline =~ '^\s*$'
             return "="
+        else
+            return "<" . indlevel
+        endif
+    endif
+
+    if line =~ '^\s*$'
+        if prevline =~ '^\s*},\=$' " only either } or }, in line
+            return "<" . indlevel
+        elseif GetPythonFold(v:lnum - 1) =~ "<"
+            return "0"
+        endif
+    endif
+
+    " [ISC] How multi-line lists open:
+    if line =~ '\( = \|: \)[$'
+        return ">" . indlevel
+    endif
+
+    " [ISC] How multi-line lists close:
+    if line =~ '^\s*],\=$' " only either ] or ], in line
+        if nextline =~ '^\s*$'
+            return "="
+        else
+            return "<" . indlevel
+        endif
+    endif
+
+    if line =~ '^\s*$'
+        if prevline =~ '^\s*\],\=$' " only either ] or ], in line
+            return "<" . indlevel
+        elseif GetPythonFold(v:lnum - 1) =~ "<"
+            return "0"
         endif
     endif
 
@@ -131,12 +140,12 @@ function! GetPythonFold(lnum)
 
     " Classes and functions open their own folds:
     if line =~ '^\s*\(class\|def\)\s'
-        return ">" . (ind / &sw + 1)
+        return ">" . indlevel
     endif
 
     " Argparse args fold too [ISC]:
     if line =~ 'parser.add_argument'
-        return ">" . (ind / &sw + 1)
+        return ">" . indlevel
     endif
 
     let pnum = prevnonblank(a:lnum - 1)

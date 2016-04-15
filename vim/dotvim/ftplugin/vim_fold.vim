@@ -70,7 +70,6 @@ function! GetVimFold(lnum)
     let line = getline(a:lnum)
     let prevline = getline(a:lnum - 1)
     let nextline = getline(a:lnum + 1)
-    let ind  = indent(a:lnum)
     let indlevel = IndentLevel(v:lnum)
 
     " Open fold for functions:
