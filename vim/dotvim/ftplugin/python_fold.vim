@@ -112,25 +112,6 @@ function! GetPythonFold(lnum)
     "         the block)
     "    3.2) next non-blank line is LESS indented than itself.
     if line =~ '^\s*$'
-        " Close dictionary:
-        if prevline =~ '^\s*},\=$' " only either } or }, in line
-            return "<" . indlevel
-        elseif prevline =~ '^\s*$'
-            if prevprevline =~ '^\s*},\=$'
-                return "0"
-            endif
-        endif
-
-        " Close list:
-        if prevline =~ '^\s*\],\=$' " only either ] or ], in line
-            return "<" . indlevel
-        elseif prevline =~ '^\s*$'
-            if prevprevline =~ '^\s*],\=$'
-                let prevprevindlevel = IndentLevel(v:lnum - 2) + 1
-                return prevprevindlevel
-            endif
-        endif
-
         " Close class/def:
         let pnum = WhereBlockBegan(a:lnum)
         if pnum == 1
@@ -146,6 +127,17 @@ function! GetPythonFold(lnum)
                 return "<" . pindlevel
             endif
         endif
+
+        " Close dictionary:
+        if prevline =~ '^\s*},\=$' " only either } or }, in line
+            return "<" . indlevel
+        endif
+
+        " Close list:
+        if prevline =~ '^\s*],\=$' " only either ] or ], in line
+            return "<" . indlevel
+        endif
+
     endif
 
     " [ISC] How dictionaries open:
