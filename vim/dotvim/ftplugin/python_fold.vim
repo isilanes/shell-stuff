@@ -132,29 +132,18 @@ function! GetPythonFold(lnum)
         endif
 
         " Close class/def:
+        let pnum = WhereBlockBegan(a:lnum)
+        if pnum == 1
+            return "0"
+        endif
+        let pindlevel = IndentLevel(l:pnum)
+
+        let nnum = nextnonblank(a:lnum + 1)
+        let nindlevel = IndentLevel(l:nnum)
+
         if prevline !~ '^\s*$' " non-blank
-            let nnum = nextnonblank(a:lnum + 1)
-            let nindlevel = IndentLevel(l:nnum)
-            if nindlevel < indlevel
-                let pnum = WhereBlockBegan(a:lnum)
-                if pnum == 1
-                    return "0"
-                else
-                    let pindlevel = IndentLevel(l:pnum)
-                    return "<" . pindlevel
-                endif
-            endif
-        else
-            let nnum = nextnonblank(a:lnum + 1)
-            let nindlevel = IndentLevel(l:nnum)
-            let pnum = WhereBlockBegan(a:lnum)
-            if pnum == 1
-                return "0"
-            else
-                let pindlevel = IndentLevel(l:pnum)
-                if pindlevel >= nindlevel
-                    return "0"
-                endif
+            if nindlevel <= pindlevel
+                return "<" . pindlevel
             endif
         endif
     endif
