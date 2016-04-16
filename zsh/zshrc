@@ -130,6 +130,8 @@ fi
 HISTSIZE=5000
 HISTFILE=~/.zsh_history
 SAVEHIST=5000
+bindkey "^[OA" history-beginning-search-backward
+bindkey "^[OB" history-beginning-search-forward
 
 # Path:
 path=($path ~/bin . /usr/local/bin)

@@ -55,8 +55,8 @@ function! PrevSameLevel(nnum)
     let prevind = indent(pnum)
 
     while prevind > currind
-        let pnum = prevnonblank(pnum-1)
-        let prevind = indent(pnum)
+        let pnum = prevnonblank(a:pnum - 1)
+        let prevind = indent(a:pnum)
         if pnum < 2
             return 1
         endif
@@ -65,8 +65,29 @@ function! PrevSameLevel(nnum)
     return pnum
 endfunction
 
+function! WhereBlockBegan(lnum)
+    " Returns line number of where recently closed block began
+    
+    let l:pnum = prevnonblank(a:lnum - 1)
+    let line = getline(l:pnum)
+
+    while line !~ '^\s*\(class\|def\)\s'
+        let pnum = prevnonblank(l:pnum - 1)
+        let line = getline(l:pnum)
+        if pnum < 2
+            return 1
+        endif
+    endwhile
+
+    return l:pnum
+endfunction
+
 function! IndentLevel(lnum)
-    return indent(a:lnum) / &shiftwidth
+    " Blank lines have a nominal indentation level equal to latest non-blank.
+    " prevnonblank returns latest non-blank line, but current line if current
+    " line is not blank.
+    let pnum = prevnonblank(a:lnum)
+    return indent(pnum) / &shiftwidth + 1
 endfunction
 
 function! GetPythonFold(lnum)
@@ -76,7 +97,67 @@ function! GetPythonFold(lnum)
     let prevline = getline(a:lnum - 1)
     let prevprevline = getline(a:lnum - 2)
     let nextline = getline(a:lnum + 1)
-    let indlevel = IndentLevel(v:lnum) + 1
+    let indlevel = IndentLevel(a:lnum)
+
+    " Classes and functions open their own folds:
+    if line =~ '^\s*\(class\|def\)\s'
+        return ">" . indlevel
+    endif
+
+    " Blank lines close:
+    " 1) dictionary if line just above is } o },
+    " 2) list if line just above is ] o ],
+    " 3) class/def, if:
+    "    3.1) previous line is NOT blank (if it is, that one must have closed
+    "         the block)
+    "    3.2) next non-blank line is LESS indented than itself.
+    if line =~ '^\s*$'
+        " Close dictionary:
+        if prevline =~ '^\s*},\=$' " only either } or }, in line
+            return "<" . indlevel
+        elseif prevline =~ '^\s*$'
+            if prevprevline =~ '^\s*},\=$'
+                return "0"
+            endif
+        endif
+
+        " Close list:
+        if prevline =~ '^\s*\],\=$' " only either ] or ], in line
+            return "<" . indlevel
+        elseif prevline =~ '^\s*$'
+            if prevprevline =~ '^\s*],\=$'
+                let prevprevindlevel = IndentLevel(v:lnum - 2) + 1
+                return prevprevindlevel
+            endif
+        endif
+
+        " Close class/def:
+        if prevline !~ '^\s*$' " non-blank
+            let nnum = nextnonblank(a:lnum + 1)
+            let nindlevel = IndentLevel(l:nnum)
+            if nindlevel < indlevel
+                let pnum = WhereBlockBegan(a:lnum)
+                if pnum == 1
+                    return "0"
+                else
+                    let pindlevel = IndentLevel(l:pnum)
+                    return "<" . pindlevel
+                endif
+            endif
+        else
+            let nnum = nextnonblank(a:lnum + 1)
+            let nindlevel = IndentLevel(l:nnum)
+            let pnum = WhereBlockBegan(a:lnum)
+            if pnum == 1
+                return "0"
+            else
+                let pindlevel = IndentLevel(l:pnum)
+                if pindlevel >= nindlevel
+                    return "0"
+                endif
+            endif
+        endif
+    endif
 
     " [ISC] How dictionaries open:
     if line =~ '\( = \|: \){$'
@@ -92,16 +173,6 @@ function! GetPythonFold(lnum)
         endif
     endif
 
-    if line =~ '^\s*$'
-        if prevline =~ '^\s*},\=$' " only either } or }, in line
-            return "<" . indlevel
-        elseif prevline =~ '^\s*$'
-            if prevprevline =~ '^\s*},\=$'
-                return "0"
-            endif
-        endif
-    endif
-
     " [ISC] How multi-line lists open:
     if line =~ '\( = \|: \)[$'
         return ">" . indlevel
@@ -113,16 +184,6 @@ function! GetPythonFold(lnum)
             return "="
         else
             return "<" . indlevel
-        endif
-    endif
-
-    if line =~ '^\s*$'
-        if prevline =~ '^\s*\],\=$' " only either ] or ], in line
-            return "<" . indlevel
-        elseif prevline =~ '^\s*$'
-            if prevprevline =~ '^\s*],\=$'
-                return "0"
-            endif
         endif
     endif
 
@@ -141,23 +202,6 @@ function! GetPythonFold(lnum)
 	return "a1"
     elseif line =~ '}}}'
 	return "s1"
-    endif
-
-    " Classes and functions open their own folds:
-    if line =~ '^\s*\(class\|def\)\s'
-        return ">" . indlevel
-    endif
-
-    " How classes/defs close:
-    if line =~ '^\s*$'
-        let nnum = nextnonblank(a:lnum + 1)
-        let psnum = PrevSameLevel(nnum)
-        let psline = getline(psnum)
-        if psline =~ '^\s*\(class\|def\)\s'
-            return "<" . indlevel
-        else
-            return "="
-        endif
     endif
 
     " [ISC] Argparse args fold too:
