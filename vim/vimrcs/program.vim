@@ -13,6 +13,7 @@ set ruler		" show the cursor position all the time
 "set guifont=Courier\ Bold\ 12
 "set guifont=-Adobe-Courier-Medium-R-Normal--14-140-75-75-M-90-ISO8859-9
 "set guifont=Courier\ 10\ Pitch\ 13
+"set guifont=Liberation\ Mono\ 10
 set guifont=Bitstream\ Vera\ Sans\ Mono\ 10
 
 set guioptions=agl
@@ -133,3 +134,11 @@ map <F5> :NERDTreeToggle<ESC>
 map <C-n> :tabnew<ESC>
 map <S-left> :tabp<ESC>
 map <S-right> :tabn<ESC>
+
+" For powerline:
+python from powerline.vim import setup as powerline_setup
+python powerline_setup()
+python del powerline_setup
+set laststatus=2
+set encoding=utf-8
+set guifont=Inconsolata\ for\ Powerline\ 12

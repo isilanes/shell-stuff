@@ -95,8 +95,10 @@ function! GetPythonFold(lnum)
     if line =~ '^\s*$'
         if prevline =~ '^\s*},\=$' " only either } or }, in line
             return "<" . indlevel
-        elseif prevprevline =~ '^\s*},\=$'
-            return "0"
+        elseif prevline =~ '^\s*$'
+            if prevprevline =~ '^\s*},\=$'
+                return "0"
+            endif
         endif
     endif
 
@@ -117,8 +119,10 @@ function! GetPythonFold(lnum)
     if line =~ '^\s*$'
         if prevline =~ '^\s*\],\=$' " only either ] or ], in line
             return "<" . indlevel
-        elseif prevprevline =~ '^\s*],\=$'
-            return "0"
+        elseif prevline =~ '^\s*$'
+            if prevprevline =~ '^\s*],\=$'
+                return "0"
+            endif
         endif
     endif
 
