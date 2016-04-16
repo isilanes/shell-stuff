@@ -144,7 +144,19 @@ function! GetPythonFold(lnum)
         return ">" . indlevel
     endif
 
-    " Argparse args fold too [ISC]:
+    " How classes/defs close:
+    if line =~ '^\s*$'
+        let nnum = nextnonblank(a:lnum + 1)
+        let psnum = PrevSameLevel(nnum)
+        let psline = getline(psnum)
+        if psline =~ '^\s*\(class\|def\)\s'
+            return "<" . indlevel
+        else
+            return "="
+        endif
+    endif
+
+    " [ISC] Argparse args fold too:
     if line =~ 'parser.add_argument'
         return ">" . indlevel
     endif
