@@ -1,0 +1,11 @@
+# Source base config:
+source ~/git/GitHub/shell-stuff/screen/screenrc
+
+# Open tabs:
+screen -t "occupancy"  0 zsh -c "cd ~/svn/ProyectosIH/Neptuno/trunk/scripts/occupancy_log/; zsh"
+screen -t "accounting" 1 zsh -c "cd ~/git/IH/WebNeptuno/utils/; zsh"
+screen -t "web code"   2 zsh -c "cd ~/git/IH/WebNeptuno/; zsh"
+screen -t "web server" 3 zsh -c "cd ~/git/IH/WebNeptuno/; zsh"
+
+# Hardline/caption:
+caption always "%{wb} [%S] %{Yb}%-w %{bY}%{kY} %n %t %{Yb}%{Yb} %+w %= %{Bk} $LOGNAME @ %H"
