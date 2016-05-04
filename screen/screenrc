@@ -187,5 +187,8 @@ term "screen-256color"
 #hardstatus alwayslastline "%{bk} %S %{kb} $LOGNAME %{bk} %H %?%{kb}%{kY} %-Lw%{Yk}%:%{Yb}%{Yk}%?%{Yk} %n%f* %t %{kY}%+Lw %-="
 #hardstatus alwayslastline "%S %{kb} $LOGNAME %{bk} %H %{kb}%{kY} %-w%{Yk}|{Yb}%n %t %{kY} | %+w %`"
 
+# Re-enable scroll with mouse!:
+termcapinfo screen* ti@:te@
+
 # ISC choice:
-caption always "%{wb} [%S] %{Yb}%-w %{bY}%{kY} %n %t %{Yb}%{Yb} %+w %= %{Bk} $LOGNAME @ %H"
+caption always "%{kb} [%S] %{Yb}%-w %{bY}%{kY} %n %t %{Yb}%{Yb} %+w %= %{Bk} $LOGNAME @ %H"
