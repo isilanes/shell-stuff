@@ -12,7 +12,7 @@ umask 022
 alias rm='nocorrect rm'
 alias mv='nocorrect mv'
 alias cp='nocorrect cp'
-source ~/.alias.zsh
+source ~/git/GitHub/shell-stuff/zsh/alias.zsh
 
 # automatically remove duplicates from these arrays
 typeset -U path cdpath fpath manpath
