@@ -1,0 +1,10 @@
+# Source base config:
+source ~/git/GitHub/shell-stuff/screen/screenrc
+
+# Open tabs:
+screen -t "web server" 0 zsh -c "cd ~/git/IH/WebIHData/; zsh"
+screen -t "web code"   1 zsh -c "cd ~/git/IH/WebIHData/; zsh"
+screen -t "v1.0-beta"  2 zsh -c "cd ~/Downloads/ihdata/; zsh"
+
+# Hardline/caption:
+caption always "%{Bk} [%S] %{kb}%{Yb} %-w %{bY}%{kY} %n %t %{Yb}%{Yb} %+w %= %{Bk} $LOGNAME @ %H"

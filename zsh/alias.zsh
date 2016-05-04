@@ -60,6 +60,7 @@ alias sinct='rsync -crltouvh --progress --no-whole-file '
 # screen:
 alias screen='screen -c "~/git/GitHub/shell-stuff/screen/screenrc"'
 alias screen_nep='screen -S neptuno -c "~/git/GitHub/shell-stuff/screen/screenrc.neptuno"'
+alias screen_ihdata='screen -S ihdata -c "~/git/GitHub/shell-stuff/screen/screenrc.ihdata"'
 
 # Other:
 alias h='history 1'
