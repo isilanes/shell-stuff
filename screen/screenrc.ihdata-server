@@ -1,0 +1,9 @@
+# Source base config:
+source ~/git/GitHub/shell-stuff/screen/screenrc
+
+# Open tabs:
+screen -t "root"  0 bash -c "su -"
+screen -t "shell" 1 bash
+
+# Hardline/caption:
+caption always "%{Mk} [%S] %{km}%{km} %-w %{mM}%{wM} %n %t %{Mm}%{km} %+w %= %{Mk} $LOGNAME @ %H"
