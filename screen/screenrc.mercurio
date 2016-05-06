@@ -2,10 +2,9 @@
 source ~/git/GitHub/shell-stuff/screen/screenrc
 
 # Open tabs:
-screen -t "occupancy"  0 zsh -c "cd ~/svn/ProyectosIH/Neptuno/trunk/scripts/occupancy_log/; zsh"
-screen -t "accounting" 1 zsh -c "cd ~/git/IH/WebNeptuno/utils/; zsh"
-screen -t "web code"   2 zsh -c "cd ~/git/IH/WebNeptuno/; zsh"
-screen -t "web server" 3 zsh -c "cd ~/git/IH/WebNeptuno/; zsh"
+screen -t "trunk"    0 zsh -c "cd ~/svn/ProyectosIH/Mercurio/trunk/; zsh"
+screen -t "branches" 1 zsh -c "cd ~/svn/ProyectosIH/Mercurio/branches/; zsh"
+screen -t "shell"    2 zsh
 
 # Hardline/caption:
 caption always "%{Rk} [%S] %{kr}%{wr} %-w %{rw}%{kw} %n %t %{wr}%{wr} %+w %= %{rk}%{Rk} $LOGNAME @ %H"
