@@ -7,4 +7,4 @@ screen -t "branches" 1 zsh -c "cd ~/svn/ProyectosIH/Mercurio/branches/; zsh"
 screen -t "shell"    2 zsh
 
 # Hardline/caption:
-caption always "%{Rk} [%S] %{kr}%{wr} %-w %{rw}%{kw} %n %t %{wr}%{wr} %+w %= %{rk}%{Rk} $LOGNAME @ %H"
+caption always "%{Bk} [%S] %{kb}%{Yb} %-w %{bY}%{kY} %n %t %{Yb}%{Yb} %+w %= %{bk}%{Bk} $LOGNAME @ %H"

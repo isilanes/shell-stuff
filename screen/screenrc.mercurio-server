@@ -1,0 +1,9 @@
+# Source base config:
+source ~/shell-stuff/screen/screenrc
+
+# Open tabs:
+screen -t "LogDigest" 0 bash -c "cd ~/mercurio/trunk/MonitorMercurio/; bash"
+screen -t "shell"     1 bash
+
+# Hardline/caption:
+caption always "%{Rk} [%S] %{kr}%{wr} %-w %{rw}%{kw} %n %t %{wr}%{wr} %+w %= %{rk}%{Rk} $LOGNAME @ %H"
