@@ -1,0 +1,8 @@
+# Source base config:
+source ~/shell-stuff/screenrc
+
+# Open tabs:
+screen -t "shell" 0 bash
+
+# Hardline/caption:
+caption always "%{Bk} [IHBuffer] %{kB} %-w %{Wb} %n %t %{kB} %+w %= %{Bk} $LOGNAME @ %H"
