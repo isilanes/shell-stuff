@@ -104,40 +104,16 @@ function! GetPythonFold(lnum)
         return ">" . indlevel
     endif
 
-    " Blank lines close:
-    " 1) dictionary if line just above is } o },
-    " 2) list if line just above is ] o ],
-    " 3) class/def, if:
-    "    3.1) previous line is NOT blank (if it is, that one must have closed
-    "         the block)
-    "    3.2) next non-blank line is LESS indented than itself.
+    " Blank lines have
+    " 1) Same indentation as previous line, if previous line is not blank
+    " 2) Same indentation as following line, if previous line is blank
     if line =~ '^\s*$'
-        " Close class/def:
-        let pnum = WhereBlockBegan(a:lnum)
-        if pnum == 1
-            return "0"
+        if prevline =~ '^\s*$' 
+            let nextindlevel = IndentLevel(a:lnum + 1) - 1
+            return nextindlevel
+        else " previous non-blank
+            return "="
         endif
-        let pindlevel = IndentLevel(l:pnum)
-
-        let nnum = nextnonblank(a:lnum + 1)
-        let nindlevel = IndentLevel(l:nnum)
-
-        if prevline !~ '^\s*$' " non-blank
-            if nindlevel <= pindlevel
-                return "<" . pindlevel
-            endif
-        endif
-
-        " Close dictionary:
-        if prevline =~ '^\s*},\=$' " only either } or }, in line
-            return "<" . indlevel
-        endif
-
-        " Close list:
-        if prevline =~ '^\s*],\=$' " only either ] or ], in line
-            return "<" . indlevel
-        endif
-
     endif
 
     " [ISC] How dictionaries open:
