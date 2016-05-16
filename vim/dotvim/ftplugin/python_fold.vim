@@ -123,11 +123,7 @@ function! GetPythonFold(lnum)
 
     " [ISC] How dictionaries close:
     if line =~ '^\s*},\=$' " only either } or }, in line
-        if nextline =~ '^\s*$'
-            return "="
-        else
-            return "<" . indlevel
-        endif
+        return "<" . indlevel
     endif
 
     " [ISC] How multi-line lists open:
@@ -137,11 +133,17 @@ function! GetPythonFold(lnum)
 
     " [ISC] How multi-line lists close:
     if line =~ '^\s*],\=$' " only either ] or ], in line
-        if nextline =~ '^\s*$'
-            return "="
-        else
-            return "<" . indlevel
-        endif
+        return "<" . indlevel
+    endif
+
+    " [ISC] How multi-line tuples open:
+    if line =~ '\( = \|: \)($'
+        return ">" . indlevel
+    endif
+
+    " [ISC] How multi-line tuples close:
+    if line =~ '^\s*),\=$' " only either ) or ), in line
+        return "<" . indlevel
     endif
 
     " Ignore triple quoted strings:
