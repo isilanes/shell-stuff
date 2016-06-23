@@ -17,7 +17,7 @@ alias mkdir='nocorrect mkdir'
 alias git="nocorrect git"
 
 # vim-related:
-alias vi='vim -X -u ~/.vimrcs/vim.vim'
+alias vi='vim -X -u ~/.vimrcs/terminal.vim'
 alias vil='gvim -geom 125x30+0+0 -u ~/.vimrcs/latex'
 alias vip='gvim -geom 100x25 -u ~/.vimrcs/php'
 alias vig='gvim -geom 100x25 -u ~/.vimrcs/program.vim'
