@@ -147,7 +147,9 @@ export EDITOR=vim
 export BIBINPUTS=$BIBINPUTS:.:Config
 export BSTINPUTS=$BSTINPUTS:.:Config
 export TEXINPUTS=$TEXINPUTS:.:Config
-export TERM=xterm-256color
+if [[ $TERM == "xterm" ]]; then
+    export TERM=xterm-256color
+fi
 
 # bindkeys:
 source ~/.inputrc.zsh
