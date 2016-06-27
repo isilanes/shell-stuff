@@ -132,8 +132,8 @@ colorscheme dracula2
 execute pathogen#infect()
 map <F5> :NERDTreeToggle<ESC>
 map <C-n> :tabnew<ESC>
-map <C-j> :tabp<ESC>
-map <C-k> :tabn<ESC>
+map <C-h> :tabp<ESC>
+map <C-l> :tabn<ESC>
 
 " For powerline:
 python from powerline.vim import setup as powerline_setup
