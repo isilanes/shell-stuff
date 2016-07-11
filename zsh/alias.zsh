@@ -21,7 +21,7 @@ alias vi='vim -X -u ~/.vimrcs/terminal.vim'
 alias vil='gvim -geom 125x30+0+0 -u ~/.vimrcs/latex'
 alias vip='gvim -geom 100x25 -u ~/.vimrcs/php'
 alias vig='gvim -geom 100x25 -u ~/.vimrcs/program.vim'
-alias pwsafe='gvim -u ~/.vimrcs/program.vim ~/.LOGs/GPG/pwsafe.json.gpg'
+alias pwsafe='vi -u ~/.vimrcs/terminal.vim ~/.LOGs/GPG/pwsafe.json.gpg'
 alias ihsafe='vi ~/.LOGs/GPG/ihsafe.gpg'
 
 # TAR/lzma/gzip...
