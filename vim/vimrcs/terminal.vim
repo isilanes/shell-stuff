@@ -136,9 +136,13 @@ map <C-h> :tabp<ESC>
 map <C-l> :tabn<ESC>
 
 " For powerline:
-python3 from powerline.vim import setup as powerline_setup
-python3 powerline_setup()
-python3 del powerline_setup
+" Will try both python2 and python3, failing silently with the one it fails:
+silent! python from powerline.vim import setup as powerline_setup
+silent! python powerline_setup()
+silent! python del powerline_setup
+silent! python3 from powerline.vim import setup as powerline_setup
+silent! python3 powerline_setup()
+silent! python3 del powerline_setup
 set laststatus=2
 set encoding=utf-8
 set guifont=Inconsolata\ for\ Powerline\ 12
