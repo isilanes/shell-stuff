@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/python3
 # -*- coding: UTF-8 -*-
 
 import os
@@ -10,6 +10,8 @@ import subprocess as sp
 # svn working copy? Try to get status:
 s = sp.Popen("svn status", stdout=sp.PIPE, stderr=sp.PIPE, shell=True)
 out, err = s.communicate()
+out = str(out)
+err = str(err)
 
 # Exit and return nothing, if not svn working copy:
 if 'not a working copy' in err:
