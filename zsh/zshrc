@@ -147,6 +147,7 @@ export EDITOR=vim
 export BIBINPUTS=$BIBINPUTS:.:Config
 export BSTINPUTS=$BSTINPUTS:.:Config
 export TEXINPUTS=$TEXINPUTS:.:Config
+export ANSIBLE_LIBRARY=$ANSIBLE_LIBRARY:$HOME/git/IH/ih-tools/ansible/library
 if [[ $TERM == "xterm" ]]; then
     export TERM=xterm-256color
 fi
