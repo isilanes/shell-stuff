@@ -136,6 +136,16 @@ function! GetPythonFold(lnum)
         return "<" . indlevel
     endif
 
+    " [ISC] How multi-line functions open:
+    if line =~ '($'
+        return ">" . indlevel
+    endif
+
+    " [ISC] How multi-line functions close:
+    if line =~ '^\s*)$' " only either ] or ], in line
+        return "<" . indlevel
+    endif
+
     " [ISC] How multi-line tuples open:
     if line =~ '\( = \|: \)($'
         return ">" . indlevel
