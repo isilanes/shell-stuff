@@ -94,6 +94,8 @@ else:
 
         if ahead:
             remote += '{s}{n}'.format(s=symbols['ahead of'], n=ahead)
+    else:
+        remote = ""
 
 out = '\n'.join([
 	branch,
