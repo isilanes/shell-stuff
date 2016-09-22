@@ -5,9 +5,9 @@ source ~/git/GitHub/shell-stuff/screen/screenrc
 #screen -t "root"     0 zsh -c "su -"
 screen -t "root"     0 zsh -c "echo do: su -; zsh"
 #screen -t "server"   1 zsh -c "cd ~/git/games/webs/; python manage.py runserver localhost:8080"
-screen -t "server"   1 zsh -c "cd ~/git/games/webs/; echo do: python manage.py runserver localhost:8080; zsh"
-screen -t "web"      3 zsh -c "cd ~/git/games/webs/; zsh"
-screen -t "wcode"    2 zsh -c "cd ~/git/games/webs/; zsh"
+screen -t "server"   1 zsh -c "cd ~/git/BitBucket/gamewebs; echo do: python manage.py runserver localhost:8080; zsh"
+screen -t "web"      3 zsh -c "cd ~/git/BitBucket/gamewebs; zsh"
+screen -t "wcode"    2 zsh -c "cd ~/git/BitBucket/gamewebs; zsh"
 screen -t "euler"    3 zsh -c "cd ~/git/GitHub/myeuler/; zsh"
 screen -t "ecode"    3 zsh -c "cd ~/git/GitHub/myeuler/; zsh"
 
