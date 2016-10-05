@@ -99,6 +99,11 @@ function! GetPythonFold(lnum)
     let nextline = getline(a:lnum + 1)
     let indlevel = IndentLevel(a:lnum)
 
+    " Decorators should not be part of previous def's fold:
+    if line =~ '^\s*@property$'
+        return ">" . indlevel
+    endif
+
     " Classes and functions open their own folds:
     if line =~ '^\s*\(class\|def\)\s'
         return ">" . indlevel
