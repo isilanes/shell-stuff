@@ -20,6 +20,7 @@ set guioptions=agl
 set shiftwidth=4        " indent with four spaces
 set expandtab           " do not convert 8 spaces into a tab
 filetype indent on
+set clipboard=unnamed
 " end ISC
 
 " For Win32 GUI: remove 't' flag from 'guioptions': no tearoff menu entries
