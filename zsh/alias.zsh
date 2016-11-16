@@ -1,5 +1,5 @@
 # List:
-alias ls='ls --color=auto -F -b -T 0'
+alias ls='ls --color=auto -F -b -T 0 --hide=__pycache__'
 alias ll='ls -l'
 alias la='ls -a'
 alias lt='ls -lrt'
