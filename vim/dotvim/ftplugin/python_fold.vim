@@ -108,6 +108,10 @@ function! GetPythonFold(lnum)
         return ">" . indlevel
     endif
 
+    if line =~ '^\s*@.*.setter$'
+        return ">" . indlevel
+    endif
+
     " Classes and functions open their own folds:
     if line =~ '^\s*\(class\|def\)\s'
         return ">" . indlevel
