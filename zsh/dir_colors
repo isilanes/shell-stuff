@@ -144,10 +144,10 @@ EXEC 01;32 	# executables
 .htm  36
 .php  36
 .inc  01;33
-.py 01;32
+.py 38;5;013
 
 # Using 256 colors:
-.sh 38;5;013
+.sh 38;5;126
 .log 38;5;064
 .nc 38;5;108
 .json 38;5;209
