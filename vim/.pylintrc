@@ -1,0 +1,6 @@
+[MASTER]
+init-hook='import sys; import os; sys.path.append("{h}/git/IH/BitBucket/WebNeptuno".format(h=os.environ["HOME"]))"
+load-plugins=pylint_django
+
+[TYPECHECK]
+ignored-classes=argparse.Namespace
