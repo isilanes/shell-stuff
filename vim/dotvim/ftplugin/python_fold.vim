@@ -16,11 +16,12 @@ setlocal foldtext=PythonFoldText()
 
 function! PythonFoldText()
     let line = getline(v:foldstart)
+    let line = substitute(line, '^\s*\(.\{-}\)\s*$', '\1', '')
     let nnum = nextnonblank(v:foldstart + 1)
     let nextline = getline(nnum)
 
     if line =~ '^\s*@property'
-        let line = nextline
+        let line = substitute(nextline, '^\s*\(.\{-}\)\s*$', '\1', '')
     elseif nextline =~ '^\s\+"""$'
         let line = line . getline(nnum + 1)
     elseif nextline =~ '^\s\+"""'
