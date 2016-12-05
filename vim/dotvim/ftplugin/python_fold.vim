@@ -19,7 +19,9 @@ function! PythonFoldText()
     let nnum = nextnonblank(v:foldstart + 1)
     let nextline = getline(nnum)
 
-    if nextline =~ '^\s\+"""$'
+    if line =~ '^\s*@property'
+        let line = nextline
+    elseif nextline =~ '^\s\+"""$'
         let line = line . getline(nnum + 1)
     elseif nextline =~ '^\s\+"""'
         let line = line . ' ' . matchstr(nextline, '"""\zs.\{-}\ze\("""\)\?$')
@@ -100,7 +102,7 @@ function! GetPythonFold(lnum)
     let indlevel = IndentLevel(a:lnum)
 
     " Decorators should not be part of previous def's fold:
-    if line =~ '^\s*@property$'
+    if line =~ '^\s*@property'
         return ">" . indlevel
     endif
 
@@ -114,7 +116,11 @@ function! GetPythonFold(lnum)
 
     " Classes and functions open their own folds:
     if line =~ '^\s*\(class\|def\)\s'
-        return ">" . indlevel
+        if prevline =~ '^\s*@property'
+            return "="
+        else
+            return ">" . indlevel
+        endif
     endif
 
     " Blank lines have

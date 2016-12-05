@@ -128,7 +128,8 @@ ab pygpl '''<CR>xxx<CR>(c) 2008, Iñaki Silanes<CR><CR>LICENSE<CR><CR>This progr
 ab pyopt <ESC>iimport argparse<CR><CR>def parse_args():<CR>"""Read and parse arguments"""<CR><CR>parser = argparse.ArgumentParser()<CR><CR>parser.add_argument('positional',<CR>nargs='+',<CR>metavar="X",<CR>help="Positional arguments")<CR><CR>parser.add_argument("-l", "--long",<CR>help="Description. Default: default.",<CR>action="store_true",<CR>default="default")<CR><CR><CR>return parser.parse_args()<CR><CR><CR><ESC>:set noai<ESC>i# Parse command-line arguments:<CR>o = parse_args()<CR><ESC>:set ai<ESC>i
 
 filetype plugin on
-colorscheme dracula2
+colorscheme monokai
+"colorscheme dracula2
 "colorscheme silanes
 execute pathogen#infect()
 map <F5> :NERDTreeToggle<ESC>
