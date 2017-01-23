@@ -58,11 +58,11 @@ alias sinc='rsync -crltouvh --progress --dry-run --no-whole-file '
 alias sinct='rsync -crltouvh --progress --no-whole-file '
 
 # screen:
-alias screen='screen -c "~/git/GitHub/shell-stuff/screen/screenrc"'
+#alias screen='screen -c "~/git/GitHub/shell-stuff/screen/screenrc"'
 alias screen_nep='screen -S neptuno -c "~/git/GitHub/shell-stuff/screen/screenrc.neptuno"'
 alias screen_ihdata='screen -S ihdata -c "~/git/GitHub/shell-stuff/screen/screenrc.ihdata"'
 alias screen_merc='screen -S mercurio -c "~/git/GitHub/shell-stuff/screen/screenrc.mercurio"'
-alias screen_sk='screen -S skinner -c "~/git/GitHub/shell-stuff/screen/screenrc.skinner"'
+#alias screen_sk='screen -S skinner -c "~/git/GitHub/shell-stuff/screen/screenrc.skinner"'
 
 # Other:
 alias h='history 1'

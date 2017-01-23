@@ -2,14 +2,10 @@
 source ~/git/GitHub/shell-stuff/screen/screenrc
 
 # Open tabs:
-#screen -t "root"     0 zsh -c "su -"
 screen -t "root"      0 zsh -c "echo do: su -; zsh"
-#screen -t "server"   1 zsh -c "cd ~/git/games/webs/; python manage.py runserver localhost:8080"
 screen -t "server"    1 zsh -c "cd ~/git/BitBucket/gamewebs; echo do: python manage.py runserver localhost:8080; zsh"
-screen -t "scripting" 2 zsh -c "cd ~/git/; zsh"
-screen -t "code"      3 zsh -c "cd ~/git/; zsh"
-screen -t "Youtube"   4 zsh -c "cd /lvm850/Youtube/; zsh"
-screen -t "shell"     5 zsh
+screen -t "Youtube"   2 zsh -c "cd /lvm850/Youtube/; zsh"
+screen -t "shell"     3 zsh
 
 # Hardline/caption:
 caption always "%{Bk} [%S] %{kb}%{Yb} %-w %{bY}%{kY} %n %t %{Yb}%{Yb} %+w %= %{bk}%{Bk} $LOGNAME @ %H"
