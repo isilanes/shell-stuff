@@ -56,6 +56,7 @@ alias sin='rsync -rltouvh --progress --dry-run --no-whole-file '
 alias sint='rsync -rltouvh --progress --no-whole-file '
 alias sinc='rsync -crltouvh --progress --dry-run --no-whole-file '
 alias sinct='rsync -crltouvh --progress --no-whole-file '
+alias gipsync='python3 ~/git/GitHub/gipsync/gipsync.py'
 
 # screen:
 #alias screen='screen -c "~/git/GitHub/shell-stuff/screen/screenrc"'
