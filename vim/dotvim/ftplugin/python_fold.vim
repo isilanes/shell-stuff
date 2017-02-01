@@ -19,9 +19,11 @@ function! PythonFoldText()
     let line = substitute(line, '^\s*\(.\{-}\)\s*$', '\1', '')
     let nnum = nextnonblank(v:foldstart + 1)
     let nextline = getline(nnum)
+    let nnnum = nextnonblank(nnum + 1)
+    let nnextline = getline(nnnum)
 
     if line =~ '^\s*@property'
-        let line = substitute(nextline, '^\s*\(.\{-}\)\s*$', '\1', '')
+        let line = "@p: " . substitute(nextline, '^\s*\(.\{-}\)\s*$', '\1', '') . ' ' . matchstr(nnextline, '"""\zs.\{-}\ze\("""\)\?$')
     elseif nextline =~ '^\s\+"""$'
         let line = line . getline(nnum + 1)
     elseif nextline =~ '^\s\+"""'
