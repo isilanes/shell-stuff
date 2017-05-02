@@ -59,7 +59,7 @@ alias sinct='rsync -crltouvh --progress --no-whole-file '
 alias gipsync='python3 ~/git/GitHub/gipsync/gipsync.py'
 
 # screen:
-#alias screen='screen -c "~/git/GitHub/shell-stuff/screen/screenrc"'
+alias screensh='bash ~/git/GitHub/shell-stuff/screen/screen.sh'
 alias screen_nep='screen -S neptuno -c "~/git/GitHub/shell-stuff/screen/screenrc.neptuno"'
 alias screen_ihdata='screen -S ihdata -c "~/git/GitHub/shell-stuff/screen/screenrc.ihdata"'
 alias screen_merc='screen -S mercurio -c "~/git/GitHub/shell-stuff/screen/screenrc.mercurio"'
