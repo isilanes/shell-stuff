@@ -5,9 +5,8 @@ source ~/git/GitHub/shell-stuff/screen/screenrc
 screen -t "root"      0 zsh -c "echo do: su -; zsh"
 screen -t "gamewebs"  1 zsh -c "cd ~/git/BitBucket/gamewebs; echo do: python manage.py runserver localhost:8080; zsh"
 screen -t "progress"  2 zsh -c "cd ~/git/BitBucket/progress; echo do: python manage.py runserver localhost:8081; zsh"
-screen -t "Youtube"   3 zsh -c "cd /lvm850/Youtube/stats; zsh"
-screen -t "vim"       4 zsh -c "cd ~/git/; zsh"
-screen -t "shell"     5 zsh
+screen -t "vim"       3 zsh -c "cd ~/git/; zsh"
+screen -t "shell"     4 zsh
 
 # Hardline/caption:
 caption always "%{Bk} [%S] %{kb}%{Yb} %-w %{bY}%{kY} %n %t %{Yb}%{Yb} %+w %= %{bk}%{Bk} $LOGNAME @ %H"
