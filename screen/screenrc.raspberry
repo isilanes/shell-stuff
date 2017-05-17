@@ -1,5 +1,5 @@
 # Source base config:
-source ~/git/GitHub/shell-stuff/screenrc
+source ~/git/GitHub/shell-stuff/screen/screenrc
 
 # Open tabs:
 screen -t "shell" 0 zsh
