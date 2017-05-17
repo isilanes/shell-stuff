@@ -121,6 +121,9 @@ elif [[ $HOST == "Moe" ]]; then
 elif [[ $HOST == "skinner" ]]; then
     PROMPT=$'%{\e[34m%}${HOST}[%{\e[36;1m%}%~%{\e[0;34m%}]%{\e[0m%}$(git_super_status): '
     RPROMPT=$'%{\e[36m%}%T%{\e[0m%}'
+elif [[ $HOST == "raspberrypi" ]]; then
+    PROMPT=$'%{\e[31m%}${HOST}[%{\e[35m%}%~%{\e[0;31m%}]%{\e[0m%}$(git_super_status): '
+    RPROMPT=$'%{\e[31m%}%T%{\e[0m%}'
 else
     PROMPT=$'%{\e[32m%}${HOST}[%{\e[32;1m%}%~%{\e[0;32m%}]%{\e[0m%}$(git_super_status): '
     RPROMPT=$'%{\e[32m%}%T%{\e[0m%}'
