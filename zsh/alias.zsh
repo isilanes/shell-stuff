@@ -79,3 +79,4 @@ alias dhumount='fusermount -u /mnt/dhback'
 function puttitle { echo -ne "\\033]0;$1\\007" }
 alias p3='source ~/git/GitHub/shell-stuff/zsh/pyenv.sh python-3.5.2'
 alias pyenv='source ~/git/GitHub/shell-stuff/zsh/pyenv.sh'
+alias cless='bash ~/git/GitHub/shell-stuff/zsh/cless.sh'

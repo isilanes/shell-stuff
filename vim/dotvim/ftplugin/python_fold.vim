@@ -22,7 +22,9 @@ function! PythonFoldText()
     let nnnum = nextnonblank(nnum + 1)
     let nnextline = getline(nnnum)
 
-    if line =~ '^\s*@property'
+    if line =~ '^\s*@staticmethod'
+        let line = "@sm: " . substitute(nextline, '^\s*\(.\{-}\)\s*$', '\1', '') . ' ' . matchstr(nnextline, '"""\zs.\{-}\ze\("""\)\?$')
+    elseif line =~ '^\s*@property'
         let line = "@p: " . substitute(nextline, '^\s*\(.\{-}\)\s*$', '\1', '') . ' ' . matchstr(nnextline, '"""\zs.\{-}\ze\("""\)\?$')
     elseif nextline =~ '^\s\+"""$'
         let line = line . getline(nnum + 1)
@@ -105,6 +107,10 @@ function! GetPythonFold(lnum)
     let indlevel = IndentLevel(a:lnum)
 
     " Decorators should not be part of previous def's fold:
+    if line =~ '^\s*@staticmethod'
+        return ">" . indlevel
+    endif
+
     if line =~ '^\s*@property'
         return ">" . indlevel
     endif
@@ -119,7 +125,9 @@ function! GetPythonFold(lnum)
 
     " Classes and functions open their own folds:
     if line =~ '^\s*\(class\|def\)\s'
-        if prevline =~ '^\s*@property'
+        if prevline =~ '^\s*@staticmethod'
+            return "="
+        elseif prevline =~ '^\s*@property'
             return "="
         else
             return ">" . indlevel
