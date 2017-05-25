@@ -79,5 +79,3 @@ alias dhumount='fusermount -u /mnt/dhback'
 function puttitle { echo -ne "\\033]0;$1\\007" }
 alias p3='source ~/git/GitHub/shell-stuff/zsh/pyenv.sh python-3.5.2'
 alias pyenv='source ~/git/GitHub/shell-stuff/zsh/pyenv.sh'
-#function andromount { sshfs -p 2222 root@192.168.1.$1:/sdcard /mnt/droid -s -o sshfs_sync -o no_readahead -o cache=no -o follow_symlinks }
-#alias androumount='fusermount -u /mnt/droid'
