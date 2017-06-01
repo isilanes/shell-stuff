@@ -26,6 +26,10 @@ function! PythonFoldText()
         let line = "@sm: " . substitute(nextline, '^\s*\(.\{-}\)\s*$', '\1', '') . ' ' . matchstr(nnextline, '"""\zs.\{-}\ze\("""\)\?$')
     elseif line =~ '^\s*@property'
         let line = "@p: " . substitute(nextline, '^\s*\(.\{-}\)\s*$', '\1', '') . ' ' . matchstr(nnextline, '"""\zs.\{-}\ze\("""\)\?$')
+    elseif line =~ '\.deleter$'
+        let line = "@del: " . substitute(nextline, '^\s*\(.\{-}\)\s*$', '\1', '') . ' ' . matchstr(nnextline, '"""\zs.\{-}\ze\("""\)\?$')
+    elseif line =~ '\.setter$'
+        let line = "@set: " . substitute(nextline, '^\s*\(.\{-}\)\s*$', '\1', '') . ' ' . matchstr(nnextline, '"""\zs.\{-}\ze\("""\)\?$')
     elseif nextline =~ '^\s\+"""$'
         let line = line . getline(nnum + 1)
     elseif nextline =~ '^\s\+"""'
@@ -115,11 +119,7 @@ function! GetPythonFold(lnum)
         return ">" . indlevel
     endif
 
-    if line =~ '^\s*@.*.deleter$'
-        return ">" . indlevel
-    endif
-
-    if line =~ '^\s*@.*.setter$'
+    if line =~ '\.\(deleter\|setter\)$'
         return ">" . indlevel
     endif
 
@@ -128,6 +128,8 @@ function! GetPythonFold(lnum)
         if prevline =~ '^\s*@staticmethod'
             return "="
         elseif prevline =~ '^\s*@property'
+            return "="
+        elseif prevline =~ '\.\(deleter\|setter\)$'
             return "="
         else
             return ">" . indlevel
