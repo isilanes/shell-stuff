@@ -80,4 +80,4 @@ function puttitle { echo -ne "\\033]0;$1\\007" }
 alias p3='source ~/git/GitHub/shell-stuff/zsh/pyenv.sh python-3.5.2'
 alias pyenv='source ~/git/GitHub/shell-stuff/zsh/pyenv.sh'
 alias cless='bash ~/git/GitHub/shell-stuff/zsh/cless.sh'
-alias pyadb="python ~/git/BitBucket/AutoAsphalt8/libaa8/adb.py"
+alias pyaa8="python ~/git/BitBucket/AutoAsphalt8/aa8.py"
