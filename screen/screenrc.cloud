@@ -1,0 +1,8 @@
+# Source base config:
+source ~/.screenrc.base
+
+# Open tabs:
+screen -t "shell" 0 bash
+
+# Hardline/caption:
+caption always "%{Wk} [%S] %{kW} %-w %{wB} %n %t %{kW} %+w %= %{Wk} $LOGNAME @ %H"

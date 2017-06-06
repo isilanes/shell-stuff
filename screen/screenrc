@@ -191,5 +191,4 @@ term "screen-256color"
 termcapinfo screen* ti@:te@
 
 # ISC choice:
-#caption always "%{Bk} [%S] %{kb}%-w %{bY}%{kY} %n %t %{Yb}%{Yb} %+w %= %{bk}%{Bk} $LOGNAME @ %H"
 caption always "%{Gk} [%S] %{kg}%-w %{gY}%{kY} %n %t %{Yg}%{Yg} %+w %= %{gk}%{Gk} $LOGNAME @ %H"

@@ -1,8 +1,0 @@
-# Source base config:
-source ~/shell-stuff/screenrc
-
-# Open tabs:
-screen -t "shell" 0 bash
-
-# Hardline/caption:
-caption always "%{Wk} [IHCloud] %{kW} %-w %{wB} %n %t %{kW} %+w %= %{Wk} $LOGNAME @ %H"
