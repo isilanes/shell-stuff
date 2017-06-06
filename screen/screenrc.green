@@ -1,0 +1,5 @@
+# Source base config:
+source ~/.screenrc.base
+
+# Hardline/caption:
+caption always "%{Gk} [Neptuno] %{kg} %-w %{kY} %n %t %{kg} %+w %= %{Gk} $LOGNAME @ %H"

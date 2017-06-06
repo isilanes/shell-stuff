@@ -1,8 +1,5 @@
 # Source base config:
-source ~/git/GitHub/shell-stuff/screen/screenrc
-
-# Open tabs:
-screen -t "shell"     0 zsh
+source ~/.screenrc.base
 
 # Hardline/caption:
 caption always "%{Ck} [%S] %{kc}%{wc} %-w %{cw}%{cw} %n %t %{wc}%{wc} %+w %= %{ck}%{Ck} $LOGNAME @ %H"
