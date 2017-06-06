@@ -1,0 +1,27 @@
+# .bashrc
+
+# Source global definitions
+if [ -f /etc/bashrc ]; then
+	. /etc/bashrc
+fi
+
+# Permissions:
+umask 022
+
+# Set up aliases
+source $HOME/.alias.bash
+
+# File/dir colors:
+eval `dircolors -b $HOME/.dir_colors`
+
+# Set the prompt line:
+PS1="\[\e[34m\]\u@\H[\[\e[33m\]\w\[\e[034m\]]: \[\e[0m\]"
+
+# Path:
+export PATH=$PATH:.
+
+# ENV vars:
+export PYTHONPATH=${PYTHONPATH}:${HOME}/lib/python
+export PERL5LIB=${PERL5LIB}:${HOME}/lib/perl
+export MANPATH=${X11HOME}/man:/usr/man:/usr/lang/man:/usr/local/man:/usr/share/man
+export EDITOR="vim"
