@@ -43,4 +43,4 @@ termcapinfo screen* ti@:te@
 screen -t "shell"  0 bash
 
 # Hardline/caption:
-caption always "%{Bk} [oproms] %{kb} %{Yb} %-w %{bY} %{kY} %n %t %{Yb} %{Yb} %+w %= %{Bk} $LOGNAME @ %H"
+caption always "%{Bk} [%S] %{kb} %{Yb} %-w %{bY} %{kY} %n %t %{Yb} %{Yb} %+w %= %{Bk} $LOGNAME @ %H"
