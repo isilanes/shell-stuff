@@ -24,16 +24,10 @@ set-option -g status-fg black
 
 # Windows stuff:
 setw -g  window-status-separator ""
-
-#setw -g window-status-current-format "#[bg=colour33]#[fg=black]#[bg=colour33]#[fg=colour190] #I:#W #[bg=black]#[fg=colour33] "
-#setw -g window-status-format " #[bg=black]#[fg=colour33]#I:#W "
-
 setw -g window-status-format "#[bg=colour33]#[fg=black]#[bg=colour33]#[fg=black] #I:#W "
 setw -g window-status-current-format "#[bg=black]#[fg=colour33] #I:#W #[fg=black]#[bg=colour33]"
 
 # Left and right statuses:
-#set-option -g status-left "[ #T ] "
-#set-option -g status-right "[ #(whoami) @ #h ]"
 set-option -g status-left "#[bg=black]#[fg=colour33][ #T ] #[bg=colour33]#[fg=black] "
 set-option -g status-right "#[bg=black]#[fg=colour33] #(whoami) @ #h "
 

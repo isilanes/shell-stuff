@@ -16,8 +16,6 @@ set-option -g status-interval 2
 set-option -g status-justify "left"
 set-option -g status-left-length 60
 set-option -g status-right-length 90
-#set-option -g status-left "#(~/git/GitHub/OtherPeople/tmux-powerline/powerline.sh left)"
-#set-option -g status-right "#(~/git/GitHub/OtherPeople/tmux-powerline/powerline.sh right)"
 
 # set color for status bar:
 set-option -g status-bg colour161 #base02
