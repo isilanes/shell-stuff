@@ -1,0 +1,37 @@
+# Sane scrolling:
+set -g terminal-overrides 'xterm*:smcup@:rmcup@'
+#
+# remap prefix from 'C-b' to 'C-a'
+unbind C-b
+set-option -g prefix C-a
+bind-key C-a send-prefix
+
+# Key bindings:
+bind -n C-n next-window
+bind -n C-p previous-window
+
+# Powerline:
+set-option -g status on
+set-option -g status-interval 2
+set-option -g status-justify "left"
+set-option -g status-left-length 60
+set-option -g status-right-length 90
+
+# set color for status bar:
+set-option -g status-bg colour2
+set-option -g status-fg black
+#set-option -g status-attr dim
+
+# Windows stuff:
+setw -g  window-status-separator ""
+setw -g window-status-format "#[bg=colour2]#[fg=black]#[bg=colour2]#[fg=black] #I:#W "
+setw -g window-status-current-format "#[bg=black]#[fg=colour2] #I:#W #[fg=black]#[bg=colour2]"
+
+# Left and right statuses:
+set-option -g status-left "#[bg=black]#[fg=colour2][ #S ] #[bg=colour2]#[fg=black] "
+set-option -g status-right "#[bg=black]#[fg=colour2] #(whoami) @ #h "
+
+# Misc:
+set-window-option -g mode-keys vi
+set-option -g status-position bottom
+
