@@ -28,7 +28,7 @@ setw -g window-status-format "#[bg=colour33]#[fg=black]#[bg=colour33]#[fg=black]
 setw -g window-status-current-format "#[bg=black]#[fg=colour33] #I:#W #[fg=black]#[bg=colour33]"
 
 # Left and right statuses:
-set-option -g status-left "#[bg=black]#[fg=colour33][ #T ] #[bg=colour33]#[fg=black] "
+set-option -g status-left "#[bg=black]#[fg=colour33][ #S ] #[bg=colour33]#[fg=black] "
 set-option -g status-right "#[bg=black]#[fg=colour33] #(whoami) @ #h "
 
 # Misc:
