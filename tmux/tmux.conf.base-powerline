@@ -1,0 +1,40 @@
+# Define colors (if undefined):
+if-shell -b 'if [[ "x$COLOR_1" != "x" ]]; then echo 0; fi' COLOR_1=colour161
+if-shell -b 'if [[ "x$COLOR_2" != "x" ]]; then echo 0; fi' COLOR_2=black
+
+# Sane scrolling:
+set -g terminal-overrides 'xterm*:smcup@:rmcup@'
+
+# remap prefix from 'C-b' to 'C-a'
+unbind C-b
+set-option -g prefix C-a
+bind-key C-a send-prefix
+
+# Key bindings:
+bind -n C-n next-window
+bind -n C-p previous-window
+
+# Powerline:
+set-option -g status on
+set-option -g status-interval 2
+set-option -g status-justify "left"
+set-option -g status-left-length 60
+set-option -g status-right-length 90
+
+# set color for status bar:
+set-option -g status-bg $COLOR_1
+set-option -g status-fg $COLOR_2
+
+# Windows stuff:
+setw -g  window-status-separator ""
+setw -g window-status-format "#[bg=$COLOR_1]#[fg=$COLOR_2]#[bg=$COLOR_1]#[fg=$COLOR_2] #I:#W "
+setw -g window-status-current-format "#[bg=$COLOR_2]#[fg=$COLOR_1] #I:#W #[fg=$COLOR_2]#[bg=$COLOR_1]"
+
+# Left and right statuses:
+set-option -g status-left "#[bg=$COLOR_2]#[fg=$COLOR_1][ #S ] #[bg=$COLOR_1]#[fg=$COLOR_2] "
+set-option -g status-right "#[bg=$COLOR_2]#[fg=$COLOR_1] #(whoami) @ #h "
+
+# Misc:
+set-window-option -g mode-keys vi
+set-option -g status-position bottom
+
