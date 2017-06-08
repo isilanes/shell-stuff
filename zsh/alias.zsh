@@ -81,3 +81,4 @@ alias p3='source ~/git/GitHub/shell-stuff/zsh/pyenv.sh python-3.5.2'
 alias pyenv='source ~/git/GitHub/shell-stuff/zsh/pyenv.sh'
 alias cless='bash ~/git/GitHub/shell-stuff/zsh/cless.sh'
 alias pyaa8="python ~/git/BitBucket/AutoAsphalt8/aa8.py"
+alias mytmux="bash ~/bin/tmux.sh"
