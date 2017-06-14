@@ -1,4 +1,3 @@
-#!/usr/bin/python3
 # -*- coding: UTF-8 -*-
 
 import os
@@ -8,10 +7,14 @@ import subprocess as sp
 # --- #
 
 # svn working copy? Try to get status:
-s = sp.Popen("svn status", stdout=sp.PIPE, stderr=sp.PIPE, shell=True)
-out, err = s.communicate()
-out = str(out)
-err = str(err)
+proc = sp.Popen(["svn", "status"], stdout=sp.PIPE, stderr=sp.PIPE)
+out, err = proc.communicate()
+
+if not isinstance(out, str):
+    out = out.decode("utf-8")
+
+if not isinstance(err, str):
+    err = err.decode("utf-8")
 
 # Exit and return nothing, if not svn working copy:
 if 'not a working copy' in err:
@@ -20,9 +23,8 @@ if 'not a working copy' in err:
 # If working copy, process status:
 state = 'clean'
 for line in out.split("\n"):
-    if line:
-        if line[0] in '?MD':
-            state = 'dirty'
+    if line and line[0] in '?MD':
+        state = 'dirty'
 
 # If in working copy, get branch/tag from path:
 branch = None
