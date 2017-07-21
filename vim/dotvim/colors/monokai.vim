@@ -11,6 +11,18 @@ endif
 set t_Co=256
 let g:colors_name = "monokai"
 
+" Syntastic colors:
+hi SpellBad ctermfg=15 ctermbg=124 cterm=NONE guifg=NONE guibg=NONE gui=NONE
+"hi error ctermfg=100 ctermbg=120 cterm=NONE guifg=NONE guibg=NONE gui=NONE
+"hi Error ctermfg=100 ctermbg=120 cterm=NONE guifg=NONE guibg=NONE gui=NONE
+"hi SyntasticError ctermfg=100 ctermbg=120 cterm=NONE guifg=NONE guibg=NONE gui=NONE
+"hi SyntasticWarning ctermfg=100 ctermbg=120 cterm=NONE guifg=NONE guibg=NONE gui=NONE
+"hi SyntasticErrorSign ctermfg=100 ctermbg=120 cterm=NONE guifg=NONE guibg=NONE gui=NONE
+"hi SyntasticWarningSign ctermfg=100 ctermbg=120 cterm=NONE guifg=NONE guibg=NONE gui=NONE
+"hi SyntasticErrorLine ctermfg=100 ctermbg=120 cterm=NONE guifg=NONE guibg=NONE gui=NONE
+"hi SyntasticWarningLine ctermfg=100 ctermbg=150 cterm=NONE guifg=NONE guibg=NONE gui=NONE
+
+" other:
 hi Cursor ctermfg=235 ctermbg=231 cterm=NONE guifg=#272822 guibg=#f8f8f0 gui=NONE
 hi Visual ctermfg=NONE ctermbg=59 cterm=NONE guifg=NONE guibg=#49483e gui=NONE
 hi CursorLine ctermfg=NONE ctermbg=237 cterm=NONE guifg=NONE guibg=#3c3d37 gui=NONE
