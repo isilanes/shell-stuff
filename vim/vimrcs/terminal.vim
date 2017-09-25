@@ -136,6 +136,7 @@ map <F5> :NERDTreeToggle<ESC>
 map <C-n> :tabnew<ESC>
 map <C-h> :tabp<ESC>
 map <C-l> :tabn<ESC>
+map <F7> :w<ESC>:! ~/bin/latex_parser %:r<ESC><CR>
 
 " For powerline:
 " Will try both python2 and python3, failing silently with the one it fails:
