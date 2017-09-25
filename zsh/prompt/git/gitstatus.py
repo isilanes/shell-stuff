@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+# -*- coding=utf-8 -*-
 
 from __future__ import print_function
 
@@ -6,8 +6,8 @@ import sys
 import subprocess as  sp
 
 # Change those symbols to whatever you prefer
-#symbols = {'ahead of': u'↑', 'behind': u'↓', 'prehash': u':'}
-symbols = {'ahead of': '↑', 'behind': '↓', 'prehash': ':'}
+symbols = {'ahead of': u'↑', 'behind': u'↓', 'prehash': u':'}
+#symbols = {'ahead of': '↑', 'behind': '↓', 'prehash': ':'}
 
 # Get symbolic-ref:
 s = sp.Popen(['git', 'symbolic-ref', 'HEAD'], stdout=sp.PIPE, stderr=sp.PIPE)
@@ -54,7 +54,8 @@ else:
 
 if not branch: # not on any branch
     s = sp.Popen(['git','rev-parse','--short','HEAD'], stdout=sp.PIPE)
-    out, err = s.communicate()
+    #out, err = s.communicate()
+    out, err = [ x.decode('utf-8') for x in s.communicate() ]
     out = out.decode('utf-8')
     branch = "{sp}{o}".format(sp=symbols['prehash'], o=out[:-1])
 else:
@@ -79,7 +80,8 @@ else:
         if s.poll(): # fallback to local
             mn = '{m}...HEAD'.format(m=merge_name)
             s = sp.Popen(['git', 'rev-list', '--left-right', mn], stdout=sp.PIPE, stderr=sp.PIPE)
-            revlist, _ = s.communicate()
+            #revlist, _ = s.communicate()
+            revlist, _ = [ x.decode('utf-8') for x in s.communicate() ]
         
         revlist = revlist.decode("utf-8")
 
