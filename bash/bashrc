@@ -15,15 +15,15 @@ source $HOME/.alias.bash
 eval `dircolors -b $HOME/.dir_colors`
 
 # prompt colors:
-if [[ -f ~/.ps_colors ]]; then
-    source ~/.ps_colors
+if [[ -f ~/.shell_colors ]]; then
+    source ~/.shell_colors
 else
-    PS_COLOR_ONE="0;32"
-    PS_COLOR_TWO="1;32"
+    PS_COLOR_1="0;32"
+    PS_COLOR_2="1;32"
 fi
 
 # Set the prompt line:
-PS1="\[\e[${PS_COLOR_ONE}m\]\u@\H[\[\e[${PS_COLOR_TWO}m\]\w\[\e[${PS_COLOR_ONE}m\]]: \[\e[0m\]"
+PS1="\[\e[${PS_COLOR_1}m\]\u@\H[\[\e[${PS_COLOR_2}m\]\w\[\e[${PS_COLOR_1}m\]]: \[\e[0m\]"
 
 # Path:
 export PATH=$PATH:.
