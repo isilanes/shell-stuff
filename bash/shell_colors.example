@@ -1,0 +1,9 @@
+# You can put it at ~/.shell_colors
+
+# bash prompt colors:
+export PS_COLOR_1="1;37"
+export PS_COLOR_2="0;37"
+
+# tmux colors:
+export TMUX_COLOR_1=colour125
+export TMUX_COLOR_2=colour15
