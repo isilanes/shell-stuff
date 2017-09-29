@@ -1,0 +1,17 @@
+# Example colors for ~/.shell_colors:
+
+# Berry:
+export TMUX_COLOR_1=colour125
+export TMUX_COLOR_2=colour15
+
+# Blue:
+export TMUX_COLOR_1=colour4
+export TMUX_COLOR_2=colour15
+
+# Green
+export TMUX_COLOR_1=colour28
+export TMUX_COLOR_2=colour15
+
+# Purple:
+export TMUX_COLOR_1=colour53
+export TMUX_COLOR_2=white
