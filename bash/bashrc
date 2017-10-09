@@ -14,12 +14,9 @@ source $HOME/.alias.bash
 # File/dir colors:
 eval `dircolors -b $HOME/.dir_colors`
 
-# prompt colors:
-if [[ -f ~/.shell_colors ]]; then
-    source ~/.shell_colors
-else
-    PS_COLOR_1="0;32"
-    PS_COLOR_2="1;32"
+# Particular variables:
+if [[ -f ~/.particular ]]; then
+    source ~/.particular
 fi
 
 # Set the prompt line:
