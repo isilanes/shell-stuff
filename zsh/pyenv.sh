@@ -1,4 +1,6 @@
-VENV_DIR=$HOME/local/python/virtualenv
+if [[ "x$VENV_DIR" == "x" ]]; then
+    VENV_DIR=$HOME/local/python/virtualenv # default
+fi
 ACTIVATE=$VENV_DIR/$1/bin/activate
 
 if [[ -f $ACTIVATE ]]; then
