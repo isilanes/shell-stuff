@@ -20,7 +20,7 @@ if [[ -f ~/.particular ]]; then
 fi
 
 # Set the prompt line:
-PS1="\[\e[${PS_COLOR_1}m\]\u@\H[\[\e[${PS_COLOR_2}m\]\w\[\e[${PS_COLOR_1}m\]]: \[\e[0m\]"
+PS1="\[\e[${PS_COLOR_1}m\]\u@\H[\[\e[${PS_COLOR_2}m\]\w\[\e[${PS_COLOR_1}m\]]:\[\e[0m\] "
 
 # Path:
 export PATH=$PATH:.
