@@ -153,6 +153,7 @@ EXEC 01;32 	# executables
 .nc 38;5;108
 .json 38;5;209
 .conf 38;5;223
+.job 38;5;088
 
 # Office:
 .ods 36
