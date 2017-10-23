@@ -5,9 +5,6 @@ if [ -f /etc/bashrc ]; then
     . /etc/bashrc
 fi
 
-# Permissions:
-umask 022
-
 # Set up aliases
 source $HOME/.alias.bash
 
