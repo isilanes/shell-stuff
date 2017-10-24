@@ -24,6 +24,4 @@ alias qm="qm.py"
 alias h='history 1'
 alias seek='find ./* -name'
 alias df="df -h"
-
-# Other:
 alias pyenv='source ~/git/GitHub/shell-stuff/zsh/pyenv.sh'
