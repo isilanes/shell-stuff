@@ -9,7 +9,7 @@
         "branch_dirty":               { "fg": "red", "bg": "neutralblue:c1", "attrs": [""] },
         "branch_clean":               { "fg": "green", "bg": "neutralblue:c1", "attrs": [""] },
         "stash":                      "branch_dirty",
-        "uptime":                     { "fg": "neutralblue:c1", "bg": "neutralblue:c3", "attrs": [] },
+        "uptime":                     { "fg": "neutralblue:c5", "bg": "neutralblue:c2", "attrs": [] },
         "date":                       { "fg": "neutralblue:c1", "bg": "neutralblue:c4", "attrs": [] },
 
         "cwd:divider":                { "fg": "solarized:base1", "bg": "solarized:base01", "attrs": [] },
