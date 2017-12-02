@@ -159,5 +159,4 @@ fi
 source ~/.inputrc.zsh
 
 # Powerline:
-source /home/isilanes/local/python/virtualenv/python-3.5.2/lib/python3.5/site-packages/powerline/bindings/zsh/powerline.zsh
 source ~/.particular
