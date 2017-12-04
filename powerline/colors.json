@@ -90,6 +90,11 @@
             "sunsetcamping:c4": [4, "c9283e"],
             "sunsetcamping:c5": [5, "f0433a"],
 
+            "greentone:c1": [1, "aad187"],
+            "greentone:c2": [2, "4b8c61"],
+            "greentone:c3": [3, "356244"],
+            "greentone:c4": [4, "0ff591"],
+
             "neutralblue:c1": [1, "fcfff5"],
             "neutralblue:c2": [2, "cbdbd7"],
             "neutralblue:c3": [3, "91aab4"],
