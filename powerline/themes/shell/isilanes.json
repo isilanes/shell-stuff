@@ -2,8 +2,8 @@
     "segments": {
         "left": [
             {
-                "function": "powerline.segments.common.env.virtualenv",
-                "priority": 50
+                "function": "powerline_isilanes.virtualenv",
+                "priority": 40
             },
             { 
                 "function": "powerline.segments.common.net.hostname",
@@ -39,7 +39,7 @@
         ],
         "right": [
             {
-                "function": "powerline.segments.common.sys.uptime",
+                "function": "powerline_isilanes.uptime",
                 "args": {
                     "shorten_len": 1,
                     "hours_format": "{hours:.1f} h"
