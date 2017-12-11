@@ -1,10 +1,10 @@
 {
-    "segments": {
+    "segments": 
+    {
         "left": [
             {
                 "function": "powerline_isilanes.virtualenv",
-                "priority": 40
-            },
+                "priority": 40},
             { 
                 "function": "powerline.segments.common.net.hostname",
                 "priority": 10
@@ -16,7 +16,8 @@
             {
                 "function": "powerline.segments.shell.cwd",
                 "args": {
-                    "use_path_separator": true
+                    "use_path_separator": true,
+                    "dir_limit_depth": 9
                 },
                 "priority": 10
             },
