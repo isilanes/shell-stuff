@@ -13,6 +13,7 @@
         "branch_dirty":               { "fg": "solarized:yellow", "bg": "solarized:base02", "attrs": [] },
         "branch_clean":               { "fg": "solarized:base1", "bg": "solarized:base02", "attrs": [] },
         "stash":                      "branch_dirty",
+        "hostname":                   { "fg": "sunsetcamping:c5", "bg": "black", "attrs": [] },
 
         "cwd:divider":                { "fg": "solarized:base1", "bg": "solarized:base01", "attrs": [] },
         "information:additional":     { "fg": "solarized:base2", "bg": "solarized:base01", "attrs": [] },
@@ -31,7 +32,6 @@
         "network_load_gradient":      { "fg": "green_yellow_orange_red", "bg": "solarized:base03", "attrs": [] },
         "network_load_sent_gradient": "network_load_gradient",
         "network_load_recv_gradient": "network_load_gradient",
-        "hostname":                   { "fg": "solarized:base3", "bg": "solarized:base01", "attrs": [] },
         "environment":                { "fg": "solarized:base3", "bg": "solarized:green", "attrs": [] },
         "attached_clients":           { "fg": "solarized:base3", "bg": "solarized:green", "attrs": [] },
         "time":                       { "fg": "solarized:base1", "bg": "solarized:base02", "attrs": ["bold"] },
