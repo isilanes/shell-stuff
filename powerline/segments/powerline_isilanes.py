@@ -121,6 +121,7 @@ class BranchSegment(Segment):
 
         branch = repo.branch()
         scol = ['branch']
+        return tree_status(repo, pl)
 
         if status_colors:
             try:
