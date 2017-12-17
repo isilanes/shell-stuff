@@ -3,7 +3,7 @@
     {
         "left": [
             {
-                "function": "powerline_isilanes.virtualenv",
+                "function": "powerline.isilanes.main.virtualenv",
                 "priority": 40
             },
             { 
@@ -23,7 +23,7 @@
                 "priority": 10
             },
             {
-                "function": "powerline_isilanes.branch",
+                "function": "powerline.isilanes.vcs.branch",
                 "args": {
                     "status_colors": true,
                     "ignore_statuses": []
