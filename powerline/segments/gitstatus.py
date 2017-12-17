@@ -7,10 +7,11 @@ import sys
 import subprocess as  sp
 
 # Change those symbols to whatever you prefer:
-symbols = {'ahead of': u'↑', 'behind': u'↓', 'prehash': u':'}
+symbols = {'prehash': u':'}
 SYMBOLS = {
     "change": "\u267b",
     "up": "\u2191",
+    "down": "\u2193",
     "untracked": "*",
     "conflict": "\u2620",
 }
@@ -85,27 +86,23 @@ def get_state(directory):
 
             rr = '{r}...HEAD'.format(r=remote_ref)
             s = sp.Popen(['git', 'rev-list', '--left-right', rr], stdout=sp.PIPE, stderr=sp.PIPE)
-            revlist, _ = s.communicate()
+            revlist, _ = [x.decode('utf-8') for x in s.communicate()]
 
             if s.poll(): # fallback to local
                 mn = '{m}...HEAD'.format(m=merge_name)
                 s = sp.Popen(['git', 'rev-list', '--left-right', mn], stdout=sp.PIPE, stderr=sp.PIPE)
                 revlist, _ = [x.decode('utf-8') for x in s.communicate()]
 
-            revlist = revlist.decode("utf-8")
+            nahead, nbehind = 0, 0
+            for element in revlist.splitlines():
+                if element[0] == ">":
+                    nahead += 1
+                else:
+                    nbehind += 1
 
-            behead = revlist.splitlines()
-            ahead = len([x for x in behead if x[1]=='>'])
-            behind = len(behead) - ahead
-
-            remote = ''
-            if behind:
-                remote += '{s}{n}'.format(s=symbols['behind'], n=behind)
-
-            if ahead:
-                remote += '{s}{n}'.format(s=symbols['ahead of'], n=ahead)
+            remote = (nahead, nbehind)
         else:
-            remote = ""
+            remote = (0, 0)
 
     data = {
         "branch": branch,
@@ -162,10 +159,7 @@ class RepoState(object):
     def is_dirty(self):
         """Return True if dirty, False otherwise."""
 
-        if self.conflicts + self.changed + self.untracked:
-            return True
-
-        if self.remote:
+        if self.conflicts + self.changed + self.untracked + self.remote_ahead + self.remote_behind:
             return True
 
         return False
@@ -177,10 +171,20 @@ class RepoState(object):
         return self.data.get("branch", None)
 
     @property 
-    def remote(self):
-        """Return remote, or None."""
+    def remote_ahead(self):
+        """Return remote ahead, or 0."""
 
-        return self.data.get("remote", None)
+        val = self.data.get("remote", (0, 0))
+
+        return val[0]
+
+    @property 
+    def remote_behind(self):
+        """Return remote behind, or 0."""
+
+        val = self.data.get("remote", (0, 0))
+
+        return val[1]
 
     @property 
     def staged(self):
@@ -238,8 +242,11 @@ class RepoState(object):
             if self.untracked:
                 bits.append("{S[untracked]}{s.untracked}".format(s=self, S=SYMBOLS))
 
-            if self.remote:
-                bits.append("{s.remote}R".format(s=self))
+            if self.remote_ahead:
+                bits.append("{S[up]}{s.remote_ahead}".format(s=self, S=SYMBOLS))
+
+            if self.remote_behind:
+                bits.append("{S[down]}{s.remote_behind}".format(s=self, S=SYMBOLS))
 
             string += " ".join(bits)
 
