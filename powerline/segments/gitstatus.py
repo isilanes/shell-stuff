@@ -8,6 +8,12 @@ import subprocess as  sp
 
 # Change those symbols to whatever you prefer:
 symbols = {'ahead of': u'↑', 'behind': u'↓', 'prehash': u':'}
+SYMBOLS = {
+    "change": "\u267b",
+    "up": "\u2191",
+    "untracked": "*",
+    "conflict": "\u2620",
+}
 
 # Functions:
 def main():
@@ -224,13 +230,13 @@ class RepoState(object):
                 bits.append("{s.staged}S".format(s=self))
 
             if self.conflicts:
-                bits.append("{s.conflicts}C".format(s=self))
+                bits.append("{S[conflict]}{s.conflicts}".format(s=self, S=SYMBOLS))
 
             if self.changed:
-                bits.append("{s.changed}M".format(s=self))
+                bits.append("{S[change]}{s.changed}".format(s=self, S=SYMBOLS))
 
             if self.untracked:
-                bits.append("{s.untracked}U".format(s=self))
+                bits.append("{S[untracked]}{s.untracked}".format(s=self, S=SYMBOLS))
 
             if self.remote:
                 bits.append("{s.remote}R".format(s=self))
