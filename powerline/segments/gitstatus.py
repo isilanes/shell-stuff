@@ -14,13 +14,14 @@ SYMBOLS = {
     "down": "\u2193",
     "untracked": "*",
     "conflict": "\u2620",
+    "staged": "+",
 }
 
 # Functions:
 def main():
     """Main loop."""
 
-    pass
+    get_state(os.getcwd())
 
 def get_state(directory):
     """Return full status, in a dictionary. Empty dir if not inside Git repo."""
@@ -65,7 +66,6 @@ def get_state(directory):
 
     if not branch: # not on any branch
         s = sp.Popen(['git','rev-parse','--short','HEAD'], stdout=sp.PIPE)
-        #out, err = s.communicate()
         out, err = [ x.decode('utf-8') for x in s.communicate() ]
         out = out.decode('utf-8')
         branch = "{sp}{o}".format(sp=symbols['prehash'], o=out[:-1])
@@ -113,6 +113,7 @@ def get_state(directory):
         "untracked": untracked,
         "clean": clean,
     }
+    print(data)
 
     return RepoState(data)
 
@@ -159,7 +160,7 @@ class RepoState(object):
     def is_dirty(self):
         """Return True if dirty, False otherwise."""
 
-        if self.conflicts + self.changed + self.untracked + self.remote_ahead + self.remote_behind:
+        if self.conflicts + self.changed + self.untracked + self.remote_ahead + self.remote_behind + self.staged:
             return True
 
         return False
@@ -230,9 +231,6 @@ class RepoState(object):
 
             bits = []
 
-            if self.staged:
-                bits.append("{s.staged}S".format(s=self))
-
             if self.conflicts:
                 bits.append("{S[conflict]}{s.conflicts}".format(s=self, S=SYMBOLS))
 
@@ -247,6 +245,9 @@ class RepoState(object):
 
             if self.remote_behind:
                 bits.append("{S[down]}{s.remote_behind}".format(s=self, S=SYMBOLS))
+
+            if self.staged:
+                bits.append("{S[staged]}{s.staged}".format(s=self, S=SYMBOLS))
 
             string += " ".join(bits)
 
