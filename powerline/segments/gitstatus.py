@@ -159,6 +159,9 @@ class RepoState(object):
         if self.conflicts + self.changed + self.untracked:
             return True
 
+        if self.remote:
+            return True
+
         return False
 
     @property 
@@ -228,6 +231,9 @@ class RepoState(object):
 
             if self.untracked:
                 bits.append("{s.untracked}U".format(s=self))
+
+            if self.remote:
+                bits.append("{s.remote}R".format(s=self))
 
             string += " ".join(bits)
 
