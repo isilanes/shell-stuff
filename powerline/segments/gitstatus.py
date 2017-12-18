@@ -8,14 +8,6 @@ import subprocess as  sp
 
 # Change those symbols to whatever you prefer:
 symbols = {'prehash': u':'}
-SYMBOLS = {
-    "change": "\u267b",
-    "up": "\u2191",
-    "down": "\u2193",
-    "untracked": "*",
-    "conflict": "\u2620",
-    "staged": "+",
-}
 
 # Functions:
 def main():
@@ -24,20 +16,20 @@ def main():
     get_state(os.getcwd())
 
 def get_state(directory):
-    """Return full status, in a dictionary. Empty dir if not inside Git repo."""
+    """Return full status as a RepoState object. None if not inside Git repo."""
 
     # Exit early if not a Git repo:
     branch = which_branch(directory)
     if not branch:
-        return {}
+        return None
 
     # Get status:
     s = sp.Popen(['git','diff','--name-status'], stdout=sp.PIPE, stderr=sp.PIPE)
     out, err = [ x.decode('utf-8') for x in s.communicate() ]
 
-    # Exist early if error:
-    if 'fatal' in err:
-        sys.exit(0)
+    # Exit early if error:
+    if err:
+        return None
 
     # Process outputs:
     changed_files = [ x[0] for x in out.splitlines() ]
@@ -58,11 +50,6 @@ def get_state(directory):
     out = out.decode("utf-8")
     nb_untracked = len(out.splitlines())
     untracked = str(nb_untracked)
-
-    if nb_changed or nb_staged or nb_U or nb_untracked:
-        clean = '0'
-    else:
-        clean = '1'
 
     if not branch: # not on any branch
         s = sp.Popen(['git','rev-parse','--short','HEAD'], stdout=sp.PIPE)
@@ -111,11 +98,9 @@ def get_state(directory):
         "conflicts": conflicts,
         "changed": changed,
         "untracked": untracked,
-        "clean": clean,
     }
-    print(data)
 
-    return RepoState(data)
+    return data
 
 def in_git_repo(directory):
     """Return True if 'directory' is inside a Git repo. False, otherwise."""
@@ -147,115 +132,6 @@ def which_branch(directory):
 
 
 # Classes:
-class RepoState(object):
-    """Class to hold and serve info about Git repository state."""
-
-    # Constructor:
-    def __init__(self, data={}):
-        self.data = data
-
-
-    # Properties:
-    @property 
-    def is_dirty(self):
-        """Return True if dirty, False otherwise."""
-
-        if self.conflicts + self.changed + self.untracked + self.remote_ahead + self.remote_behind + self.staged:
-            return True
-
-        return False
-
-    @property 
-    def branch(self):
-        """Return Branch, or None."""
-
-        return self.data.get("branch", None)
-
-    @property 
-    def remote_ahead(self):
-        """Return remote ahead, or 0."""
-
-        val = self.data.get("remote", (0, 0))
-
-        return val[0]
-
-    @property 
-    def remote_behind(self):
-        """Return remote behind, or 0."""
-
-        val = self.data.get("remote", (0, 0))
-
-        return val[1]
-
-    @property 
-    def staged(self):
-        """Return amount of staged files, or 0."""
-
-        try:
-            return int(self.data["staged"])
-        except:
-            return 0
-
-    @property 
-    def conflicts(self):
-        """Return amount of conflicting files, or 0."""
-
-        try:
-            return int(self.data["conflicts"])
-        except:
-            return 0
-
-    @property 
-    def changed(self):
-        """Return amount of changed files, or 0."""
-
-        try:
-            return int(self.data["changed"])
-        except:
-            return 0
-
-    @property 
-    def untracked(self):
-        """Return amount of untracked files, or 0."""
-
-        try:
-            return int(self.data["untracked"])
-        except:
-            return 0
-
-
-    # Special methods:
-    def __str__(self):
-        if self.is_dirty:
-            string = "({s.branch}|".format(s=self)
-
-            bits = []
-
-            if self.conflicts:
-                bits.append("{S[conflict]}{s.conflicts}".format(s=self, S=SYMBOLS))
-
-            if self.changed:
-                bits.append("{S[change]}{s.changed}".format(s=self, S=SYMBOLS))
-
-            if self.untracked:
-                bits.append("{S[untracked]}{s.untracked}".format(s=self, S=SYMBOLS))
-
-            if self.remote_ahead:
-                bits.append("{S[up]}{s.remote_ahead}".format(s=self, S=SYMBOLS))
-
-            if self.remote_behind:
-                bits.append("{S[down]}{s.remote_behind}".format(s=self, S=SYMBOLS))
-
-            if self.staged:
-                bits.append("{S[staged]}{s.staged}".format(s=self, S=SYMBOLS))
-
-            string += " ".join(bits)
-
-            string += ")"
-            return string
-        else:
-            return self.branch
-
 
 # Main loop:
 if __name__ == "__main__":
