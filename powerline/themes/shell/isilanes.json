@@ -41,7 +41,7 @@
         ],
         "right": [
             {
-                "function": "powerline_isilanes.uptime",
+                "function": "powerline.isilanes.main.uptime",
                 "args": {
                     "shorten_len": 1,
                     "hours_format": "{hours:.1f} h"
