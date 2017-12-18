@@ -32,18 +32,20 @@ class RepoState(object):
     # Constructor:
     def __init__(self, directory):
         self.directory = directory
+        self.is_git = False
         self.is_svn = False
+        self.data = {}
 
-        self.data = gitstatus.get_state(self.directory)
-        self.is_git = True
-        if not self.data:
-            self.data = svnstatus.get_state(self.directory)
+        gitdata = gitstatus.get_state(self.directory)
+        if gitdata:
+            self.data = gitdata
+            self.is_git = True
+
+        svndata = svnstatus.get_state(self.directory)
+        if svndata:
+            self.data = svndata
             self.is_svn = True
-            self.is_git = False
 
-        if not self.data:
-            self.data = {}
-        
 
     # Properties:
     @property 
@@ -194,8 +196,9 @@ class BranchSegment(Segment):
                 scol = ["branch_svn_dirty"]
             else:
                 scol = ["branch_svn_clean"]
+
         else:
-            scol = ["branch"]
+            return None
 
         # Build contents:
         res = {
