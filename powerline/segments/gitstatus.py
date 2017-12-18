@@ -13,7 +13,8 @@ symbols = {'prehash': u':'}
 def main():
     """Main loop."""
 
-    get_state(os.getcwd())
+    s = get_state(os.getcwd())
+    print(s)
 
 def get_state(directory):
     """Return full status as a RepoState object. None if not inside Git repo."""
