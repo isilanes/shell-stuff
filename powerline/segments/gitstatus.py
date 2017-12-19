@@ -17,8 +17,9 @@ def main():
     print(s)
 
 def get_state(directory):
-    """Return full status as a RepoState object. None if not inside Git repo."""
-
+    """Return full status as a dictionary.
+    Return None if not inside Git repo.
+    """
     # Exit early if not a Git repo:
     branch = which_branch(directory)
     if not branch:
