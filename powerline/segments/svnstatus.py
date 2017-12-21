@@ -14,7 +14,7 @@ def main():
     print(s)
 
 def get_state(directory):
-    """Return full status of repo, as RepoState object.
+    """Return full status of repo, as a dictionary.
     Return None if not within a SVN repo.
     """
     # svn working copy? Try to get status:
@@ -32,16 +32,14 @@ def get_state(directory):
         return None
 
     # Process output:
-    changed = 0
+    changed, new, untracked = 0, 0, 0
     for line in out.splitlines():
         if line[0] == "M":
             changed += 1
-
-    # If working copy, process status:
-    state = 'clean'
-    for line in out.split("\n"):
-        if line and line[0] in '?MD':
-            state = 'dirty'
+        elif line[0] == "?":
+            untracked += 1
+        elif line[0] == "A":
+            new += 1
 
     # If in working copy, get branch/tag from path:
     branch = None
@@ -67,11 +65,11 @@ def get_state(directory):
 
     data = {
         "branch": branch,
-        "changed": changed,
         "remote": (0, 0),
+        "staged": new,
         "conflicts": 0,
-        "untracked": 0,
-        "staged": 0,
+        "changed": changed,
+        "untracked": untracked,
     }
 
     return data
