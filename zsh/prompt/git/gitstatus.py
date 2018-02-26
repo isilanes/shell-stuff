@@ -83,7 +83,8 @@ else:
             #revlist, _ = s.communicate()
             revlist, _ = [ x.decode('utf-8') for x in s.communicate() ]
         
-        revlist = revlist.decode("utf-8")
+        if not isinstance(revlist, str):
+            revlist = revlist.decode("utf-8")
 
         behead = revlist.splitlines()
         ahead = len([x for x in behead if x[0]=='>'])
