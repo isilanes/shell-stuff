@@ -134,6 +134,7 @@ colorscheme monokai-isc
 "colorscheme silanes
 "colorscheme valloric
 execute pathogen#infect()
+let g:jedi#show_call_signatures = "2"
 map <F5> :NERDTreeToggle<ESC>
 map <C-n> :tabnew<ESC>
 map <C-h> :tabp<ESC>

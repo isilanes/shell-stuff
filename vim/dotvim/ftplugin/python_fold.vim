@@ -136,6 +136,15 @@ function! GetPythonFold(lnum)
         endif
     endif
 
+    " test
+    if line =~ '^\s*$'
+        if prevline =~ '^\s*$'
+            if nextline =~ '^\s*\(class\)\s'
+                return IndentationOfCurrentClass(a:lnum)
+            endif
+        endif
+    endif
+
     " Blank lines have
     " 1) Same indentation as previous line, if previous line is not blank
     " 2) Same indentation as following line, if previous line is blank
@@ -164,7 +173,7 @@ function! GetPythonFold(lnum)
     endif
 
     " [ISC] How multi-line lists close:
-    if line =~ '^\s*],\=$' " only either ] or ], in line
+    if line =~ '^\s*],\=$' " only ] in line
         return "<" . indlevel
     endif
 
@@ -174,7 +183,7 @@ function! GetPythonFold(lnum)
     endif
 
     " [ISC] How multi-line functions close:
-    if line =~ '^\s*)$' " only either ] or ], in line
+    if line =~ '^\s*)$' " only ) in line
         return "<" . indlevel
     endif
 
@@ -235,3 +244,20 @@ function! GetPythonFold(lnum)
     return "="
 
 endfunction
+function! IndentationOfCurrentClass(lnum)
+    " Returns intentation value of latest class open
+    
+    let l:pnum = prevnonblank(a:lnum - 1)
+    let line = getline(l:pnum)
+
+    while line !~ '^\s*class\s'
+        let pnum = prevnonblank(l:pnum - 1)
+        let line = getline(l:pnum)
+        if pnum < 2
+            return 1
+        endif
+    endwhile
+
+    return IndentLevel(l:pnum)
+endfunction
+
