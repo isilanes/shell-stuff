@@ -24,6 +24,8 @@ function! PythonFoldText()
 
     if line =~ '^\s*@staticmethod'
         let line = "@sm: " . substitute(nextline, '^\s*\(.\{-}\)\s*$', '\1', '') . ' ' . matchstr(nnextline, '"""\zs.\{-}\ze\("""\)\?$')
+    elseif line =~ '^\s*class'
+        let line = "-- " . substitute(line, '^\s*\(.\{-}\)\s*$', '\1', '') . ' ' . matchstr(nnextline, '"""\zs.\{-}\ze\("""\)\?$')
     elseif line =~ '^\s*@property'
         let line = "@p: " . substitute(nextline, '^\s*\(.\{-}\)\s*$', '\1', '') . ' ' . matchstr(nnextline, '"""\zs.\{-}\ze\("""\)\?$')
     elseif line =~ '\.deleter$'
