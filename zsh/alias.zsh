@@ -66,7 +66,7 @@ alias screen_merc='screen -S mercurio -c "~/git/GitHub/shell-stuff/screen/screen
 #alias screen_sk='screen -S skinner -c "~/git/GitHub/shell-stuff/screen/screenrc.skinner"'
 
 # Other:
-alias h='history 1'
+alias h='history'
 alias seek='find ./* -name'
 alias itx='ispell -t -x -d american'
 alias ps2pdfgood='ps2pdf -dCompatibilityLevel=1.3 -dEmbedAllFonts=true  -dSubsetFonts=true  -dMaxSubsetPct=100 -dAutoFilterColorImages=false -dAutoFilterGrayImages=false -dColorImageFilter=/FlateEncode -dGrayImageFilter=/FlateEncode -dMonoImageFilter=/FlateEncode'
