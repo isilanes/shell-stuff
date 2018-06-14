@@ -7,7 +7,13 @@ export ZSH=/home/isilanes/.oh-my-zsh
 # Set name of the theme to load. Optionally, if you set this to "random"
 # it'll load a random theme each time that oh-my-zsh is loaded.
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
-ZSH_THEME="powerline-isc"
+#ZSH_THEME="powerline-isc"
+#ZSH_THEME="dallas"
+if [[ "x$SSH_TTY" == "x" ]]; then
+    ZSH_THEME="powerline-isc"
+else
+    ZSH_THEME="candy"
+fi
 
 # Set list of themes to load
 # Setting this variable when ZSH_THEME=random
@@ -73,6 +79,9 @@ source ~/git/GitHub/shell-stuff/zsh/alias.zsh
 
 # Custom dircolors:
 eval `dircolors -b $HOME/.dir_colors`
+
+export EDITOR=vim
+unsetopt AUTO_REMOVE_SLASH
 
 # export MANPATH="/usr/local/man:$MANPATH"
 
