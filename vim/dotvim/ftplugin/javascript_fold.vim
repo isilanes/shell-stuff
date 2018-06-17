@@ -6,7 +6,7 @@
 " Version:	2.3
 " Bug fix:	Drexler Christopher, Tom Schumm, Geoff Gerrietts
 
-" Some changes by: Iñaki Silanes (2013-2014, 2016)
+" Some changes by: Iñaki Silanes (2013-2014, 2016, 2018)
 
 map <buffer> f za
 
@@ -73,6 +73,8 @@ function! GetPythonFoldISC(lnum)
 
     " Dictionaries fold too [ISC]:
     if line =~ '\( = \|: \){$'
+        return ">" . (ind / &sw + 1)
+    elseif line =~ '^\s*{,\=$'
         return ">" . (ind / &sw + 1)
     elseif line =~ '^\s*},\=$' " only either } or }, in line
         return "s1"

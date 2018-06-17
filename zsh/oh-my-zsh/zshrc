@@ -7,7 +7,13 @@ export ZSH=/home/isilanes/.oh-my-zsh
 # Set name of the theme to load. Optionally, if you set this to "random"
 # it'll load a random theme each time that oh-my-zsh is loaded.
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
-ZSH_THEME="powerline-isc"
+#ZSH_THEME="powerline-isc"
+#ZSH_THEME="dallas"
+if [[ "x$SSH_TTY" == "x" ]]; then
+    ZSH_THEME="powerline-isc"
+else
+    ZSH_THEME="candy"
+fi
 
 # Set list of themes to load
 # Setting this variable when ZSH_THEME=random
@@ -33,13 +39,13 @@ CASE_SENSITIVE="true"
 # DISABLE_LS_COLORS="true"
 
 # Uncomment the following line to disable auto-setting terminal title.
-# DISABLE_AUTO_TITLE="true"
+DISABLE_AUTO_TITLE="true"
 
 # Uncomment the following line to enable command auto-correction.
 ENABLE_CORRECTION="true"
 
 # Uncomment the following line to display red dots whilst waiting for completion.
-# COMPLETION_WAITING_DOTS="true"
+COMPLETION_WAITING_DOTS="true"
 
 # Uncomment the following line if you want to disable marking untracked files
 # under VCS as dirty. This makes repository status check for large repositories
@@ -73,6 +79,9 @@ source ~/git/GitHub/shell-stuff/zsh/alias.zsh
 
 # Custom dircolors:
 eval `dircolors -b $HOME/.dir_colors`
+
+export EDITOR=vim
+unsetopt AUTO_REMOVE_SLASH
 
 # export MANPATH="/usr/local/man:$MANPATH"
 
