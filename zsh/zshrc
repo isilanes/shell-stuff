@@ -124,6 +124,9 @@ elif [[ $HOST == "skinner" ]]; then
 elif [[ $HOST == "raspberrypi" ]]; then
     PROMPT=$'%{\e[31m%}${HOST}[%{\e[35m%}%~%{\e[0;31m%}]%{\e[0m%}$(git_super_status): '
     RPROMPT=$'%{\e[31m%}%T%{\e[0m%}'
+elif [[ $HOST == "fry" ]]; then
+    PROMPT=$'%{\e[34m%}${HOST}[%{\e[0;36m%}%~%{\e[34m%}]%{\e[0m%}$(git_super_status)$(svn_super_status): '
+    RPROMPT=$'%{\e[34m%}%T%{\e[37m%}·%{\e[36m%}$(awk \'{printf "%.1f",$1/86400}\' /proc/uptime)%{\e[0m%}'
 else
     PROMPT=$'%{\e[32m%}${HOST}[%{\e[32;1m%}%~%{\e[0;32m%}]%{\e[0m%}$(git_super_status): '
     RPROMPT=$'%{\e[32m%}%T%{\e[0m%}'
@@ -140,7 +143,7 @@ bindkey "^[OA" history-beginning-search-backward-end
 bindkey "^[OB" history-beginning-search-forward-end
 
 # Path:
-path=($path ~/bin . /usr/local/bin)
+path=($path ~/bin . /usr/local/bin /home/isilanes/local/python/miniconda3/bin)
 
 # ENV vars:
 #export PERL5LIB=${PERL5LIB}:${HOME}/MyTools/PerlModules
@@ -160,3 +163,9 @@ source ~/.inputrc.zsh
 
 # Powerline:
 source ~/.particular
+
+# Conda:
+CONDASH=$HOME/local/python/miniconda3/etc/profile.d/conda.sh
+if [[ -a $CONDASH ]]; then
+    . $CONDASH
+fi
