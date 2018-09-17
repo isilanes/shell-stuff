@@ -143,7 +143,7 @@ bindkey "^[OA" history-beginning-search-backward-end
 bindkey "^[OB" history-beginning-search-forward-end
 
 # Path:
-path=($path ~/bin . /usr/local/bin /home/isilanes/local/python/miniconda3/bin)
+path=($path ~/local/bin . /usr/local/bin /home/isilanes/local/python/miniconda3/bin)
 
 # ENV vars:
 #export PERL5LIB=${PERL5LIB}:${HOME}/MyTools/PerlModules

@@ -10,7 +10,7 @@ export ZSH=/home/isilanes/.oh-my-zsh
 #ZSH_THEME="powerline-isc"
 #ZSH_THEME="dallas"
 if [[ "x$SSH_TTY" == "x" ]]; then
-    ZSH_THEME="powerline-isc"
+    ZSH_THEME="agnoster-isc"
 else
     ZSH_THEME="candy"
 fi
@@ -76,6 +76,12 @@ source $ZSH/oh-my-zsh.sh
 
 # My aliases:
 source ~/git/GitHub/shell-stuff/zsh/alias.zsh
+
+# Conda:
+. ~/local/python/miniconda3/etc/profile.d/conda.sh
+
+# Other:
+source $HOME/.zsh/git-prompt/zshrc.sh
 
 # Custom dircolors:
 eval `dircolors -b $HOME/.dir_colors`
