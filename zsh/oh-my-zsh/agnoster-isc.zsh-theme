@@ -33,6 +33,7 @@
 ### Segment drawing
 # A few utility functions to make it easy and re-usable to draw segmented prompts
 
+PREVIOUS_BG=   # leave it blank
 CURRENT_BG='NONE'
 
 case ${SOLARIZED_THEME:-dark} in
@@ -139,7 +140,7 @@ prompt_end_256() {
 prompt_context() {
   if [[ "$USER" != "$DEFAULT_USER" || -n "$SSH_CLIENT" ]]; then
       #prompt_segment black default "%(!.%{%F{yellow}%}.)$USER@%m"
-      prompt_segment_256 208 2 "%m"
+      prompt_segment_256 14 17 "%m"
   fi
 }
 
@@ -193,8 +194,7 @@ prompt_git() {
     return
   fi
    
-  prompt_segment_256 0 0
-  echo -n $OUT
+  prompt_segment_256 0 0 $OUT
 }
 
 prompt_bzr() {
@@ -258,7 +258,7 @@ prompt_hg() {
 # Dir: current working directory
 prompt_dir() {
   #prompt_segment blue $CURRENT_FG '%~'
-  prompt_segment_256 100 24 '%~'
+  prompt_segment_256 27 15 '%~'
 }
 
 # Virtualenv: current working virtualenv
