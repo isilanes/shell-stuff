@@ -10,7 +10,8 @@ export ZSH=/home/isilanes/.oh-my-zsh
 #ZSH_THEME="powerline-isc"
 #ZSH_THEME="dallas"
 if [[ "x$SSH_TTY" == "x" ]]; then
-    ZSH_THEME="agnoster"
+    #ZSH_THEME="agnoster-isc"
+    ZSH_THEME="classic-isc"
 else
     ZSH_THEME="candy"
 fi

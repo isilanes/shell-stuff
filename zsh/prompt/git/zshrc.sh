@@ -54,15 +54,16 @@ function update_current_git_vars() {
 git_super_status() {
     precmd_update_git_vars
     if [ -n "$__CURRENT_GIT_STATUS" ]; then
-        #STATUS="$ZSH_THEME_GIT_PROMPT_PREFIX$ZSH_THEME_GIT_PROMPT_BRANCH$GIT_BRANCH%{${reset_color}%}"
-        STATUS="${ZSH_THEME_GIT_PROMPT_PREFIX}${ZSH_THEME_GIT_PROMPT_BRANCH}${GIT_BRANCH}"
+        STATUS="$ZSH_THEME_GIT_PROMPT_PREFIX$ZSH_THEME_GIT_PROMPT_BRANCH$GIT_BRANCH%{${reset_color}%}"
+        #STATUS="${ZSH_THEME_GIT_PROMPT_PREFIX}${ZSH_THEME_GIT_PROMPT_BRANCH}${GIT_BRANCH}"
 
         if [ -n "$GIT_REMOTE" ]; then
-            #STATUS="$STATUS$ZSH_THEME_GIT_PROMPT_REMOTE$GIT_REMOTE%{${reset_color}%}"
-            STATUS="${STATUS}${ZSH_THEME_GIT_PROMPT_REMOTE}${GIT_REMOTE}"
+            STATUS="$STATUS$ZSH_THEME_GIT_PROMPT_REMOTE$GIT_REMOTE%{${reset_color}%}"
+            #STATUS="${STATUS}${ZSH_THEME_GIT_PROMPT_REMOTE}${GIT_REMOTE}"
         fi
 
-        STATUS="${STATUS}\e[22;39m${ZSH_THEME_GIT_PROMPT_SEPARATOR}"
+        #STATUS="${STATUS}\e[22;39m${ZSH_THEME_GIT_PROMPT_SEPARATOR}"
+        STATUS="${STATUS}${ZSH_THEME_GIT_PROMPT_SEPARATOR}"
 
         if [ "$GIT_STAGED" -ne "0" ]; then
             STATUS="$STATUS$ZSH_THEME_GIT_PROMPT_STAGED$GIT_STAGED%{${reset_color}%}"
@@ -73,8 +74,8 @@ git_super_status() {
         fi
 
         if [ "$GIT_CHANGED" -ne "0" ]; then
-            #STATUS="$STATUS$ZSH_THEME_GIT_PROMPT_CHANGED$GIT_CHANGED%{${reset_color}%}"
-            STATUS="${STATUS}${ZSH_THEME_GIT_PROMPT_CHANGED}${GIT_CHANGED}"
+            STATUS="$STATUS$ZSH_THEME_GIT_PROMPT_CHANGED$GIT_CHANGED%{${reset_color}%}"
+            #STATUS="${STATUS}${ZSH_THEME_GIT_PROMPT_CHANGED}${GIT_CHANGED}"
         fi
 
         if [ "$GIT_UNTRACKED" -ne "0" ]; then
@@ -82,11 +83,12 @@ git_super_status() {
         fi
 
         if [ "$GIT_CLEAN" -eq "1" ]; then
-            STATUS="${STATUS}${ZSH_THEME_GIT_PROMPT_CLEAN}\e[22;39m"
+            STATUS="${STATUS}${ZSH_THEME_GIT_PROMPT_CLEAN}%{${reset_color}%}"
+            #STATUS="${STATUS}${ZSH_THEME_GIT_PROMPT_CLEAN}\e[22;39m"
         fi
 
-        #STATUS="$STATUS%{${reset_color}%}$ZSH_THEME_GIT_PROMPT_SUFFIX"
-        STATUS="${STATUS}${ZSH_THEME_GIT_PROMPT_SUFFIX}\e[22;39m"
+        STATUS="$STATUS%{${reset_color}%}$ZSH_THEME_GIT_PROMPT_SUFFIX"
+        #STATUS="${STATUS}${ZSH_THEME_GIT_PROMPT_SUFFIX}\e[22;39m"
         echo "$STATUS"
     fi
 }
@@ -99,6 +101,7 @@ ZSH_THEME_GIT_PROMPT_BRANCH="%{$fg_bold[magenta]%}"
 ZSH_THEME_GIT_PROMPT_STAGED="%{$fg[red]%}●"
 ZSH_THEME_GIT_PROMPT_CONFLICTS="%{$fg[red]%}✖"
 ZSH_THEME_GIT_PROMPT_CHANGED="%{$fg[blue]%}✚"
-ZSH_THEME_GIT_PROMPT_REMOTE="\e[22;37m"
+#ZSH_THEME_GIT_PROMPT_REMOTE="\e[22;37m"
+ZSH_THEME_GIT_PROMPT_REMOTE=""
 ZSH_THEME_GIT_PROMPT_UNTRACKED="%{$fg[red]%}*"
 ZSH_THEME_GIT_PROMPT_CLEAN="%{$fg_bold[green]%}✔"

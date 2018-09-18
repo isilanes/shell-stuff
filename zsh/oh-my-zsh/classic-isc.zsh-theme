@@ -125,9 +125,9 @@ elif [[ $HOST == "raspberrypi" ]]; then
     PROMPT=$'%{\e[31m%}${HOST}[%{\e[35m%}%~%{\e[0;31m%}]%{\e[0m%}$(git_super_status): '
     RPROMPT=$'%{\e[31m%}%T%{\e[0m%}'
 elif [[ $HOST == "fry" ]]; then
-    #PROMPT=$'%{\e[34m%}${HOST}[%{\e[0;36m%}%~%{\e[34m%}]%{\e[0m%}$(git_super_status)$(svn_super_status): '
-    PROMPT=$'%{\e[34m%}${HOST}[%{\e[0;36m%}%~%{\e[34m%}]%{\e[0m%}$(git_super_status): '
-    #RPROMPT=$'%{\e[34m%}%T%{\e[37m%}·%{\e[36m%}$(awk \'{printf "%.1f",$1/86400}\' /proc/uptime)%{\e[0m%}'
+    PROMPT=$'%{\e[34m%}${HOST}[%{\e[0;36m%}%~%{\e[34m%}]%{\e[0m%}$(git_super_status)$(svn_super_status): '
+    #PROMPT=$'%{\e[34m%}${HOST}[%{\e[0;36m%}%~%{\e[34m%}]%{\e[0m%}: '
+    RPROMPT=$'%{\e[34m%}%T%{\e[37m%}·%{\e[36m%}$(awk \'{printf "%.1f",$1/86400}\' /proc/uptime)%{\e[0m%}'
 else
     PROMPT=$'%{\e[32m%}${HOST}[%{\e[32;1m%}%~%{\e[0;32m%}]%{\e[0m%}$(git_super_status): '
     RPROMPT=$'%{\e[32m%}%T%{\e[0m%}'
