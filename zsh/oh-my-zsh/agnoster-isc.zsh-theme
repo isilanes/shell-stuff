@@ -140,7 +140,7 @@ prompt_end_256() {
 prompt_context() {
   if [[ "$USER" != "$DEFAULT_USER" || -n "$SSH_CLIENT" ]]; then
       #prompt_segment black default "%(!.%{%F{yellow}%}.)$USER@%m"
-      prompt_segment_256 14 17 "%m"
+      prompt_segment_256 146 17 "%m"
   fi
 }
 
@@ -258,7 +258,7 @@ prompt_hg() {
 # Dir: current working directory
 prompt_dir() {
   #prompt_segment blue $CURRENT_FG '%~'
-  prompt_segment_256 27 15 '%~'
+  prompt_segment_256 32 15 '%~'
 }
 
 # Virtualenv: current working virtualenv
