@@ -55,11 +55,11 @@ git_super_status() {
     precmd_update_git_vars
     if [ -n "$__CURRENT_GIT_STATUS" ]; then
         #STATUS="$ZSH_THEME_GIT_PROMPT_PREFIX$ZSH_THEME_GIT_PROMPT_BRANCH$GIT_BRANCH%{${reset_color}%}"
-        STATUS="$ZSH_THEME_GIT_PROMPT_PREFIX$ZSH_THEME_GIT_PROMPT_BRANCH$GIT_BRANCH"
+        STATUS="${ZSH_THEME_GIT_PROMPT_PREFIX}${ZSH_THEME_GIT_PROMPT_BRANCH}${GIT_BRANCH}"
 
         if [ -n "$GIT_REMOTE" ]; then
             #STATUS="$STATUS$ZSH_THEME_GIT_PROMPT_REMOTE$GIT_REMOTE%{${reset_color}%}"
-            STATUS="$STATUS$ZSH_THEME_GIT_PROMPT_REMOTE$GIT_REMOTE"
+            STATUS="${STATUS}${ZSH_THEME_GIT_PROMPT_REMOTE}${GIT_REMOTE}"
         fi
 
         STATUS="${STATUS}\e[22;39m${ZSH_THEME_GIT_PROMPT_SEPARATOR}"
@@ -82,7 +82,7 @@ git_super_status() {
         fi
 
         if [ "$GIT_CLEAN" -eq "1" ]; then
-            STATUS="$STATUS$ZSH_THEME_GIT_PROMPT_CLEAN"
+            STATUS="${STATUS}${ZSH_THEME_GIT_PROMPT_CLEAN}\e[22;39m"
         fi
 
         #STATUS="$STATUS%{${reset_color}%}$ZSH_THEME_GIT_PROMPT_SUFFIX"
@@ -99,6 +99,6 @@ ZSH_THEME_GIT_PROMPT_BRANCH="%{$fg_bold[magenta]%}"
 ZSH_THEME_GIT_PROMPT_STAGED="%{$fg[red]%}●"
 ZSH_THEME_GIT_PROMPT_CONFLICTS="%{$fg[red]%}✖"
 ZSH_THEME_GIT_PROMPT_CHANGED="%{$fg[blue]%}✚"
-ZSH_THEME_GIT_PROMPT_REMOTE=""
+ZSH_THEME_GIT_PROMPT_REMOTE="\e[22;37m"
 ZSH_THEME_GIT_PROMPT_UNTRACKED="%{$fg[red]%}*"
 ZSH_THEME_GIT_PROMPT_CLEAN="%{$fg_bold[green]%}✔"
