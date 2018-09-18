@@ -100,7 +100,7 @@ prompt_segment_256() {
     if [[ "x$PREVIOUS_BG" == "x" ]]; then
         echo -n "$bg$fg "
     else
-        echo -n " $bg\e[38;5;${PREVIOUS_BG}m${SEGMENT_SEPARATOR}\e[38;5;${fg} "
+        echo -n " $bg\e[38;5;${PREVIOUS_BG}m${SEGMENT_SEPARATOR}${fg} "
     fi
 
     # Print out text, if provided:
@@ -127,7 +127,7 @@ prompt_end_256() {
       echo -n " \e[0m\e[38;5;${PREVIOUS_BG}m${SEGMENT_SEPARATOR}\e[0m"
       #echo -n " \e[38;5;4m${SEGMENT_SEPARATOR}\e[0m"
   else
-    echo -n "%{%k%}"
+      echo -n "%{%k%}"
   fi
   echo -n "%{%f%}"
   CURRENT_BG=''
