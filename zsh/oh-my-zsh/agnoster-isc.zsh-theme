@@ -95,7 +95,7 @@ prompt_context() {
 }
 
 # Git: branch/detached head, dirty status
-prompt_git() {
+prompt_git_psa() {
   (( $+commands[git] )) || return
   local PL_BRANCH_CHAR
   () {
@@ -136,8 +136,15 @@ prompt_git() {
     echo -n "${ref/refs\/heads\//$PL_BRANCH_CHAR }${vcs_info_msg_0_%% }${mode}"
   fi
 }
-prompt_git_new() {
+prompt_git() {
   OUT=$(git_super_status)
+  
+  # Exit early if not within git repo:
+  if [[ "x$OUT" == "x" ]]; then
+    return
+  fi
+   
+  prompt_segment black NONE
   echo -n $OUT
 }
 
