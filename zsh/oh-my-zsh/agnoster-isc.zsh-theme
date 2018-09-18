@@ -2,6 +2,7 @@
 #
 # agnoster's Theme - https://gist.github.com/3712874
 # A Powerline-inspired theme for ZSH
+# Modified by isilanes (2018.09)
 #
 # # README
 #
@@ -72,10 +73,58 @@ prompt_segment() {
   [[ -n $3 ]] && echo -n $3
 }
 
+# Like prompt_segment above, but with 256 colors:
+prompt_segment_256() {
+    local bg fg
+
+    # Background:
+    if [[ "x$1" == "x" ]]; then
+        bg="%k"
+    elif [[ "x$1" == "NONE" ]]; then
+        bg="%k"
+    else
+        bg="\e[48;5;${1}m"
+    fi
+
+    # Foreground:
+    if [[ "x$2" == "x" ]]; then
+        fg="%f"
+    elif [[ "x$2" == "NONE" ]]; then
+        fg="%f"
+    else
+        fg="\e[38;5;${2}m"
+    fi
+
+    # Set colors:
+    if [[ "x$PREVIOUS_BG" == "x" ]]; then
+        echo -n "$bg$fg "
+    else
+        echo -n " $bg\e[38;5;${PREVIOUS_BG}m${SEGMENT_SEPARATOR}\e[38;5;${fg} "
+    fi
+
+    # Print out text, if provided:
+    [[ -n $3 ]] && echo -n $3
+
+    # Save current bg to use as fg of following separator:
+    PREVIOUS_BG=$1
+}
+
 # End the prompt, closing any open segments
 prompt_end() {
   if [[ -n $CURRENT_BG ]]; then
     echo -n " %{%k%F{$CURRENT_BG}%}$SEGMENT_SEPARATOR"
+  else
+    echo -n "%{%k%}"
+  fi
+  echo -n "%{%f%}"
+  CURRENT_BG=''
+}
+
+# Like prompt_end, but for 256 colors:
+prompt_end_256() {
+  if [[ -n $PREVIOUS_BG ]]; then
+      echo -n " \e[0m\e[38;5;${PREVIOUS_BG}m${SEGMENT_SEPARATOR}\e[0m"
+      #echo -n " \e[38;5;4m${SEGMENT_SEPARATOR}\e[0m"
   else
     echo -n "%{%k%}"
   fi
@@ -89,8 +138,8 @@ prompt_end() {
 # Context: user@hostname (who am I and where am I)
 prompt_context() {
   if [[ "$USER" != "$DEFAULT_USER" || -n "$SSH_CLIENT" ]]; then
-    #prompt_segment black default "%(!.%{%F{yellow}%}.)$USER@%m"
-    prompt_segment black default "%(!.%{%F{yellow}%}.)%m"
+      #prompt_segment black default "%(!.%{%F{yellow}%}.)$USER@%m"
+      prompt_segment_256 208 2 "%m"
   fi
 }
 
@@ -144,7 +193,7 @@ prompt_git() {
     return
   fi
    
-  prompt_segment black NONE
+  prompt_segment_256 0 0
   echo -n $OUT
 }
 
@@ -209,7 +258,7 @@ prompt_hg() {
 # Dir: current working directory
 prompt_dir() {
   #prompt_segment blue $CURRENT_FG '%~'
-  prompt_segment blue white '%~'
+  prompt_segment_256 100 24 '%~'
 }
 
 # Virtualenv: current working virtualenv
@@ -245,7 +294,7 @@ build_prompt() {
   prompt_git
   prompt_bzr
   prompt_hg
-  prompt_end
+  prompt_end_256
 }
 
 PROMPT='%{%f%b%k%}$(build_prompt) '
