@@ -87,7 +87,7 @@ git_super_status() {
 
         #STATUS="$STATUS%{${reset_color}%}$ZSH_THEME_GIT_PROMPT_SUFFIX"
         STATUS="${STATUS}${ZSH_THEME_GIT_PROMPT_SUFFIX}\e[22;39m"
-        echo " $STATUS"
+        echo "$STATUS"
     fi
 }
 
