@@ -84,7 +84,8 @@ prompt_segment_256() {
     elif [[ "x$1" == "NONE" ]]; then
         bg="%k"
     else
-        bg="\e[48;5;${1}m"
+        #bg="\e[48;5;${1}m"
+        bg="$BG[$1]"
     fi
 
     # Foreground:
@@ -93,14 +94,16 @@ prompt_segment_256() {
     elif [[ "x$2" == "NONE" ]]; then
         fg="%f"
     else
-        fg="\e[38;5;${2}m"
+        #fg="\e[38;5;${2}m"
+        fg="$FG[$2]"
     fi
 
     # Set colors:
     if [[ "x$PREVIOUS_BG" == "x" ]]; then
         echo -n "$bg$fg "
     else
-        echo -n " $bg\e[38;5;${PREVIOUS_BG}m${SEGMENT_SEPARATOR}${fg} "
+        #echo -n " $bg\e[38;5;${PREVIOUS_BG}m${SEGMENT_SEPARATOR}${fg} "
+        echo -n " $bg$FG[$PREVIOUS_BG]${SEGMENT_SEPARATOR}${fg} "
     fi
 
     # Print out text, if provided:
@@ -124,8 +127,9 @@ prompt_end() {
 # Like prompt_end, but for 256 colors:
 prompt_end_256() {
   if [[ -n $PREVIOUS_BG ]]; then
-      echo -n " \e[0m\e[38;5;${PREVIOUS_BG}m${SEGMENT_SEPARATOR}\e[0m"
       #echo -n " \e[38;5;4m${SEGMENT_SEPARATOR}\e[0m"
+      #echo -n " \e[0m\e[38;5;${PREVIOUS_BG}m${SEGMENT_SEPARATOR}\e[0m"
+      echo -n " %{$reset_color%}$FG[$PREVIOUS_BG]${SEGMENT_SEPARATOR}"
   else
       echo -n "%{%k%}"
   fi
@@ -140,7 +144,7 @@ prompt_end_256() {
 prompt_context() {
   if [[ "$USER" != "$DEFAULT_USER" || -n "$SSH_CLIENT" ]]; then
       #prompt_segment black default "%(!.%{%F{yellow}%}.)$USER@%m"
-      prompt_segment_256 146 17 "%m"
+      prompt_segment_256 146 017 "%m"
   fi
 }
 
@@ -187,14 +191,14 @@ prompt_git_psa() {
   fi
 }
 prompt_git() {
-  OUT=$(git_super_status)
-  
-  # Exit early if not within git repo:
-  if [[ "x$OUT" == "x" ]]; then
-    return
-  fi
-   
-  prompt_segment_256 0 0 $OUT
+    OUT=$(git_super_status_for_omz)
+
+    # Exit early if not within git repo:
+    if [[ "x$OUT" == "x" ]]; then
+        return
+    fi
+     
+    prompt_segment_256 000 000 $OUT
 }
 
 prompt_bzr() {
@@ -257,17 +261,15 @@ prompt_hg() {
 
 # Dir: current working directory
 prompt_dir() {
-  #prompt_segment blue $CURRENT_FG '%~'
-  prompt_segment_256 32 15 '%~'
+    prompt_segment_256 032 015 '%~'
 }
 
 # Virtualenv: current working virtualenv
 prompt_virtualenv() {
-  local virtualenv_path="$VIRTUAL_ENV"
-  if [[ -n $virtualenv_path && -n $VIRTUAL_ENV_DISABLE_PROMPT ]]; then
-    #prompt_segment blue black "(`basename $virtualenv_path`)"
-    prompt_segment red blue "[`basename $virtualenv_path`]"
-  fi
+    local virtualenv_path="$VIRTUAL_ENV"
+    if [[ -n $virtualenv_path && -n $VIRTUAL_ENV_DISABLE_PROMPT ]]; then
+        prompt_segment blue black "(`basename $virtualenv_path`)"
+    fi
 }
 
 # Status:
@@ -275,13 +277,13 @@ prompt_virtualenv() {
 # - am I root
 # - are there background jobs?
 prompt_status() {
-  local symbols
-  symbols=()
-  [[ $RETVAL -ne 0 ]] && symbols+="%{%F{red}%}✘"
-  [[ $UID -eq 0 ]] && symbols+="%{%F{yellow}%}⚡"
-  [[ $(jobs -l | wc -l) -gt 0 ]] && symbols+="%{%F{cyan}%}⚙"
+    local symbols
+    symbols=()
+    [[ $RETVAL -ne 0 ]] && symbols+="%{%F{red}%}✘"
+    [[ $UID -eq 0 ]] && symbols+="%{%F{yellow}%}⚡"
+    [[ $(jobs -l | wc -l) -gt 0 ]] && symbols+="%{%F{cyan}%}⚙"
 
-  [[ -n "$symbols" ]] && prompt_segment black default "$symbols"
+    [[ -n "$symbols" ]] && prompt_segment black default "$symbols"
 }
 
 ## Main prompt

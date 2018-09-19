@@ -87,57 +87,57 @@ git_super_status() {
     fi
 }
 
-git_status_for_omz() {
-    # Return status bit as required for a powerline-segment for oh-my-zsh:
+git_super_status_for_omz() {
     precmd_update_git_vars
     if [ -n "$__CURRENT_GIT_STATUS" ]; then
-        STATUS="$ZSH_THEME_GIT_PROMPT_PREFIX$ZSH_THEME_GIT_PROMPT_BRANCH$GIT_BRANCH%{${reset_color}%}"
-        #STATUS="${ZSH_THEME_GIT_PROMPT_PREFIX}${ZSH_THEME_GIT_PROMPT_BRANCH}${GIT_BRANCH}"
+        STATUS="${ZSH_THEME_GIT_PROMPT_PREFIX}${ZSH_THEME_GIT_PROMPT_BRANCH}${GIT_BRANCH}"
 
         if [ -n "$GIT_REMOTE" ]; then
-            STATUS="$STATUS$ZSH_THEME_GIT_PROMPT_REMOTE$GIT_REMOTE%{${reset_color}%}"
-            #STATUS="${STATUS}${ZSH_THEME_GIT_PROMPT_REMOTE}${GIT_REMOTE}"
+            STATUS="${STATUS}${ZSH_THEME_GIT_PROMPT_REMOTE}${GIT_REMOTE}"
         fi
 
-        #STATUS="${STATUS}\e[22;39m${ZSH_THEME_GIT_PROMPT_SEPARATOR}"
         STATUS="${STATUS}${ZSH_THEME_GIT_PROMPT_SEPARATOR}"
 
         if [ "$GIT_STAGED" -ne "0" ]; then
-            STATUS="$STATUS$ZSH_THEME_GIT_PROMPT_STAGED$GIT_STAGED%{${reset_color}%}"
+            STATUS="${STATUS}${ZSH_THEME_GIT_PROMPT_STAGED}${GIT_STAGED}"
         fi
 
         if [ "$GIT_CONFLICTS" -ne "0" ]; then
-            STATUS="$STATUS$ZSH_THEME_GIT_PROMPT_CONFLICTS$GIT_CONFLICTS%{${reset_color}%}"
+            STATUS="${STATUS}${ZSH_THEME_GIT_PROMPT_CONFLICTS}${GIT_CONFLICTS}"
         fi
 
         if [ "$GIT_CHANGED" -ne "0" ]; then
-            STATUS="$STATUS$ZSH_THEME_GIT_PROMPT_CHANGED$GIT_CHANGED%{${reset_color}%}"
-            #STATUS="${STATUS}${ZSH_THEME_GIT_PROMPT_CHANGED}${GIT_CHANGED}"
+            STATUS="${STATUS}${ZSH_THEME_GIT_PROMPT_CHANGED}${GIT_CHANGED}"
         fi
 
         if [ "$GIT_UNTRACKED" -ne "0" ]; then
-            STATUS="$STATUS$ZSH_THEME_GIT_PROMPT_UNTRACKED%{${reset_color}%}"
+            STATUS="${STATUS}${ZSH_THEME_GIT_PROMPT_UNTRACKED}"
         fi
 
         if [ "$GIT_CLEAN" -eq "1" ]; then
-            STATUS="${STATUS}${ZSH_THEME_GIT_PROMPT_CLEAN}%{${reset_color}%}"
-            #STATUS="${STATUS}${ZSH_THEME_GIT_PROMPT_CLEAN}\e[22;39m"
+            STATUS="${STATUS}${ZSH_THEME_GIT_PROMPT_CLEAN}"
         fi
 
-        STATUS="$STATUS%{${reset_color}%}$ZSH_THEME_GIT_PROMPT_SUFFIX"
-        #STATUS="${STATUS}${ZSH_THEME_GIT_PROMPT_SUFFIX}\e[22;39m"
+        STATUS="${STATUS}${ZSH_THEME_GIT_PROMPT_SUFFIX}"
         echo "$STATUS"
     fi
 }
 
 # Default values for the appearance of the prompt. Configure at will.
-ZSH_THEME_GIT_PROMPT_PREFIX="%{$fg[green]%}("
-ZSH_THEME_GIT_PROMPT_SUFFIX="%{$fg[green]%})"
-ZSH_THEME_GIT_PROMPT_SEPARATOR="%{$fg[green]%}|"
+# You can use 8-bit color numbers iii (000 to 255) with $FG[iii].
+
+#ZSH_THEME_GIT_PROMPT_PREFIX="%{$fg[green]%}("
+#ZSH_THEME_GIT_PROMPT_SUFFIX="%{$fg[green]%}%{$FG[015]%})###"
+#ZSH_THEME_GIT_PROMPT_SEPARATOR="%{$fg[green]%}|"
+ZSH_THEME_GIT_PROMPT_PREFIX="%{$fg_no_bold[black]$FG[015]%}("  # the fg_no_bold resets to non-bold, just in case
+ZSH_THEME_GIT_PROMPT_SEPARATOR="%{$fg_no_bold[black]$FG[015]%}|"
+ZSH_THEME_GIT_PROMPT_SUFFIX="%{$fg_no_bold[black]$FG[015]%})"
+
 ZSH_THEME_GIT_PROMPT_BRANCH="%{$fg_bold[magenta]%}"
 ZSH_THEME_GIT_PROMPT_STAGED="%{$fg[red]%}●"
 ZSH_THEME_GIT_PROMPT_CONFLICTS="%{$fg[red]%}✖"
-ZSH_THEME_GIT_PROMPT_CHANGED="%{$fg[blue]%}✚"
-ZSH_THEME_GIT_PROMPT_REMOTE="\e[22;37m"
+#ZSH_THEME_GIT_PROMPT_CHANGED="%{$fg[blue]%}✚"
+ZSH_THEME_GIT_PROMPT_CHANGED="%{$fg_no_bold[blue]$FG[009]%}✚"
+ZSH_THEME_GIT_PROMPT_REMOTE="%{$fg_no_bold[black]$FG[015]%}"
 ZSH_THEME_GIT_PROMPT_UNTRACKED="%{$fg[red]%}*"
 ZSH_THEME_GIT_PROMPT_CLEAN="%{$fg_bold[green]%}✔"
