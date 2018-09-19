@@ -83,6 +83,7 @@ source ~/git/GitHub/shell-stuff/zsh/alias.zsh
 
 # Other:
 source $HOME/.zsh/git-prompt/zshrc.sh
+path=($path ~/local/bin .)
 
 # Custom dircolors:
 eval `dircolors -b $HOME/.dir_colors`
