@@ -20,15 +20,15 @@ endif
 let colors_name = "silanes"
 
 highlight Normal        ctermfg=darkblue guifg=darkblue
-highlight Normal        guibg=white
+highlight Normal        guibg=white ctermbg=white
 highlight section 	ctermfg=black guibg=black
 highlight comment 	ctermfg=blue guifg=blue
-highlight section 	guifg=darkcyan
-highlight kword_list 	ctermfg=black guifg=darkmagenta
-highlight kword_var 	ctermfg=black guifg=darkorange
-highlight kword_yes 	ctermfg=black guifg=darkgreen
-highlight kword_no 	ctermfg=black guifg=darkred
-highlight kword2 	ctermfg=black guifg=slateblue
+highlight section 	ctermfg=darkcyan guifg=darkcyan
+highlight kword_list 	ctermfg=darkmagenta guifg=darkmagenta
+highlight kword_var 	ctermfg=cyan guifg=darkorange
+highlight kword_yes 	ctermfg=darkgreen guifg=darkgreen
+highlight kword_no 	ctermfg=darkred guifg=darkred
+highlight kword2 	ctermfg=blue guifg=slateblue
 hi        Error         guifg=white   guibg=red  gui=underline
 hi        texISCallowed guifg=magenta guibg=white
 highlight SpellBad      gui=none guisp=white guifg=white guibg=red

@@ -18,7 +18,8 @@ alias git="nocorrect git"
 
 # vim-related:
 alias vi='vim -u ~/.vimrcs/terminal.vim -O'
-alias vil='gvim -geom 125x30+0+0 -u ~/.vimrcs/latex'
+alias vilg='gvim -geom 125x30+0+0 -u ~/.vimrcs/latex'
+alias vil='vim -u ~/.vimrcs/latex'
 alias vip='gvim -geom 100x25 -u ~/.vimrcs/php'
 alias vig='gvim -geom 100x25 -u ~/.vimrcs/program.vim'
 alias pwsafe='vi -u ~/.vimrcs/terminal.vim ~/.LOGs/GPG/pwsafe.json.gpg -c "colorscheme monokai-isc"'
