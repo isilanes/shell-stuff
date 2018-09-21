@@ -131,7 +131,7 @@ map <F7> :w<ESC>:! ~/bin/latex_parser %:r<ESC><CR>
 " Abbreviations
 ab 9begin <ESC>:set noai<ESC>a\documentclass[english]{article}<CR>\usepackage[a4paper,top=25mm,bottom=35mm,textwidth=160mm]{geometry}<CR>\usepackage[T1]{fontenc}<CR>\usepackage[dvips]{graphicx}<CR>\usepackage{amssymb}<CR>\usepackage[usenames]{color}<CR>\usepackage[utf8]{inputenc}<CR>\usepackage{charter}<CR>\usepackage{babel}<CR>\input{epsf}<CR><CR>\begin{document}<CR>\newcommand{\mc}{\multicolumn}<CR>\newcommand{\mr}{\multirow}<CR>\newcommand{\cw}{\columnwidth}<CR>\newcommand{\ig}[2]{\includegraphics[width=#1\cw]{#2}}<CR><CR>\title{}<CR>\maketitle<CR><CR>\section{}<CR><CR>\end{document}<ESC>:set ai<ESC>a
 
-ab 9eps <ESC>:set noai<ESC>a\begin{figure}[hbt]<CR> \begin{center}<CR>  \ig{0.5}{.eps}<CR> \end{center}<CR> \caption{}<CR> \label{}<CR>\end{figure}<ESC>:set ai<ESC>a
+ab 9fig <ESC>:set noai<ESC>a\begin{figure}[hbt]<CR> \begin{center}<CR>  \ig{0.5}{.eps}<CR> \end{center}<CR> \caption{}<CR> \label{}<CR>\end{figure}<ESC>:set ai<ESC>a
 
 ab 9tab <ESC>:set noai<ESC>a\begin{table}[hbt]<CR> \begin{center}<CR>  \begin{tabular}{c}<CR>   & \\<CR>   &<CR>  \end{tabular}<CR> \end{center}<CR> \caption{}<CR> \label{}<CR>\end{table}<ESC>:set ai<ESC>a
 

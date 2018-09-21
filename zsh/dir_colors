@@ -69,6 +69,7 @@ ORPHAN 40;31;01 # symlink to nonexistent file
 
 LINK 33 	# symbolic link
 EXEC 01;32 	# executables
+OTHER_WRITABLE 34;40  # color for those annoying 777 files (man dircolors)
 
 # Gaussian files:
 .com 35
