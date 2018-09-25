@@ -19,10 +19,10 @@ endif
 
 let colors_name = "silanes"
 
-highlight Normal        ctermfg=darkblue guifg=darkblue
+highlight Normal        ctermfg=black guifg=darkblue
 highlight Normal        guibg=white ctermbg=white
 highlight section 	ctermfg=black guibg=black
-highlight comment 	ctermfg=blue guifg=blue
+highlight comment 	ctermfg=darkblue guifg=blue
 highlight section 	ctermfg=darkcyan guifg=darkcyan
 highlight kword_list 	ctermfg=darkmagenta guifg=darkmagenta
 highlight kword_var 	ctermfg=cyan guifg=darkorange
