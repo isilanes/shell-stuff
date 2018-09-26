@@ -1,17 +1,16 @@
 \documentclass[english]{article}
-\usepackage[a4paper,top=25mm,bottom=35mm,textwidth=160mm]{geometry}
+\usepackage[a4paper,top=20mm,bottom=25mm,textwidth=165mm]{geometry}
 \usepackage[T1]{fontenc}
 \usepackage[dvips]{graphicx}
 \usepackage{amssymb}
 \usepackage[usenames]{color}
 \usepackage[utf8]{inputenc}
 \usepackage{charter}
+\usepackage{courier}
 \usepackage{babel}
 \input{epsf}
 
 \begin{document}
-\newcommand{\mc}{\multicolumn}
-\newcommand{\mr}{\multirow}
 \newcommand{\cw}{\columnwidth}
 \newcommand{\ig}[2]{\includegraphics[width=#1\cw]{#2}}
 
