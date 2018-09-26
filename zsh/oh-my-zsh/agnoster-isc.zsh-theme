@@ -301,3 +301,18 @@ build_prompt() {
 }
 
 PROMPT='%{%f%b%k%}$(build_prompt) '
+#RPROMPT=$'%{\e[34m%}%T%{\e[37m%}·%{\e[36m%}$UPTIME%{\e[0m%}'
+
+# [ISC] And the right prompt?:
+SEPARATOR=$'\uE0B2'
+
+S=$(prompt_segment_256 NONE 012 "$SEPARATOR")
+T=$(prompt_segment_256 012 017 %T)
+T=$S$T
+
+S=$(prompt_segment_256 012 032 "$SEPARATOR")
+U=$(awk '{printf "%.1f",$1/86400}' /proc/uptime)
+U=$(prompt_segment_256 032 015 "$U")
+U=$S$U
+
+RPROMPT="$T$U %{$reset_color%}"
