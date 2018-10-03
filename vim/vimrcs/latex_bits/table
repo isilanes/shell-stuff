@@ -1,0 +1,10 @@
+\begin{table}[hbt]
+    \begin{center}
+        \begin{tabular}{c}
+	& \\
+	&
+	\end{tabular}
+    \end{center}
+    \caption{}
+    \label{}
+\end{table}
