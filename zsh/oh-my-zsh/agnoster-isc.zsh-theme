@@ -311,8 +311,6 @@ T=$(prompt_segment_256 012 017 %T)
 T=$S$T
 
 S=$(prompt_segment_256 012 032 "$SEPARATOR")
-U=$(awk '{printf "%.1f",$1/86400}' /proc/uptime)
-U=$(prompt_segment_256 032 015 "$U")
-U=$S$U
+C=$(prompt_segment_256 032 015 "")
 
-RPROMPT="$T$U %{$reset_color%}"
+RPROMPT="${T}${S}${C}$(awk '{printf "%.1f", $1/86400}' /proc/uptime)d %{$reset_color%}"
