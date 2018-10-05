@@ -12,6 +12,6 @@ if [[ -f $ACTIVATE ]]; then
     #fi
 else
     echo No such virtualenv
-    echo Available venvs:
+    echo "Available venvs [ ${VENV_DIR} ]:"
     ls $VENV_DIR
 fi
