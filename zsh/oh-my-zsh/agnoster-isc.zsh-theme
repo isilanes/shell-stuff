@@ -266,9 +266,8 @@ prompt_dir() {
 
 # Virtualenv: current working virtualenv
 prompt_virtualenv() {
-    local virtualenv_path="$VIRTUAL_ENV"
-    if [[ -n $virtualenv_path && -n $VIRTUAL_ENV_DISABLE_PROMPT ]]; then
-        prompt_segment blue black "(`basename $virtualenv_path`)"
+    if [[ "x$VIRTUAL_ENV" != "x" ]]; then
+        prompt_segment_256 053 015 "$(basename $VIRTUAL_ENV)"
     fi
 }
 
@@ -283,11 +282,14 @@ prompt_status() {
     [[ $UID -eq 0 ]] && symbols+="%{%F{yellow}%}⚡"
     [[ $(jobs -l | wc -l) -gt 0 ]] && symbols+="%{%F{cyan}%}⚙"
 
-    #[[ -n "$symbols" ]] && prompt_segment black default "$symbols"
     [[ -n "$symbols" ]] && prompt_segment_256 016 000 "$symbols"
 }
 
-## Main prompt
+formatted_uptime() {
+    awk '{printf "%.1fd", $1/86400}' /proc/uptime
+}
+
+## Main prompt:
 build_prompt() {
   RETVAL=$?
   prompt_status
@@ -300,10 +302,13 @@ build_prompt() {
   prompt_end_256
 }
 
-PROMPT='%{%f%b%k%}$(build_prompt) '
-#RPROMPT=$'%{\e[34m%}%T%{\e[37m%}·%{\e[36m%}$UPTIME%{\e[0m%}'
+# Disable the default virtualenv behaviour of prepending "(venvname)" to prompt:
+export VIRTUAL_ENV_DISABLE_PROMPT=YES
 
-# [ISC] And the right prompt?:
+# Finally, prompt:
+PROMPT='%{%f%b%k%}$(build_prompt) '
+
+# Right-side prompt:
 SEPARATOR=$'\uE0B2'
 
 S=$(prompt_segment_256 NONE 012 "$SEPARATOR")
@@ -312,9 +317,5 @@ T=$S$T
 
 S=$(prompt_segment_256 012 032 "$SEPARATOR")
 C=$(prompt_segment_256 032 015 "")
-
-formatted_uptime() {
-  awk '{printf "%.1fd", $1/86400}' /proc/uptime
-}
 
 RPROMPT='${T}${S}${C}$(formatted_uptime) %{$reset_color%}'
