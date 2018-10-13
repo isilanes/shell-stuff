@@ -79,7 +79,9 @@ source $ZSH/oh-my-zsh.sh
 source ~/git/GitHub/shell-stuff/zsh/alias.zsh
 
 # Conda:
-. ~/local/python/miniconda3/etc/profile.d/conda.sh
+if [[ -f ~/local/python/miniconda3/etc/profile.d/conda.sh ]]; then
+    . ~/local/python/miniconda3/etc/profile.d/conda.sh
+fi
 
 # Other:
 source $HOME/.zsh/git-prompt/zshrc.sh
