@@ -126,6 +126,7 @@ OTHER_WRITABLE 34;40  # color for those annoying 777 files (man dircolors)
 .xbm 01;32
 .xpm 01;32
 .tif 01;32
+.tiff 01;32
 
 # Video and audio:
 .mpg 32
