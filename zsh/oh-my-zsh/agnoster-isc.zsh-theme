@@ -262,7 +262,7 @@ prompt_hg() {
 # Dir: current working directory
 prompt_dir() {
     LEN=$(echo $PWD | wc -c)
-    if [ $LEN -lt 50 ]; then
+    if [ $LEN -lt 80 ]; then
         MSG='%~'
     else
         MSG=$(shrink_path -l $PWD)
