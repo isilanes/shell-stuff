@@ -261,7 +261,13 @@ prompt_hg() {
 
 # Dir: current working directory
 prompt_dir() {
-    prompt_segment_256 032 015 '%~'
+    LEN=$(echo $PWD | wc -c)
+    if [ $LEN -lt 50 ]; then
+        MSG='%~'
+    else
+        MSG=$(shrink_path -l $PWD)
+    fi
+    prompt_segment_256 032 015 "$MSG"
 }
 
 # Virtualenv: current working virtualenv
