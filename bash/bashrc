@@ -17,6 +17,8 @@ if [[ -f ~/.particular ]]; then
 fi
 
 # Set the prompt line:
+PS_COLOR_1="1;34"
+PS_COLOR_2="37"
 PS1="\[\e[${PS_COLOR_1}m\]\u@\H[\[\e[${PS_COLOR_2}m\]\w\[\e[${PS_COLOR_1}m\]]:\[\e[0m\] "
 
 # Path:
