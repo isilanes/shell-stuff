@@ -129,9 +129,9 @@ git_super_status_for_omz() {
 #ZSH_THEME_GIT_PROMPT_PREFIX="%{$fg[green]%}("
 #ZSH_THEME_GIT_PROMPT_SUFFIX="%{$fg[green]%}%{$FG[015]%})###"
 #ZSH_THEME_GIT_PROMPT_SEPARATOR="%{$fg[green]%}|"
-ZSH_THEME_GIT_PROMPT_PREFIX="%{$fg_no_bold[black]$FG[015]%}("  # the fg_no_bold resets to non-bold, just in case
-ZSH_THEME_GIT_PROMPT_SEPARATOR="%{$fg_no_bold[black]$FG[015]%}|"
-ZSH_THEME_GIT_PROMPT_SUFFIX="%{$fg_no_bold[black]$FG[015]%})"
+ZSH_THEME_GIT_PROMPT_PREFIX="%{$fg_no_bold[black]$FG[015]%}"  # the fg_no_bold resets to non-bold, just in case
+ZSH_THEME_GIT_PROMPT_SEPARATOR="%{$fg_no_bold[black]$FG[015]%} "
+ZSH_THEME_GIT_PROMPT_SUFFIX="%{$fg_no_bold[black]$FG[015]%}"
 
 ZSH_THEME_GIT_PROMPT_BRANCH="%{$fg_bold[magenta]%}"
 ZSH_THEME_GIT_PROMPT_STAGED="%{$fg[red]%}●"
