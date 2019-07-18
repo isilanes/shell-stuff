@@ -79,11 +79,6 @@ source $ZSH/oh-my-zsh.sh
 # My aliases:
 source ~/git/GitHub/shell-stuff/zsh/alias.zsh
 
-# Conda:
-if [[ -f ~/local/python/miniconda3/etc/profile.d/conda.sh ]]; then
-    . ~/local/python/miniconda3/etc/profile.d/conda.sh
-fi
-
 # Other:
 source $HOME/.zsh/git-prompt/zshrc.sh
 path=($path ~/local/bin .)
@@ -120,3 +115,9 @@ unsetopt AUTO_REMOVE_SLASH
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
+
+# Conda shit:
+CONDA_CONF=/snap/conda/current/etc/profile.d/conda.sh
+if [[ -f ${CONDA_CONF} ]]; then
+    . $CONDA_CONF
+fi
