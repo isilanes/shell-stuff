@@ -117,7 +117,7 @@ unsetopt AUTO_REMOVE_SLASH
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
 # Conda shit:
-CONDA_CONF=/home/isilanes/miniconda3/etc/profile.d/conda.sh
+CONDA_CONF=$HOME/miniconda3/etc/profile.d/conda.sh
 if [[ -f ${CONDA_CONF} ]]; then
     . $CONDA_CONF
 fi
