@@ -144,11 +144,9 @@ bindkey "^[OA" history-beginning-search-backward-end
 bindkey "^[OB" history-beginning-search-forward-end
 
 # Path:
-path=($path ~/local/bin . /usr/local/bin /home/isilanes/local/python/miniconda3/bin)
+path=($path ~/local/bin . /usr/local/bin)
 
 # ENV vars:
-#export PERL5LIB=${PERL5LIB}:${HOME}/MyTools/PerlModules
-#export PYTHONPATH=${PYTHONPATH}:${HOME}/lib/python
 export MANPATH=${MANPATH}:/usr/share/man:$X11HOME/man:/usr/man:/usr/lang/man:/usr/local/man
 export EDITOR=vim
 export BIBINPUTS=$BIBINPUTS:.:Config
@@ -165,7 +163,7 @@ source ~/.inputrc.zsh
 source ~/.particular
 
 # Conda:
-CONDASH=$HOME/local/python/miniconda3/etc/profile.d/conda.sh
+CONDASH=$HOME/miniconda3/etc/profile.d/conda.sh
 if [[ -a $CONDASH ]]; then
     . $CONDASH
 fi

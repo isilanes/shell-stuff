@@ -277,6 +277,13 @@ prompt_virtualenv() {
     fi
 }
 
+# Conda: currently active Conda environment:
+prompt_conda() {
+    if [[ "x$CONDA_DEFAULT_ENV" != "x" ]]; then
+        prompt_segment_256 052 015 "$(basename $CONDA_DEFAULT_ENV)"
+    fi
+}
+
 # Status:
 # - was there an error
 # - am I root
@@ -300,6 +307,7 @@ build_prompt() {
   RETVAL=$?
   prompt_status
   prompt_virtualenv
+  prompt_conda
   prompt_context
   prompt_dir
   prompt_git
