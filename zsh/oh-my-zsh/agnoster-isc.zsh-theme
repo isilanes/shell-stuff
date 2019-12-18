@@ -280,7 +280,7 @@ prompt_virtualenv() {
 # Conda: currently active Conda environment:
 prompt_conda() {
     if [[ "x$CONDA_DEFAULT_ENV" != "x" ]]; then
-        prompt_segment_256 052 015 "$(basename $CONDA_DEFAULT_ENV)"
+        prompt_segment_256 034 015 "$(basename $CONDA_DEFAULT_ENV)"
     fi
 }
 
