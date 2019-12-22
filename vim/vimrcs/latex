@@ -124,7 +124,7 @@ map <F4> :w<ESC>:! ~/Documents/Tesia/Resources/run_latex.pl %:r 2 1; sleep 10<ES
 
 "map <F6> :w<ESC>:! ~/bin/latex_parser main.tex<ESC><CR>
 "map <F7> :w<ESC>:! ~/bin/latex_parser %:r<ESC><CR>
-map <F7> :w<ESC>:! ~/local/bin/latex_parser.sh %:r<ESC><CR>
+map <F7> :w<ESC>:! ~/local/bin/latex_parser %:r<ESC><CR>
 
 "map <F7> :w<ESC>:! pdflatex -halt-on-error %<ESC>:! bibtex %:r<ESC>:! pdflatex %<ESC>:! pdflatex %<ESC>:! evince %:r.pdf<ESC>:! rm -f *.aux %:r.b?? %:r.toc %:r.dvi %:r.mtc* %:r.log<ESC><CR>
 
