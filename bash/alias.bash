@@ -16,10 +16,6 @@ alias sindt='rsync -rltouvh --progress --delete --no-whole-file '
 alias sin='rsync -rltouvh --progress --dry-run --no-whole-file '
 alias sint='rsync -rltouvh --progress --no-whole-file '
 
-# SGE-related:
-alias qa="qstat -u '*'"
-alias qm="qm.py"
-
 # Other:
 alias h='history 1'
 alias seek='find ./* -name'
