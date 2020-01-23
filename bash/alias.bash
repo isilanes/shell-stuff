@@ -19,5 +19,5 @@ alias sint='rsync -rltouvh --progress --no-whole-file '
 # Other:
 alias h='history 1'
 alias seek='find ./* -name'
-alias df="df -h"
+alias df="/bin/df -h | grep -v 'dev/loop'  | grep -v '^tmpfs' | grep -v '^udev'"
 alias pyenv='source ~/git/GitHub/shell-stuff/zsh/pyenv.sh'

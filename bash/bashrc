@@ -1,5 +1,7 @@
 # .bashrc
 
+export LC_ALL=en_US.utf8
+
 # Source global definitions
 if [ -f /etc/bashrc ]; then
     . /etc/bashrc
