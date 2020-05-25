@@ -145,17 +145,17 @@ ab 9boo @book{,<CR>  author    = "",<CR>  title     = "",<CR>  publisher = "",<C
 ab 9inb @inbook{,<CR>  author    = "",<CR>  title     = "",<CR>  booktitle = "",<CR>  year      = "",<CR>  editor    = "",<CR>  publisher = "",<CR>  address   = "",<CR>  pages     = "",<CR>  note      = "",<CR>}<CR>
 
 "in INSERT mode
-map! á \'a
-map! é \'e
-map! í \'i
-map! ó \'o
-map! ú \'u
-map! Á \'A
-map! É \'E
-map! Í \'I
-map! Ó \'O
-map! Ú \'U
-map! ñ \~n
+"map! á \'a
+"map! é \'e
+"map! í \'i
+"map! ó \'o
+"map! ú \'u
+"map! Á \'A
+"map! É \'E
+"map! Í \'I
+"map! Ó \'O
+"map! Ú \'U
+"map! ñ \~n
 
 " Tab-ing:
 execute pathogen#infect()
@@ -164,4 +164,4 @@ map <C-n> :tabnew<ESC>
 map <S-left> :tabp<ESC>
 map <S-right> :tabn<ESC>
 
-colorscheme silanes
+colorscheme solarized
