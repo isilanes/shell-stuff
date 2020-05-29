@@ -123,6 +123,7 @@ map <F4> :w<ESC>:! ~/Documents/Tesia/Resources/run_latex.pl %:r 2 1; sleep 10<ES
 "map <F6> :w<ESC>:! latex -halt-on-error %<ESC>:! bibtex %:r<ESC>:! latex %<ESC>:! latex %<ESC>:! dvips -t a4 %:r.dvi -o %:r.ps<ESC>:! evince %:r.ps<ESC>:! rm -f *.aux %:r.b?? %:r.toc %:r.dvi %:r.mtc* %:r.log %:r.out<ESC><CR>
 
 "map <F6> :w<ESC>:! ~/bin/latex_parser main.tex<ESC><CR>
+map <F6> :w<ESC>:! bash .compile<ESC><CR>
 "map <F7> :w<ESC>:! ~/bin/latex_parser %:r<ESC><CR>
 map <F7> :w<ESC>:! ~/local/bin/latex_parser %:r<ESC><CR>
 
@@ -164,4 +165,4 @@ map <C-n> :tabnew<ESC>
 map <S-left> :tabp<ESC>
 map <S-right> :tabn<ESC>
 
-colorscheme solarized
+colorscheme idle
