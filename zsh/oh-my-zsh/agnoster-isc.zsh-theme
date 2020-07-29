@@ -81,7 +81,7 @@ prompt_segment_256() {
     # Background:
     if [[ "x$1" == "x" ]]; then
         bg="%k"
-    elif [[ "x$1" == "NONE" ]]; then
+    elif [[ "x$1" == "xNONE" ]]; then
         bg="%k"
     else
         #bg="\e[48;5;${1}m"
@@ -134,6 +134,16 @@ prompt_end_256() {
       echo -n "%{%k%}"
   fi
   echo -n "%{%f%}"
+  CURRENT_BG=''
+}
+
+# If a next line is desired in prompt:
+prompt_next_line() {
+  echo -n "\n"
+  PREVIOUS_BG=""
+  PROMPT_SYMBOL=$'\u21b3'
+  prompt_segment_256 140 017 "$PROMPT_SYMBOL"
+  echo -n " %{$reset_color%}$FG[$PREVIOUS_BG]${SEGMENT_SEPARATOR}"
   CURRENT_BG=''
 }
 
@@ -314,6 +324,7 @@ build_prompt() {
   prompt_bzr
   prompt_hg
   prompt_end_256
+  prompt_next_line
 }
 
 # Disable the default virtualenv behaviour of prepending "(venvname)" to prompt:
