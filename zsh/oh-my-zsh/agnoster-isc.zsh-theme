@@ -142,8 +142,8 @@ prompt_next_line() {
   echo -n "\n"
   PREVIOUS_BG=""
   PROMPT_SYMBOL=$'\u21b3'
-  prompt_segment_256 140 017 "$PROMPT_SYMBOL"
-  echo -n " %{$reset_color%}$FG[$PREVIOUS_BG]${SEGMENT_SEPARATOR}"
+  prompt_segment_256 NONE 140 "$PROMPT_SYMBOL"
+  echo -n " %{$reset_color%}$FG[$PREVIOUS_BG]"
   CURRENT_BG=''
 }
 
