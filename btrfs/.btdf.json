@@ -1,0 +1,9 @@
+{
+    "HEAD_COLOR": "105",
+    "EXCLUDES": [
+        "udev",
+        "tmpfs",
+        "/dev/loop*",
+        "/run/timeshift/backup"
+    ]
+}
