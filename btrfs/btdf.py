@@ -1,10 +1,11 @@
 from __future__ import annotations
 from typing import Optional
 import subprocess as sp
+import json
+import os
 
-HEAD_COLOR = "\033[38;5;100m"
+WARN_COLOR = "\033[38;5;105m"
 END_COLOR = "\033[0m"
-
 COLUMNS = [
     {
         "name": "Device",
@@ -70,13 +71,37 @@ def human(value: int) -> str:
     return f"{value}"
 
 
+def warn(msg: str) -> None:
+    print(f"{WARN_COLOR}[WARNING]{END_COLOR} {msg}")
+
+
+def get_conf(filename):
+    try:
+        with open(filename) as f:
+            return json.load(f)
+    except FileNotFoundError:
+        warn(f"Configuration file {filename} not found. Ignoring.")
+        return {}
+    except json.decoder.JSONDecodeError:
+        warn(f"Can't read configuration file {filename}. Ignoring.")
+        return {}
+
+
+def colored(string: str, color: str) -> str:
+    if color is None:
+        return string
+
+    return f"\033[38;5;{color}m{string}{END_COLOR}"
+
+
 class DiskInfo:
     """Everything here."""
 
     DF_CMD = ["/bin/df", "-B1"]
 
-    def __init__(self):
+    def __init__(self, conf=None):
         self._partitions = None
+        self._conf = conf or {}
 
     def get_partitions_from_df(self) -> list:
         out = run_command(self.DF_CMD)
@@ -99,8 +124,12 @@ class DiskInfo:
     def max_col_widths(self) -> list:
         return get_max_widths(self.partitions)
 
+    @property
+    def head_color(self) -> Optional[str]:
+        return self._conf.get("HEAD_COLOR")
+
     def print_headers(self) -> None:
-        string = HEAD_COLOR
+        string = ""
         for col, w in zip(COLUMNS, self.max_col_widths):
             if col.get("is_number"):
                 string = f"{string}{col['name']:>{w+1}s}  "
@@ -109,7 +138,7 @@ class DiskInfo:
 
         string = f"{string}{END_COLOR}"
 
-        print(string)
+        print(colored(string, self.head_color))
 
     def print_rows(self) -> None:
         for partition in self.partitions:
@@ -181,7 +210,9 @@ class PartitionLike:
 
 
 def main():
-    info = DiskInfo()
+    conf_fn = os.path.join(os.environ.get("HOME", ""), ".btdf.json")
+    conf = get_conf(conf_fn)
+    info = DiskInfo(conf)
     info.print_headers()
     info.print_rows()
 
