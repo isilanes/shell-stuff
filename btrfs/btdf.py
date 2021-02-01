@@ -3,6 +3,7 @@ from typing import Optional
 import subprocess as sp
 import json
 import os
+import re
 
 WARN_COLOR = "\033[38;5;105m"
 END_COLOR = "\033[0m"
@@ -107,6 +108,12 @@ class DiskInfo:
         out = run_command(self.DF_CMD)
         partitions = []
         for line in out.split("\n"):
+            if not line:
+                continue
+
+            if self.is_excluded(line):
+                continue
+
             partition = PartitionLike.parse_df_line(line)
             if partition is not None:
                 partitions.append(partition)
@@ -144,6 +151,16 @@ class DiskInfo:
         for partition in self.partitions:
             partition.width_list = self.max_col_widths
             print(partition)
+
+    def get_fs_info(self):
+        mount_info = run_command(["mount"])
+
+    def is_excluded(self, line: str) -> bool:
+        for patt in self._conf.get("EXCLUDES", []):
+            if re.match(patt, line):
+                return True
+
+        return False
 
 
 class PartitionLike:
@@ -213,6 +230,7 @@ def main():
     conf_fn = os.path.join(os.environ.get("HOME", ""), ".btdf.json")
     conf = get_conf(conf_fn)
     info = DiskInfo(conf)
+    info.get_fs_info()
     info.print_headers()
     info.print_rows()
 
