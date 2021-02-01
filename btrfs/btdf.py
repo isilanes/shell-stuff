@@ -17,6 +17,10 @@ COLUMNS = [
         "plike_attr": "fs",
     },
     {
+        "name": "subvolid",
+        "plike_attr": "btrfs_subvolume_id",
+    },
+    {
         "name": "Size",
         "plike_attr": "total_size",
         "is_number": True,
@@ -176,11 +180,12 @@ class DiskInfo:
             d[aline[2]] = line
 
         for p in self.partitions:
-            aline = d[p.mountpoint].split()
+            line = d[p.mountpoint]
+            aline = line.split()
             p.fs = aline[4]
 
             if p.fs == "btrfs":
-                p.run_compsize()
+                p.handle_btrfs(line)
 
     def is_excluded(self, line: str) -> bool:
         for patt in self._conf.get("EXCLUDES", []):
@@ -200,6 +205,7 @@ class PartitionLike:
         self.width_list = None
         self.fs = None
         self._compress_percent = None
+        self.btrfs_subvolume_id = "-"
 
     @staticmethod
     def parse_df_line(line: str) -> Optional[PartitionLike]:
@@ -247,6 +253,10 @@ class PartitionLike:
         if isinstance(value, int):
             self._used_space = value
 
+    def handle_btrfs(self, line: str) -> None:
+        self.get_btrfs_subvolid(line)
+        self.run_compsize()
+
     def run_compsize(self) -> None:
         if self.mountpoint == "/":  # ignore root
             return
@@ -258,6 +268,10 @@ class PartitionLike:
                 _, _, du, unc, _ = line.split()
                 self._total_size = int(du)
                 self._compress_percent = 100 - 100. * int(du) / int(unc)
+
+    def get_btrfs_subvolid(self, line):
+        match = re.search(r"(?<=subvolid=)\d+", line)
+        self.btrfs_subvolume_id = match.group(0)
 
     def __str__(self) -> str:
         if self.width_list is not None:
