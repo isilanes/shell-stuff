@@ -2,6 +2,8 @@ from __future__ import annotations
 from typing import Optional
 import subprocess as sp
 
+HEAD_COLOR = "\033[38;5;100m"
+END_COLOR = "\033[0m"
 
 COLUMNS = [
     {
@@ -68,29 +70,51 @@ def human(value: int) -> str:
     return f"{value}"
 
 
-class DFInfo:
+class DiskInfo:
+    """Everything here."""
 
-    CMD = ["/bin/df", "-B1"]
+    DF_CMD = ["/bin/df", "-B1"]
 
     def __init__(self):
         self._partitions = None
 
-    def run(self) -> list:
-        out = run_command(self.CMD)
+    def get_partitions_from_df(self) -> list:
+        out = run_command(self.DF_CMD)
         partitions = []
         for line in out.split("\n"):
             partition = PartitionLike.parse_df_line(line)
             if partition is not None:
                 partitions.append(partition)
 
-        self._partitions = partitions
+        return partitions
 
     @property
     def partitions(self) -> list:
         if self._partitions is None:
-            self.run()
+            self._partitions = self.get_partitions_from_df()
 
         return self._partitions
+
+    @property
+    def max_col_widths(self) -> list:
+        return get_max_widths(self.partitions)
+
+    def print_headers(self) -> None:
+        string = HEAD_COLOR
+        for col, w in zip(COLUMNS, self.max_col_widths):
+            if col.get("is_number"):
+                string = f"{string}{col['name']:>{w+1}s}  "
+            else:
+                string = f"{string}{col['name']:{w+1}s}  "
+
+        string = f"{string}{END_COLOR}"
+
+        print(string)
+
+    def print_rows(self) -> None:
+        for partition in self.partitions:
+            partition.width_list = self.max_col_widths
+            print(partition)
 
 
 class PartitionLike:
@@ -139,13 +163,12 @@ class PartitionLike:
             self._used_space = value
 
     def __str__(self) -> str:
-        string = ""
-
         if self.width_list is not None:
             wlist = self.width_list
         else:
             wlist = [len(c["name"]) for c in COLUMNS]
 
+        string = ""
         for col, w in zip(COLUMNS, wlist):
             attr = col.get("plike_attr")
             value = getattr(self, attr)
@@ -158,23 +181,9 @@ class PartitionLike:
 
 
 def main():
-    df_info = DFInfo()
-    plist = df_info.partitions
-
-    plist_widths = get_max_widths(plist)
-
-    string = ""
-    for col, w in zip(COLUMNS, plist_widths):
-        if col.get("is_number"):
-            string = f"{string}{col['name']:>{w+1}s}  "
-        else:
-            string = f"{string}{col['name']:{w+1}s}  "
-
-    print(string)
-
-    for partition in plist:
-        partition.width_list = plist_widths
-        print(partition)
+    info = DiskInfo()
+    info.print_headers()
+    info.print_rows()
 
 
 if __name__ == "__main__":
