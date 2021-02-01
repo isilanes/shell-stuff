@@ -13,6 +13,10 @@ COLUMNS = [
         "plike_attr": "device",
     },
     {
+        "name": "Filesystem",
+        "plike_attr": "fs",
+    },
+    {
         "name": "Size",
         "plike_attr": "total_size",
         "is_number": True,
@@ -23,19 +27,31 @@ COLUMNS = [
         "is_number": True,
     },
     {
+        "name": "Compression",
+        "plike_attr": "compress_percent",
+        "is_number": True,
+    },
+    {
+        "name": "Fill%",
+        "plike_attr": "fill_percent",
+        "is_number": True,
+    },
+    {
         "name": "Mounted on",
         "plike_attr": "mountpoint",
     },
 ]
 
 
-def run_command(cmd: list) -> str:
+def run_command(cmd: list) -> list:
+    """Returns a list of output lines as strings."""
+
     proc = sp.Popen(cmd, stdout=sp.PIPE)
     out, _ = proc.communicate()
     if not isinstance(out, str):
         out = out.decode("utf-8")
 
-    return out
+    return out.strip().split("\n")
 
 
 def get_max_widths(partitions) -> list:
@@ -107,7 +123,7 @@ class DiskInfo:
     def get_partitions_from_df(self) -> list:
         out = run_command(self.DF_CMD)
         partitions = []
-        for line in out.split("\n"):
+        for line in out:
             if not line:
                 continue
 
@@ -154,10 +170,21 @@ class DiskInfo:
 
     def get_fs_info(self):
         mount_info = run_command(["mount"])
+        d = {}
+        for line in mount_info:
+            aline = line.split()
+            d[aline[2]] = line
+
+        for p in self.partitions:
+            aline = d[p.mountpoint].split()
+            p.fs = aline[4]
+
+            if p.fs == "btrfs":
+                p.run_compsize()
 
     def is_excluded(self, line: str) -> bool:
         for patt in self._conf.get("EXCLUDES", []):
-            if re.match(patt, line):
+            if re.search(patt, line):
                 return True
 
         return False
@@ -171,6 +198,8 @@ class PartitionLike:
         self._used_space = used
         self.mountpoint = mountpoint
         self.width_list = None
+        self.fs = None
+        self._compress_percent = None
 
     @staticmethod
     def parse_df_line(line: str) -> Optional[PartitionLike]:
@@ -203,10 +232,32 @@ class PartitionLike:
 
         return human(self._used_space)
 
+    @property
+    def fill_percent(self) -> str:
+        return "0%"
+
+    @property
+    def compress_percent(self) -> str:
+        if self._compress_percent:
+            return f"{self._compress_percent:.1f}%"
+        return "-"
+
     @used_space.setter
     def used_space(self, value) -> None:
         if isinstance(value, int):
             self._used_space = value
+
+    def run_compsize(self) -> None:
+        if self.mountpoint == "/":  # ignore root
+            return
+
+        cmd = ["sudo", "compsize", "-b", self.mountpoint]
+        out = run_command(cmd)
+        for line in out:
+            if "TOTAL" in line:
+                _, _, du, unc, _ = line.split()
+                self._total_size = int(du)
+                self._compress_percent = 100 - 100. * int(du) / int(unc)
 
     def __str__(self) -> str:
         if self.width_list is not None:
