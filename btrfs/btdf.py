@@ -276,6 +276,9 @@ class PartitionLike:
         self.btrfs_subvolume_id = match.group(0)
 
     def get_quota(self):
+        if self.mountpoint == "/":  # ignore /
+            return
+
         cmd = ["sudo", "btrfs", "qgroup", "show", "--raw", "-r", self.mountpoint]
         for line in run_command(cmd):
             aline = line.split()
