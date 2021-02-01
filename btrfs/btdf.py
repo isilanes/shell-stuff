@@ -240,7 +240,8 @@ class PartitionLike:
 
     @property
     def fill_percent(self) -> str:
-        return "0%"
+        perc = 100. * self._used_space / self._total_size
+        return f"{perc:.1f}%"
 
     @property
     def compress_percent(self) -> str:
@@ -256,6 +257,7 @@ class PartitionLike:
     def handle_btrfs(self, line: str) -> None:
         self.get_btrfs_subvolid(line)
         self.run_compsize()
+        self.get_quota()
 
     def run_compsize(self) -> None:
         if self.mountpoint == "/":  # ignore root
@@ -272,6 +274,16 @@ class PartitionLike:
     def get_btrfs_subvolid(self, line):
         match = re.search(r"(?<=subvolid=)\d+", line)
         self.btrfs_subvolume_id = match.group(0)
+
+    def get_quota(self):
+        cmd = ["sudo", "btrfs", "qgroup", "show", "--raw", "-r", self.mountpoint]
+        for line in run_command(cmd):
+            aline = line.split()
+            if aline[0] == f"0/{self.btrfs_subvolume_id}":
+                _, usage, _, limit = aline
+                self._used_space = int(usage)
+                if limit != "none":
+                    self._total_size = int(limit)
 
     def __str__(self) -> str:
         if self.width_list is not None:
