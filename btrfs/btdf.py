@@ -283,7 +283,7 @@ class PartitionLike:
         if self.mountpoint == "/":  # ignore /
             return
 
-        cmd = ["sudo", "btrfs", "qgroup", "show", "--raw", "-r", self.mountpoint]
+        cmd = ["sudo", "btrfs", "qgroup", "show", "--raw", "-rF", self.mountpoint]
         lines, err = run_command(cmd)
 
         if err:
