@@ -267,7 +267,7 @@ class PartitionLike:
         if self.mountpoint == "/":  # ignore root
             return
 
-        cmd = ["sudo", "compsize", "-b", self.mountpoint]
+        cmd = ["sudo", "compsize", "-xb", self.mountpoint]
         out, _ = run_command(cmd)
         for line in out:
             if "TOTAL" in line:
