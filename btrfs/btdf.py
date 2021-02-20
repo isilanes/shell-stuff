@@ -1,5 +1,5 @@
 from __future__ import annotations
-from typing import Optional
+from typing import Optional, Tuple
 import subprocess as sp
 import json
 import os
@@ -47,15 +47,19 @@ COLUMNS = [
 ]
 
 
-def run_command(cmd: list) -> list:
+def run_command(cmd: list) -> Tuple[list, str]:
     """Returns a list of output lines as strings."""
 
-    proc = sp.Popen(cmd, stdout=sp.PIPE)
-    out, _ = proc.communicate()
+    proc = sp.Popen(cmd, stdout=sp.PIPE, stderr=sp.PIPE)
+    out, err = proc.communicate()
+
     if not isinstance(out, str):
         out = out.decode("utf-8")
 
-    return out.strip().split("\n")
+    if not isinstance(err, str):
+        err = err.decode("utf-8")
+
+    return out.strip().split("\n"), err
 
 
 def get_max_widths(partitions) -> list:
@@ -125,7 +129,7 @@ class DiskInfo:
         self._conf = conf or {}
 
     def get_partitions_from_df(self) -> list:
-        out = run_command(self.DF_CMD)
+        out, _ = run_command(self.DF_CMD)
         partitions = []
         for line in out:
             if not line:
@@ -173,7 +177,7 @@ class DiskInfo:
             print(partition)
 
     def get_fs_info(self):
-        mount_info = run_command(["mount"])
+        mount_info, _ = run_command(["mount"])
         d = {}
         for line in mount_info:
             aline = line.split()
@@ -264,7 +268,7 @@ class PartitionLike:
             return
 
         cmd = ["sudo", "compsize", "-b", self.mountpoint]
-        out = run_command(cmd)
+        out, _ = run_command(cmd)
         for line in out:
             if "TOTAL" in line:
                 _, _, du, unc, _ = line.split()
@@ -275,12 +279,17 @@ class PartitionLike:
         match = re.search(r"(?<=subvolid=)\d+", line)
         self.btrfs_subvolume_id = match.group(0)
 
-    def get_quota(self):
+    def get_quota(self) -> None:
         if self.mountpoint == "/":  # ignore /
             return
 
         cmd = ["sudo", "btrfs", "qgroup", "show", "--raw", "-r", self.mountpoint]
-        for line in run_command(cmd):
+        lines, err = run_command(cmd)
+
+        if err:
+            return
+
+        for line in lines:
             aline = line.split()
             if aline[0] == f"0/{self.btrfs_subvolume_id}":
                 _, usage, _, limit = aline
