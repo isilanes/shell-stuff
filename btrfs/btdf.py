@@ -308,9 +308,9 @@ class PartitionLike:
         out, _ = run_command(cmd)
         for line in out:
             if "TOTAL" in line:
-                _, _, du, unc, _ = line.split()
-                self._total_size = int(du)
-                self._compress_percent = 100 - 100. * int(du) / int(unc)
+                _, _, disk_usage, uncompressed_size, _ = line.split()
+                self._used_space = int(disk_usage)
+                self._compress_percent = 100 - 100. * int(disk_usage) / int(uncompressed_size)
 
     def get_btrfs_subvolid(self, line):
         match = re.search(r"(?<=subvolid=)\d+", line)
