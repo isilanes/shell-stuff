@@ -165,4 +165,4 @@ map <C-n> :tabnew<ESC>
 map <S-left> :tabp<ESC>
 map <S-right> :tabn<ESC>
 
-colorscheme idle
+"colorscheme idle
