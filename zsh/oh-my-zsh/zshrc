@@ -79,6 +79,10 @@ source $ZSH/oh-my-zsh.sh
 
 # My aliases:
 source ~/git/GitHub/shell-stuff/zsh/alias.zsh
+LOCAL_ALIAS=$HOME/.alias
+if [[ -f ${LOCAL_ALIAS} ]]; then
+    . $LOCAL_ALIAS
+fi
 
 # Other:
 source $HOME/.zsh/git-prompt/zshrc.sh

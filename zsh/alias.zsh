@@ -72,7 +72,6 @@ alias seek='find ./* -name'
 alias itx='ispell -t -x -d american'
 alias ps2pdfgood='ps2pdf -dCompatibilityLevel=1.3 -dEmbedAllFonts=true  -dSubsetFonts=true  -dMaxSubsetPct=100 -dAutoFilterColorImages=false -dAutoFilterGrayImages=false -dColorImageFilter=/FlateEncode -dGrayImageFilter=/FlateEncode -dMonoImageFilter=/FlateEncode'
 alias df='/bin/df -h | grep -v "^udev" | grep -v "^tmpfs" | grep -v "^none" | grep -v "^cgmfs" | grep -v "/snap/"' 
-alias btdf='python3 ~/git/GitHub/shell-stuff/btrfs/btdf.py'
 alias ega='eval `gpg-agent --daemon`'
 alias xmgrace='/usr/bin/xmgrace -barebones -geom 1100x825 -fixed 850 600 -noask'
 alias unspace='for f in *[\ \(\)#,\[\]]*; mv $f `echo $f | sed -e "s/ /_/g;s/[]()#,[]//g"`'
@@ -83,3 +82,5 @@ alias pyenv='source ~/git/GitHub/shell-stuff/zsh/pyenv.sh'
 alias cless='bash ~/git/GitHub/shell-stuff/zsh/cless.sh'
 alias pyaa8="python ~/git/BitBucket/AutoAsphalt8/aa8.py"
 alias increback="python3 ~/git/GitHub/increback/increback.py --log-conf ~/git/GitHub/increback/logconf.json"
+alias btdf='python3 ~/git/GitHub/shell-stuff/btrfs/btdf.py'
+alias btsync='python3 ~/git/GitHub/btback/btsync.py'
