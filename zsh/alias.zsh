@@ -65,6 +65,7 @@ alias itx='ispell -t -x -d american'
 alias ps2pdfgood='ps2pdf -dCompatibilityLevel=1.3 -dEmbedAllFonts=true  -dSubsetFonts=true  -dMaxSubsetPct=100 -dAutoFilterColorImages=false -dAutoFilterGrayImages=false -dColorImageFilter=/FlateEncode -dGrayImageFilter=/FlateEncode -dMonoImageFilter=/FlateEncode'
 alias df='/bin/df -h | grep -v "^udev" | grep -v "^tmpfs" | grep -v "^none" | grep -v "^cgmfs" | grep -v "/snap/"' 
 alias btdf='python3 ~/git/GitHub/shell-stuff/btrfs/btdf.py'
+alias btsync='python3 ~/git/GitHub/btback/btsync.py'
 alias unspace='for f in *[\ \(\)#,\[\]]*; mv $f `echo $f | sed -e "s/ /_/g;s/[]()#,[]//g"`'
 function puttitle { echo -ne "\\033]0;$1\\007" }
 alias pyenv='source ~/git/GitHub/shell-stuff/zsh/pyenv.sh'
