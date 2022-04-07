@@ -45,6 +45,9 @@ if has("autocmd")
 " In text files, always limit the width of text to 78 characters
 "autocmd BufRead *.txt set tw=78
 
+" Default folding:
+set foldmethod=manual
+
 " Folders in Python:
 "autocmd BufRead *.py set foldmethod=indent
 
