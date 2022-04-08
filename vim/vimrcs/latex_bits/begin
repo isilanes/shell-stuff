@@ -1,6 +1,6 @@
 \documentclass[english]{article}
 \usepackage[a4paper,top=20mm,bottom=25mm,textwidth=165mm]{geometry}
-\usepackage[T1]{fontenc}
+%\usepackage[T1]{fontenc}
 \usepackage[dvips]{graphicx}
 \usepackage{amssymb}
 \usepackage[usenames]{color}
