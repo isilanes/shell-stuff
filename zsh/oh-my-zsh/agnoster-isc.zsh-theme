@@ -141,7 +141,7 @@ prompt_end_256() {
 prompt_next_line() {
   echo -n "\n"
   PREVIOUS_BG=""
-  PROMPT_SYMBOL=$'\u276D'
+  PROMPT_SYMBOL=$'\u276f'
   prompt_segment_256 NONE 032 "$PROMPT_SYMBOL"
   echo -n " %{$reset_color%}$FG[$PREVIOUS_BG]"
   CURRENT_BG=''
