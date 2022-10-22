@@ -59,6 +59,9 @@ function sgrep {
     find . -name "$1" -exec grep "$2" {} +:
 }
 
+# Poetry:
+alias poetry-this="source \$(poetry env info --path)/bin/activate"
+
 # Other:
 alias h='history'
 alias itx='ispell -t -x -d american'
@@ -68,11 +71,11 @@ alias btdf='python3 ~/git/GitHub/shell-stuff/btrfs/btdf.py'
 alias btsync='python3 ~/git/GitHub/btback/btsync.py'
 alias unspace='for f in *[\ \(\)#,\[\]]*; mv $f `echo $f | sed -e "s/ /_/g;s/[]()#,[]//g"`'
 function puttitle { echo -ne "\\033]0;$1\\007" }
-#alias pyenv='source ~/git/GitHub/shell-stuff/zsh/pyenv.sh'
 alias pyaa8="python ~/git/BitBucket/AutoAsphalt8/aa8.py"
 alias increback="python3 ~/git/GitHub/increback/increback.py --log-conf ~/git/GitHub/increback/logconf.json"
 
 # Historic (comment all):
+#alias pyenv='source ~/git/GitHub/shell-stuff/zsh/pyenv.sh'
 #alias cless='bash ~/git/GitHub/shell-stuff/zsh/cless.sh'
 #alias dhmount='sshfs b395676@backup.dreamhost.com:/home/b395676 /mnt/dhback -s -o sshfs_sync -o no_readahead -o cache=no -o follow_symlinks'
 #alias dhumount='fusermount -u /mnt/dhback'
