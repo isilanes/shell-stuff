@@ -73,6 +73,7 @@ alias unspace='for f in *[\ \(\)#,\[\]]*; mv $f `echo $f | sed -e "s/ /_/g;s/[](
 function puttitle { echo -ne "\\033]0;$1\\007" }
 alias pyaa8="python ~/git/BitBucket/AutoAsphalt8/aa8.py"
 alias increback="python3 ~/git/GitHub/increback/increback.py --log-conf ~/git/GitHub/increback/logconf.json"
+alias lister="\$(poetry config virtualenvs.path)/lister--*/bin/python ~/git/MrMilu/lister/lister.py"
 
 # Historic (comment all):
 #alias pyenv='source ~/git/GitHub/shell-stuff/zsh/pyenv.sh'
