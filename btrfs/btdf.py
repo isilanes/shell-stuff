@@ -4,6 +4,8 @@ import subprocess as sp
 import json
 import os
 import re
+import argparse
+
 
 WARN_COLOR = "\033[38;5;105m"
 END_COLOR = "\033[0m"
@@ -47,6 +49,23 @@ COLUMNS = [
 ]
 
 
+def parse_args(args=None):
+    if args is None:
+        import sys
+        args = sys.argv[1:]
+
+    parser = argparse.ArgumentParser()
+
+    parser.add_argument(
+        "-c", "--compression",
+        help="Show compression ratios. Default: don't (faster).",
+        action="store_true",
+        default=False,
+    )
+
+    return parser.parse_args(args)
+
+
 def run_command(cmd: list) -> Tuple[list, str]:
     """Returns a list of output lines as strings."""
 
@@ -60,19 +79,6 @@ def run_command(cmd: list) -> Tuple[list, str]:
         err = err.decode("utf-8")
 
     return out.strip().split("\n"), err
-
-
-def get_max_widths(partitions) -> list:
-    wlist = []
-    for col in COLUMNS:
-        max_w = len(col["name"])
-        for p in partitions:
-            w = len(str(getattr(p, col["plike_attr"])))
-            max_w = max(max_w, w)
-
-        wlist.append(max_w)
-
-    return wlist
 
 
 def human(value: int) -> str:
@@ -124,9 +130,10 @@ class DiskInfo:
 
     DF_CMD = ["/bin/df", "-B1"]
 
-    def __init__(self, conf=None):
+    def __init__(self, conf=None, opts=None) -> None:
         self._partitions = None
-        self._conf = conf or {}
+        self.conf = conf or {}
+        self.opts = opts
 
     def get_partitions_from_df(self) -> list:
         out, _ = run_command(self.DF_CMD)
@@ -153,15 +160,15 @@ class DiskInfo:
 
     @property
     def max_col_widths(self) -> list:
-        return get_max_widths(self.partitions)
+        return self.get_max_widths()
 
     @property
     def head_color(self) -> Optional[str]:
-        return self._conf.get("HEAD_COLOR")
+        return self.conf.get("HEAD_COLOR")
 
     def print_headers(self) -> None:
         string = ""
-        for col, w in zip(COLUMNS, self.max_col_widths):
+        for col, w in zip(self.columns, self.max_col_widths):
             if col.get("is_number"):
                 string = f"{string}{col['name']:>{w+1}s}  "
             else:
@@ -174,6 +181,7 @@ class DiskInfo:
     def print_rows(self) -> None:
         for partition in self.partitions:
             partition.width_list = self.max_col_widths
+            partition.columns = self.columns
             print(partition)
 
     def get_fs_info(self):
@@ -189,14 +197,41 @@ class DiskInfo:
             p.fs = aline[4]
 
             if p.fs == "btrfs":
-                p.handle_btrfs(line)
+                p.handle_btrfs(line, self.show_compression)
 
     def is_excluded(self, line: str) -> bool:
-        for patt in self._conf.get("EXCLUDES", []):
+        for patt in self.conf.get("EXCLUDES", []):
             if re.search(patt, line):
                 return True
 
         return False
+
+    @property
+    def show_compression(self):
+        if self.opts is None:
+            return False
+
+        return self.opts.compression
+
+    @property
+    def columns(self):
+        columns = COLUMNS
+        if not self.show_compression:
+            columns = [c for c in COLUMNS if c["name"] != "Compression"]
+
+        return columns
+
+    def get_max_widths(self) -> list:
+        wlist = []
+        for col in self.columns:
+            max_w = len(col["name"])
+            for p in self.partitions:
+                w = len(str(getattr(p, col["plike_attr"])))
+                max_w = max(max_w, w)
+
+            wlist.append(max_w)
+
+        return wlist
 
 
 class PartitionLike:
@@ -210,6 +245,7 @@ class PartitionLike:
         self.fs = None
         self._compress_percent = None
         self.btrfs_subvolume_id = "-"
+        self.columns = COLUMNS
 
     @staticmethod
     def parse_df_line(line: str) -> Optional[PartitionLike]:
@@ -258,9 +294,10 @@ class PartitionLike:
         if isinstance(value, int):
             self._used_space = value
 
-    def handle_btrfs(self, line: str) -> None:
+    def handle_btrfs(self, line: str, show_compression: bool = False) -> None:
         self.get_btrfs_subvolid(line)
-        self.run_compsize()
+        if show_compression:
+            self.run_compsize()
         self.get_quota()
 
     def run_compsize(self) -> None:
@@ -271,9 +308,9 @@ class PartitionLike:
         out, _ = run_command(cmd)
         for line in out:
             if "TOTAL" in line:
-                _, _, du, unc, _ = line.split()
-                self._total_size = int(du)
-                self._compress_percent = 100 - 100. * int(du) / int(unc)
+                _, _, disk_usage, uncompressed_size, _ = line.split()
+                self._used_space = int(disk_usage)
+                self._compress_percent = 100 - 100. * int(disk_usage) / int(uncompressed_size)
 
     def get_btrfs_subvolid(self, line):
         match = re.search(r"(?<=subvolid=)\d+", line)
@@ -301,10 +338,10 @@ class PartitionLike:
         if self.width_list is not None:
             wlist = self.width_list
         else:
-            wlist = [len(c["name"]) for c in COLUMNS]
+            wlist = [len(c["name"]) for c in self.columns]
 
         string = ""
-        for col, w in zip(COLUMNS, wlist):
+        for col, w in zip(self.columns, wlist):
             attr = col.get("plike_attr")
             value = getattr(self, attr)
             if col.get("is_number"):
@@ -315,14 +352,15 @@ class PartitionLike:
         return string
 
 
-def main():
+def main(opts) -> None:
     conf_fn = os.path.join(os.environ.get("HOME", ""), ".btdf.json")
     conf = get_conf(conf_fn)
-    info = DiskInfo(conf)
+    info = DiskInfo(conf, opts)
     info.get_fs_info()
     info.print_headers()
     info.print_rows()
 
 
 if __name__ == "__main__":
-    main()
+    options = parse_args()
+    main(options)

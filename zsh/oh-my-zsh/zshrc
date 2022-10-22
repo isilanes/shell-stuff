@@ -12,7 +12,7 @@ export LC_ALL=en_US.utf8
 #ZSH_THEME="dallas"
 if [[ "x$SSH_TTY" == "x" ]]; then
     ZSH_THEME="agnoster-isc"
-    #ZSH_THEME="classic-isc"
+    #ZSH_THEME="robbyrussell"
 else
     ZSH_THEME="candy"
 fi
@@ -79,6 +79,9 @@ source $ZSH/oh-my-zsh.sh
 
 # My aliases:
 source ~/git/GitHub/shell-stuff/zsh/alias.zsh
+if [[ -f ~/.alias.zsh ]]; then
+    source ~/.alias.zsh
+fi
 
 # Other:
 source $HOME/.zsh/git-prompt/zshrc.sh
