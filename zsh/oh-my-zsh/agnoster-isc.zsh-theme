@@ -283,7 +283,7 @@ prompt_dir() {
 # Virtualenv: current working virtualenv
 prompt_virtualenv() {
     if [[ "x$VIRTUAL_ENV" != "x" ]]; then
-        PRE=$(basename $VIRTUAL_ENV | sed -e 's/--/ /' | cut -d" " -f1)
+        PRE=$(basename $VIRTUAL_ENV | sed -e 's/-/ /' | cut -d" " -f1)
         prompt_segment_256 053 015 "$PRE"
     fi
 }
