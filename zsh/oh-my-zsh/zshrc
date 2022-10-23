@@ -85,7 +85,8 @@ fi
 
 # Other:
 source $HOME/.zsh/git-prompt/zshrc.sh
-path=($path ~/local/bin .)
+path=($path ~/local/bin . ~/local/flutter/bin)
+export CHROME_EXECUTABLE=/usr/bin/chromium
 
 # Custom dircolors:
 eval `dircolors -b $HOME/.dir_colors`

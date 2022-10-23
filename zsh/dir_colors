@@ -118,6 +118,7 @@ OTHER_WRITABLE 34;40  # color for those annoying 777 files (man dircolors)
 
 # Images:
 .jpg 01;32
+.jpeg 01;32
 .gif 01;32
 .png 01;32
 .bmp 01;32
