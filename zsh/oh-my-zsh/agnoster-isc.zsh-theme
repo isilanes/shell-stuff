@@ -33,6 +33,19 @@
 ### Segment drawing
 # A few utility functions to make it easy and re-usable to draw segmented prompts
 
+# Config:
+DIR_BACK_COLOR=005
+DIR_FRONT_COLOR=015
+CONTEXT_BACK_COLOR=176
+CONTEXT_FRONT_COLOR=016
+RIGHT_SEPARATOR=$'\uE0B2'
+TIME_SEPARATOR_COLOR=176                          # 012
+TIME_FRONT_COLOR=000                              # 017
+UPTIME_SEPARATOR_COLOR=005                        # 032
+UPTIME_FRONT_COLOR=015                            # 015
+TIME_BACK_COLOR=$TIME_SEPARATOR_COLOR             # 012
+UPTIME_SEPARATOR_BACK_COLOR=$TIME_SEPARATOR_COLOR # 012
+UPTIME_BACK_COLOR=$UPTIME_SEPARATOR_COLOR         # 032
 PREVIOUS_BG=   # leave it blank
 CURRENT_BG='NONE'
 
@@ -154,7 +167,7 @@ prompt_next_line() {
 prompt_context() {
   if [[ "$USER" != "$DEFAULT_USER" || -n "$SSH_CLIENT" ]]; then
       #prompt_segment black default "%(!.%{%F{yellow}%}.)$USER@%m"
-      prompt_segment_256 146 017 "%m"
+      prompt_segment_256 $CONTEXT_BACK_COLOR $CONTEXT_FRONT_COLOR "%m"
   fi
 }
 
@@ -277,7 +290,7 @@ prompt_dir() {
     else
         MSG=$(shrink_path -l $PWD)
     fi
-    prompt_segment_256 032 015 "$MSG"
+    prompt_segment_256 $DIR_BACK_COLOR $DIR_FRONT_COLOR "$MSG"
 }
 
 # Virtualenv: current working virtualenv
@@ -335,13 +348,11 @@ export VIRTUAL_ENV_DISABLE_PROMPT=YES
 PROMPT='%{%f%b%k%}$(build_prompt) '
 
 # Right-side prompt:
-SEPARATOR=$'\uE0B2'
-
-S=$(prompt_segment_256 NONE 012 "$SEPARATOR")
-T=$(prompt_segment_256 012 017 %T)
+S=$(prompt_segment_256 NONE $TIME_SEPARATOR_COLOR "$RIGHT_SEPARATOR")
+T=$(prompt_segment_256 $TIME_BACK_COLOR $TIME_FRONT_COLOR %T)
 T=$S$T
 
-S=$(prompt_segment_256 012 032 "$SEPARATOR")
-C=$(prompt_segment_256 032 015 "")
+S=$(prompt_segment_256 $UPTIME_SEPARATOR_BACK_COLOR $UPTIME_SEPARATOR_COLOR "$SEPARATOR")
+C=$(prompt_segment_256 $UPTIME_BACK_COLOR $UPTIME_FRONT_COLOR "")
 
 RPROMPT='${T}${S}${C}$(formatted_uptime) %{$reset_color%}'
