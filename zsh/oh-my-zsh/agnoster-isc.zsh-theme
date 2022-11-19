@@ -48,6 +48,8 @@ UPTIME_SEPARATOR_BACK_COLOR=$TIME_SEPARATOR_COLOR # 012
 UPTIME_BACK_COLOR=$UPTIME_SEPARATOR_COLOR         # 032
 PREVIOUS_BG=   # leave it blank
 CURRENT_BG='NONE'
+NEXT_LINE_PROMPT_SYMBOL=$'\u276f'
+NEXT_LINE_PROMPT_COLOR=176
 
 case ${SOLARIZED_THEME:-dark} in
     light) CURRENT_FG='white';;
@@ -154,8 +156,7 @@ prompt_end_256() {
 prompt_next_line() {
   echo -n "\n"
   PREVIOUS_BG=""
-  PROMPT_SYMBOL=$'\u276f'
-  prompt_segment_256 NONE 032 "$PROMPT_SYMBOL"
+  prompt_segment_256 NONE $NEXT_LINE_PROMPT_COLOR "$NEXT_LINE_PROMPT_SYMBOL"
   echo -n " %{$reset_color%}$FG[$PREVIOUS_BG]"
   CURRENT_BG=''
 }
@@ -345,7 +346,7 @@ build_prompt() {
 export VIRTUAL_ENV_DISABLE_PROMPT=YES
 
 # Finally, prompt:
-PROMPT='%{%f%b%k%}$(build_prompt) '
+PROMPT='%{%f%b%k%}$(build_prompt)'
 
 # Right-side prompt:
 S=$(prompt_segment_256 NONE $TIME_SEPARATOR_COLOR "$RIGHT_SEPARATOR")
