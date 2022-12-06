@@ -33,16 +33,28 @@
 ### Segment drawing
 # A few utility functions to make it easy and re-usable to draw segmented prompts
 
+if [[ -f ~/.shell_theme ]]; then
+  source ~/.shell_theme
+else
+  COLOR_FRONT_LIGHT=015
+  COLOR_FRONT_DARK=016
+  COLOR_VIRTUALENV_BACK=053
+  COLOR_PATH_BACK=005
+  COLOR_HIGH=012
+fi
+
 # Config:
-DIR_BACK_COLOR=005
-DIR_FRONT_COLOR=015
-CONTEXT_BACK_COLOR=176
-CONTEXT_FRONT_COLOR=016
+VENV_FRONT_COLOR=$COLOR_FRONT_LIGHT
+VENV_BACK_COLOR=$COLOR_VIRTUALENV_BACK
+DIR_BACK_COLOR=$COLOR_PATH_BACK
+DIR_FRONT_COLOR=$COLOR_FRONT_LIGHT
+CONTEXT_BACK_COLOR=$COLOR_HIGH
+CONTEXT_FRONT_COLOR=$COLOR_FRONT_DARK
 RIGHT_SEPARATOR=$'\uE0B2'
-TIME_SEPARATOR_COLOR=176                          # 012
+TIME_SEPARATOR_COLOR=$COLOR_HIGH                  # 012
 TIME_FRONT_COLOR=000                              # 017
 UPTIME_SEPARATOR_COLOR=005                        # 032
-UPTIME_FRONT_COLOR=015                            # 015
+UPTIME_FRONT_COLOR=$COLOR_FRONT_LIGHT             # 015
 TIME_BACK_COLOR=$TIME_SEPARATOR_COLOR             # 012
 UPTIME_SEPARATOR_BACK_COLOR=$TIME_SEPARATOR_COLOR # 012
 UPTIME_BACK_COLOR=$UPTIME_SEPARATOR_COLOR         # 032
@@ -298,14 +310,14 @@ prompt_dir() {
 prompt_virtualenv() {
     if [[ "x$VIRTUAL_ENV" != "x" ]]; then
         PRE=$(basename $VIRTUAL_ENV | sed -e 's/-/ /' | cut -d" " -f1)
-        prompt_segment_256 053 015 "$PRE"
+        prompt_segment_256 $VENV_BACK_COLOR $VENV_FRONT_COLOR "$PRE"
     fi
 }
 
 # Conda: currently active Conda environment:
 prompt_conda() {
     if [[ "x$CONDA_DEFAULT_ENV" != "x" ]]; then
-        prompt_segment_256 056 015 "$(basename $CONDA_DEFAULT_ENV)"
+        prompt_segment_256 $VENV_BACK_COLOR $VENV_FRONT_COLOR "$CONDA_DEFAULT_ENV"
     fi
 }
 
