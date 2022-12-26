@@ -38,16 +38,14 @@ if [[ -f ~/.shell_theme ]]; then
 else
   COLOR_FRONT_LIGHT=015
   COLOR_FRONT_DARK=016
+  COLOR_VIRTUALENV_FRONT=$COLOR_FRONT_LIGHT
   COLOR_VIRTUALENV_BACK=053
+  COLOR_PATH_FRONT=$COLOR_FRONT_LIGHT
   COLOR_PATH_BACK=005
   COLOR_HIGH=012
 fi
 
 # Config:
-VENV_FRONT_COLOR=$COLOR_FRONT_LIGHT
-VENV_BACK_COLOR=$COLOR_VIRTUALENV_BACK
-DIR_BACK_COLOR=$COLOR_PATH_BACK
-DIR_FRONT_COLOR=$COLOR_FRONT_DARK
 CONTEXT_BACK_COLOR=$COLOR_HIGH
 CONTEXT_FRONT_COLOR=$COLOR_FRONT_DARK
 RIGHT_SEPARATOR=$'\uE0B2'
@@ -303,21 +301,21 @@ prompt_dir() {
     else
         MSG=$(shrink_path -l $PWD)
     fi
-    prompt_segment_256 $DIR_BACK_COLOR $DIR_FRONT_COLOR "$MSG"
+    prompt_segment_256 $COLOR_PATH_BACK $COLOR_PATH_FRONT "$MSG"
 }
 
 # Virtualenv: current working virtualenv
 prompt_virtualenv() {
     if [[ "x$VIRTUAL_ENV" != "x" ]]; then
         PRE=$(basename $VIRTUAL_ENV | sed -e 's/-/ /' | cut -d" " -f1)
-        prompt_segment_256 $VENV_BACK_COLOR $VENV_FRONT_COLOR "$PRE"
+        prompt_segment_256 $COLOR_VIRTUALENV_BACK $COLOR_VIRTUALENV_FRONT "$PRE"
     fi
 }
 
 # Conda: currently active Conda environment:
 prompt_conda() {
     if [[ "x$CONDA_DEFAULT_ENV" != "x" ]]; then
-        prompt_segment_256 $VENV_BACK_COLOR $VENV_FRONT_COLOR "$CONDA_DEFAULT_ENV"
+        prompt_segment_256 $COLOR_VIRTUALENV_BACK $COLOR_VIRTUALENV_FRONT "$CONDA_DEFAULT_ENV"
     fi
 }
 
