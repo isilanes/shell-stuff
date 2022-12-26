@@ -1,0 +1,12 @@
+# Place this one in $HOME.
+source-file ~/.shell_theme
+
+if-shell '[ -z "$COLOR_BACK" ]' \
+    'TMUX_COLOR_1=colour100'    \
+    'TMUX_COLOR_1=colour$COLOR_BACK'
+
+if-shell '[ -z "$COLOR_HIGH" ]' \
+    'TMUX_COLOR_2=colour200'    \
+    'TMUX_COLOR_2=colour$COLOR_HIGH'
+
+source-file ~/git/GitHub/shell-stuff/tmux/tmux.conf

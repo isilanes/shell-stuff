@@ -33,8 +33,35 @@
 ### Segment drawing
 # A few utility functions to make it easy and re-usable to draw segmented prompts
 
+if [[ -f ~/.shell_theme ]]; then
+  source ~/.shell_theme
+else
+  COLOR_FRONT_LIGHT=015
+  COLOR_FRONT_DARK=016
+  COLOR_VIRTUALENV_BACK=053
+  COLOR_PATH_BACK=005
+  COLOR_HIGH=012
+fi
+
+# Config:
+VENV_FRONT_COLOR=$COLOR_FRONT_LIGHT
+VENV_BACK_COLOR=$COLOR_VIRTUALENV_BACK
+DIR_BACK_COLOR=$COLOR_PATH_BACK
+DIR_FRONT_COLOR=$COLOR_FRONT_DARK
+CONTEXT_BACK_COLOR=$COLOR_HIGH
+CONTEXT_FRONT_COLOR=$COLOR_FRONT_DARK
+RIGHT_SEPARATOR=$'\uE0B2'
+TIME_SEPARATOR_COLOR=$COLOR_HIGH                  # 012
+TIME_FRONT_COLOR=000                              # 017
+UPTIME_SEPARATOR_COLOR=005                        # 032
+UPTIME_FRONT_COLOR=$COLOR_FRONT_LIGHT             # 015
+TIME_BACK_COLOR=$TIME_SEPARATOR_COLOR             # 012
+UPTIME_SEPARATOR_BACK_COLOR=$TIME_SEPARATOR_COLOR # 012
+UPTIME_BACK_COLOR=$UPTIME_SEPARATOR_COLOR         # 032
 PREVIOUS_BG=   # leave it blank
 CURRENT_BG='NONE'
+NEXT_LINE_PROMPT_SYMBOL=$'\u276f'
+NEXT_LINE_PROMPT_COLOR=176
 
 case ${SOLARIZED_THEME:-dark} in
     light) CURRENT_FG='white';;
@@ -141,8 +168,7 @@ prompt_end_256() {
 prompt_next_line() {
   echo -n "\n"
   PREVIOUS_BG=""
-  PROMPT_SYMBOL=$'\u21b3'
-  prompt_segment_256 NONE 032 "$PROMPT_SYMBOL"
+  prompt_segment_256 NONE $NEXT_LINE_PROMPT_COLOR "$NEXT_LINE_PROMPT_SYMBOL"
   echo -n " %{$reset_color%}$FG[$PREVIOUS_BG]"
   CURRENT_BG=''
 }
@@ -154,7 +180,7 @@ prompt_next_line() {
 prompt_context() {
   if [[ "$USER" != "$DEFAULT_USER" || -n "$SSH_CLIENT" ]]; then
       #prompt_segment black default "%(!.%{%F{yellow}%}.)$USER@%m"
-      prompt_segment_256 146 017 "%m"
+      prompt_segment_256 $CONTEXT_BACK_COLOR $CONTEXT_FRONT_COLOR "%m"
   fi
 }
 
@@ -277,20 +303,21 @@ prompt_dir() {
     else
         MSG=$(shrink_path -l $PWD)
     fi
-    prompt_segment_256 032 015 "$MSG"
+    prompt_segment_256 $DIR_BACK_COLOR $DIR_FRONT_COLOR "$MSG"
 }
 
 # Virtualenv: current working virtualenv
 prompt_virtualenv() {
     if [[ "x$VIRTUAL_ENV" != "x" ]]; then
-        prompt_segment_256 053 015 "$(basename $VIRTUAL_ENV)"
+        PRE=$(basename $VIRTUAL_ENV | sed -e 's/-/ /' | cut -d" " -f1)
+        prompt_segment_256 $VENV_BACK_COLOR $VENV_FRONT_COLOR "$PRE"
     fi
 }
 
 # Conda: currently active Conda environment:
 prompt_conda() {
     if [[ "x$CONDA_DEFAULT_ENV" != "x" ]]; then
-        prompt_segment_256 056 015 "$(basename $CONDA_DEFAULT_ENV)"
+        prompt_segment_256 $VENV_BACK_COLOR $VENV_FRONT_COLOR "$CONDA_DEFAULT_ENV"
     fi
 }
 
@@ -331,16 +358,14 @@ build_prompt() {
 export VIRTUAL_ENV_DISABLE_PROMPT=YES
 
 # Finally, prompt:
-PROMPT='%{%f%b%k%}$(build_prompt) '
+PROMPT='%{%f%b%k%}$(build_prompt)'
 
 # Right-side prompt:
-SEPARATOR=$'\uE0B2'
-
-S=$(prompt_segment_256 NONE 012 "$SEPARATOR")
-T=$(prompt_segment_256 012 017 %T)
+S=$(prompt_segment_256 NONE $TIME_SEPARATOR_COLOR "$RIGHT_SEPARATOR")
+T=$(prompt_segment_256 $TIME_BACK_COLOR $TIME_FRONT_COLOR %T)
 T=$S$T
 
-S=$(prompt_segment_256 012 032 "$SEPARATOR")
-C=$(prompt_segment_256 032 015 "")
+S=$(prompt_segment_256 $UPTIME_SEPARATOR_BACK_COLOR $UPTIME_SEPARATOR_COLOR "$SEPARATOR")
+C=$(prompt_segment_256 $UPTIME_BACK_COLOR $UPTIME_FRONT_COLOR "")
 
 RPROMPT='${T}${S}${C}$(formatted_uptime) %{$reset_color%}'
