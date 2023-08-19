@@ -79,8 +79,8 @@ source $ZSH/oh-my-zsh.sh
 
 # My aliases:
 source ~/git/GitHub/shell-stuff/zsh/alias.zsh
-if [[ -f ~/.alias.zsh ]]; then
-    source ~/.alias.zsh
+if [[ -f ~/.alias.sh ]]; then
+    source ~/.alias.sh
 fi
 
 # Other:
