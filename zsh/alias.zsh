@@ -40,9 +40,10 @@ function tf { tail "$1"; echo -n "\033[32m" && tail -0f "$1"; }
 function getsound { mplayer -vo null -vc null -ao pcm:file="`echo "$1" | sed -e 's/\...*$/.wav/;s/ /_/g'`":fast "$1";}
 
 # Git:
-alias gitc='git commit -a'
+alias gitc='git commit -am'
 alias gitd='git diff --color'
 alias gitn='git log --oneline | wc -l'
+alias gits="git status"
 
 # rsync:
 alias sind='rsync -crltouvh --progress --dry-run --delete --no-whole-file '
