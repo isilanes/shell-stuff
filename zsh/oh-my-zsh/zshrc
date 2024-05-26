@@ -136,3 +136,6 @@ eval "$(pyenv init -)"
 path=(~/.local/bin $path)
 fpath+=~/.zfunc
 autoload -Uz compinit && compinit
+
+# uv stuff:
+. "$HOME/.cargo/env"
