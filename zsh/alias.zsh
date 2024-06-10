@@ -64,7 +64,7 @@ function sgrep {
 alias poetry-this="source \$(poetry env info --path)/bin/activate"
 
 # Other:
-alias h='history'
+alias h='history 1'
 alias itx='ispell -t -x -d american'
 alias ps2pdfgood='ps2pdf -dCompatibilityLevel=1.3 -dEmbedAllFonts=true  -dSubsetFonts=true  -dMaxSubsetPct=100 -dAutoFilterColorImages=false -dAutoFilterGrayImages=false -dColorImageFilter=/FlateEncode -dGrayImageFilter=/FlateEncode -dMonoImageFilter=/FlateEncode'
 alias df='/bin/df -h | grep -v "^udev" | grep -v "^tmpfs" | grep -v "^none" | grep -v "^cgmfs" | grep -v "/snap/"' 
@@ -90,3 +90,6 @@ alias increback="python3 ~/git/GitHub/increback/increback.py --log-conf ~/git/Gi
 #alias svnc='svn commit'
 #function svnd { svn diff "${@}" | colordiff | less -r}
 #function prog { (awk  '/constrained/;/E_KS\(eV\) =/' $1 | tail && tail -n 0 -f $1) | awk '/E_KS\(eV\) =/{de=$4-eks;eks=$4};/constrained/{printf "%.4f %10.4f %7.4f\n",eks,de,$2}' }
+alias latex_parser="python3 /home/isilanes/git/GitHub/shell-stuff/latex/latex_parser.py"
+alias poe="\$(poetry config virtualenvs.path)/poe-*/bin/python ~/git/GitHub/games/poe/atlas.py"
+alias ahorro="\$(poetry config virtualenvs.path)/ahorro-*/bin/python ~/git/GitHub/ahorro/src/ahorro.py"

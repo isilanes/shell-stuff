@@ -33,3 +33,6 @@ bindkey '^f' autosuggest-accept
 # Misc:
 HISTSIZE=5000
 HISTFILE=~/.zsh_history
+
+# Alias:
+[[ ! -f ~/.alias.zsh ]] || source ~/.alias.zsh
