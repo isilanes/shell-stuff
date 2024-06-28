@@ -50,7 +50,7 @@ when = false
 truncation_length = 5
 truncation_symbol = '…/'
 truncate_to_repo = false
-style = 'blue'
+style = 'bold #729FCF'
 
 [git_branch]
 style = 'bold cyan'
