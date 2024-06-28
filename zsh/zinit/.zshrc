@@ -29,9 +29,9 @@ autoload -U compinit && compinit
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
 # Keybindings (don´t seem to work):
-#bindkey '^f' autosuggest-accept
-#bindkey '^p' history-search-backward
-#bindkey '^n' history-search-forward
+bindkey '^f' autosuggest-accept
+bindkey '^p' history-search-backward
+bindkey '^n' history-search-forward
 
 # History:
 HISTSIZE=10000
@@ -55,3 +55,8 @@ zstyle ':fzf-tab:complete:cd:*' fzf-preview 'ls --color $realpath'
 
 # Shell integrations:
 [[ ! -f ~/.fzf.zsh ]] || source ~/.fzf.zsh
+
+# Pyenv:
+export PYENV_ROOT="$HOME/.pyenv"
+[[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init -)"
