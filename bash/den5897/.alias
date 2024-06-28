@@ -1,0 +1,34 @@
+alias rm="rm -i"
+alias ls="ls --color=always"
+alias lh="ls -lh"
+alias ll="ls -l"
+alias rm="rm -i"
+alias cp="cp -i"
+alias mv="mv -i"
+alias la="ls -a"
+alias lt="ls -lrt"
+alias h="history"
+alias seek="find ./ -name"
+function seekpy {
+    find ./ -name "*.py" -exec grep "$1" {} +
+}
+
+# Development:
+function pytestdiff {
+    CMD="pytest --ignore tests/functional"
+    for FN in $(gitmod | grep -v '^tests/' | grep -v __init__.py | sed -e 's/\//./g' -e 's/.py$//')
+    do
+	CMD="$CMD --cov $FN"
+    done
+    $CMD
+}
+alias task="bash taskfile.sh"
+
+# Git:
+alias gits="git status"
+alias gitd="git diff"
+alias gitc="git commit -am"
+alias gitmod="git diff development.. --name-status | awk '/^[MA].*\\.py$/{print \$2}'"
+
+# Poetry:
+alias poetry-this='source $(poetry env info --path|sed -e "s:\\\:/:g")/Scripts/activate'
