@@ -1,0 +1,65 @@
+# Get editor completions based on the config schema
+"$schema" = 'https://starship.rs/config-schema.json'
+
+# Inserts a blank line between shell prompts
+add_newline = true
+
+# Put some things before the newline:
+#format = "$all$python$battery$cmd_duration$line_break$character"
+
+# Replace the '❯' symbol in the prompt with '➜'
+#[character] # The name of the module we are configuring is 'character'
+#success_symbol = '[➜](bold green)' # The 'success_symbol' segment is being set to '➜' with the color 'bold green'
+
+# Disable the package module, hiding it from the prompt completely
+[package]
+disabled = false
+
+
+[battery]
+full_symbol = "\U0001f50b"
+charging_symbol = '⚡️'
+format = '[$symbol$percentage]($style) '
+
+[[battery.display]]
+threshold = 100
+style = '#12dd43'
+
+
+[[battery.display]]
+threshold = 50
+style = 'bold yellow'
+
+
+[[battery.display]]
+threshold = 20
+style = 'bold red'
+
+[character]
+success_symbol = "[\U00002192](bold green)"
+error_symbol = "[\U0001f480](bold red)"
+
+[custom.python_v2]
+command = 'VE=$(basename $VIRTUAL_ENV | cut -d - -f 1) && echo "v$(python --version | cut -d \  -f 2) (${VE})"'
+format = "via \U0001f40d [$output]($style) "
+style = 'bold green'
+ignore_timeout = true
+when = false
+
+[directory]
+truncation_length = 5
+truncation_symbol = '…/'
+truncate_to_repo = false
+style = 'blue'
+
+[git_branch]
+style = 'bold cyan'
+
+[python]
+pyenv_version_name = false
+python_binary = "python"
+disabled = false
+version_format = 'v$raw'
+detect_files = ['.python-version']
+format = 'via [${symbol}(${virtualenv} )(\(${version}\) )]($style)'
+style = "#9789ee"
