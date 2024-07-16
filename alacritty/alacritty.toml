@@ -1,0 +1,33 @@
+live_config_reload = true
+
+[env]
+TERM = "xterm-256color"
+
+[font]
+size = 11.0
+
+[font.bold]
+family = "BitstreamVeraSansMono Nerd Font Mono"
+style = "Heavy"
+
+[font.bold_italic]
+family = "BitstreamVeraSansMono Nerd Font Mono"
+style = "Heavy Italic"
+
+[font.italic]
+family = "BitstreamVeraSansMono Nerd Font Mono"
+style = "Medium Italic"
+
+[font.normal]
+family = "BitstreamVeraSansMono Nerd Font Mono"
+#family = "UbuntuSansMono Nerd Font"
+style = "Medium"
+
+[window]
+decorations = "buttonless"
+dynamic_padding = false
+opacity = 0.75
+
+[window.padding]
+x = 20
+y = 0
