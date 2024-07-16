@@ -21,6 +21,7 @@ style = "Medium Italic"
 [font.normal]
 family = "BitstreamVeraSansMono Nerd Font Mono"
 #family = "UbuntuSansMono Nerd Font"
+#family = "FiraMono Nerd Font"
 style = "Medium"
 
 [window]
