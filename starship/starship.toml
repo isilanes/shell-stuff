@@ -35,14 +35,7 @@ style = '#12dd43'
 
 [character]
 success_symbol = "[\U00002192](bold green)"
-error_symbol = "[\U0001f480](bold red)"
-
-[custom.python_v2]
-command = 'VE=$(basename $VIRTUAL_ENV | cut -d - -f 1) && echo "v$(python --version | cut -d \  -f 2) (${VE})"'
-format = "via \U0001f40d [$output]($style) "
-style = 'bold green'
-ignore_timeout = true
-when = false
+error_symbol = "[ ](bold red)"
 
 [directory]
 truncation_length = 5
@@ -54,6 +47,7 @@ style = 'blue'
 style = 'bold cyan'
 
 [python]
+symbol = " "
 pyenv_version_name = false
 python_binary = "python"
 disabled = false
