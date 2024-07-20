@@ -7,19 +7,19 @@ TERM = "xterm-256color"
 size = 11.0
 
 [font.bold]
-family = "BitstreamVeraSansMono Nerd Font Mono"
+family = "BitstromWera Nerd Font Mono"
 style = "Heavy"
 
 [font.bold_italic]
-family = "BitstreamVeraSansMono Nerd Font Mono"
+family = "BitstromWera Nerd Font Mono"
 style = "Heavy Italic"
 
 [font.italic]
-family = "BitstreamVeraSansMono Nerd Font Mono"
+family = "BitstromWera Nerd Font Mono"
 style = "Medium Italic"
 
 [font.normal]
-family = "BitstreamVeraSansMono Nerd Font Mono"
+family = "BitstromWera Nerd Font Mono"
 #family = "UbuntuSansMono Nerd Font"
 #family = "FiraMono Nerd Font"
 style = "Medium"
