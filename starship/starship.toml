@@ -47,7 +47,7 @@ style = 'blue'
 style = 'bold cyan'
 
 [python]
-symbol = " "
+symbol = "\uec16 "
 pyenv_version_name = false
 python_binary = "python"
 disabled = false
