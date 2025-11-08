@@ -50,3 +50,4 @@ zstyle ':fzf-tab:complete:cd:*' fzf-preview 'ls --color $realpath'
 export PYENV_ROOT="$HOME/.pyenv"
 [[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
 eval "$(pyenv init -)"
+eval "$(dircolors -b ~/.dir_colors)"

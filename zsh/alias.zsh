@@ -74,6 +74,7 @@ alias btsync='python3 ~/git/GitHub/btback/btsync.py'
 alias unspace='for f in *[\ \(\)#,\[\]]*; mv $f `echo $f | sed -e "s/ /_/g;s/[]()#,[]//g"`'
 function puttitle { echo -ne "\\033]0;$1\\007" }
 alias increback="python3 ~/git/GitHub/increback/increback.py --log-conf ~/git/GitHub/increback/logconf.json"
+alias alacritty=$HOME/git/GitHub/OtherPeople/alacritty/target/release/alacritty
 
 # Historic (comment all):
 #alias pyenv='source ~/git/GitHub/shell-stuff/zsh/pyenv.sh'
@@ -91,6 +92,9 @@ alias increback="python3 ~/git/GitHub/increback/increback.py --log-conf ~/git/Gi
 #function svnd { svn diff "${@}" | colordiff | less -r}
 #function prog { (awk  '/constrained/;/E_KS\(eV\) =/' $1 | tail && tail -n 0 -f $1) | awk '/E_KS\(eV\) =/{de=$4-eks;eks=$4};/constrained/{printf "%.4f %10.4f %7.4f\n",eks,de,$2}' }
 #alias pyaa8="python ~/git/BitBucket/AutoAsphalt8/aa8.py"
+
+# Other:
 alias latex_parser="python3 /home/isilanes/git/GitHub/shell-stuff/latex/latex_parser.py"
 alias poe="\$(poetry config virtualenvs.path)/poe-*/bin/python ~/git/GitHub/games/poe/atlas.py"
 alias ahorro="\$(poetry config virtualenvs.path)/ahorro-*/bin/python ~/git/GitHub/ahorro/src/ahorro.py"
+alias tmuxn="source .config/old-autostart-scripts/ssh-add.sh && tmux new -s sazed"
