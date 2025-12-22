@@ -57,8 +57,8 @@ TERM xterm*
 #FILE 00 # regular file: use no color at all
 RESET 0 # reset to "normal" color
 DIR 01;34 # directory
-LINK 01;36 # symbolic link. (If you set this to 'target' instead of a
- # numerical value, the color is as for the file pointed to.)
+LINK 38;5;115 # symbolic link. (If you set this to 'target' instead of a
+           # numerical value, the color is as for the file pointed to.)
 MULTIHARDLINK 00 # regular file with more than one link
 FIFO 40;33 # pipe
 SOCK 01;35 # socket
@@ -246,7 +246,6 @@ EXEC 01;32
 # Custom ISC:
 #
 
-LINK 33 	# symbolic link
 EXEC 01;32 	# executables
 OTHER_WRITABLE 34;40  # color for those annoying 777 files (man dircolors)
 
@@ -338,3 +337,4 @@ OTHER_WRITABLE 34;40  # color for those annoying 777 files (man dircolors)
 # Office:
 .ods 36
 .odt 01;36
+.csv 38;5;204
