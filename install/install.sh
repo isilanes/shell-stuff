@@ -2,7 +2,19 @@ OK="\033[1;32m✔\033[0m"
 KO='\e[1;31m✖\e[0m'
 
 # Zsh
-echo -e '\e[38;5;200m# Setting Zsh shell\e[0m'
+echo -e '\e[38;5;200m# Setting Zsh\e[0m'
+for FILE in zshrc alias.zsh
+do
+    DOTFILE=$HOME/.$FILE
+    ORIGIN=../zsh/$FILE
+    if [ -f $DOTFILE ]; then
+        echo -e "$OK \e[34m$DOTFILE\e[0m exists. Skipping."
+    else
+        echo -e "$KO \e[34m$DOTFILE\e[0m does not exist. Copying from $ORIGIN"
+        cp $ORIGIN $DOTFILE
+    fi
+done
+
 if [ "${SHELL##*/}" = zsh ]; then
     echo -e "[$OK] Already running Zsh"
 else
