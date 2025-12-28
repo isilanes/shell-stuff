@@ -1,5 +1,3 @@
-cdpath=(.. ~ ~/Documents)
-
 # Use hard limits, except for a smaller stack and no core dumps
 unlimit
 limit stack 8192
@@ -12,7 +10,9 @@ umask 022
 alias rm='nocorrect rm'
 alias mv='nocorrect mv'
 alias cp='nocorrect cp'
-source ~/git/GitHub/shell-stuff/zsh/alias.zsh
+if [ -f $HOME/.alias.zsh ]; then
+    source $HOME/.alias.zsh
+fi
 
 # automatically remove duplicates from these arrays
 typeset -U path cdpath fpath manpath
@@ -109,29 +109,8 @@ eval `dircolors -b $HOME/.dir_colors`
 setopt promptsubst
 source $HOME/.zsh/git-prompt/zshrc.sh
 source $HOME/.zsh/svn-prompt/svn.sh
-if [[ $HOST == "burns" ]]; then
-    PROMPT=$'%{\e[32;1m%}${HOST}[%{\e[0;32m%}%~%{\e[32;1m%}]%{\e[0m%}$(git_super_status)$(svn_super_status): '
-    RPROMPT=$'%{\e[32m%}%T%{\e[37m%}·%{\e[36m%}$(awk \'{printf "%.1f",$1/86400}\' /proc/uptime)%{\e[0m%}'
-elif [[ $HOST == "frink" ]]; then
-    PROMPT=$'%{\e[32m%}${HOST}[%{\e[33m%}%~%{\e[32m%}]%{\e[0m%}$(git_super_status): '
-    RPROMPT=$'%{\e[32m%}%T%{\e[0m%}'
-elif [[ $HOST == "Moe" ]]; then
-    PROMPT=$'%{\e[32;1m%}${HOST}[%{\e[0;32m%}%~%{\e[32;1m%}]%{\e[0m%}$(git_super_status)$(svn_super_status): '
-    RPROMPT=$'%{\e[32m%}%T%{\e[37m%}·%{\e[36m%}$(awk \'{printf "%.1f",$1/86400}\' /proc/uptime)%{\e[0m%}'
-elif [[ $HOST == "skinner" ]]; then
-    PROMPT=$'%{\e[34m%}${HOST}[%{\e[36;1m%}%~%{\e[0;34m%}]%{\e[0m%}$(git_super_status): '
-    RPROMPT=$'%{\e[36m%}%T%{\e[0m%}'
-elif [[ $HOST == "raspberrypi" ]]; then
-    PROMPT=$'%{\e[31m%}${HOST}[%{\e[35m%}%~%{\e[0;31m%}]%{\e[0m%}$(git_super_status): '
-    RPROMPT=$'%{\e[31m%}%T%{\e[0m%}'
-elif [[ $HOST == "fry" ]]; then
-    #PROMPT=$'%{\e[34m%}${HOST}[%{\e[0;36m%}%~%{\e[34m%}]%{\e[0m%}$(git_super_status)$(svn_super_status): '
-    PROMPT=$'%{\e[34m%}${HOST}[%{\e[0;36m%}%~%{\e[34m%}]%{\e[0m%}$(git_super_status): '
-    #RPROMPT=$'%{\e[34m%}%T%{\e[37m%}·%{\e[36m%}$(awk \'{printf "%.1f",$1/86400}\' /proc/uptime)%{\e[0m%}'
-else
-    PROMPT=$'%{\e[32m%}${HOST}[%{\e[32;1m%}%~%{\e[0;32m%}]%{\e[0m%}$(git_super_status): '
-    RPROMPT=$'%{\e[32m%}%T%{\e[0m%}'
-fi
+PROMPT=$'%{\e[32m%}${HOST}[%{\e[32;1m%}%~%{\e[0;32m%}]%{\e[0m%}: '
+RPROMPT=$'%{\e[32m%}%T%{\e[0m%}'
 
 # History stuff:
 HISTSIZE=5000
