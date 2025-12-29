@@ -4,4 +4,6 @@ version = "0.1.0"
 description = "Install shell stuff."
 readme = ""
 requires-python = ">=3.14"
-dependencies = []
+dependencies = [
+    "colored>=2.3.1",
+]
