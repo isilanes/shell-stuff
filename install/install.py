@@ -1,10 +1,11 @@
 import argparse
 import os
+from pathlib import Path
 import subprocess as sp
 import sys
-from pathlib import Path, PosixPath
 
-from colored import fore, style
+from entities import ConfigFile
+from operations import ok, bold, colorize, ko
 
 
 def parse_args(args: list | None = None) -> argparse.Namespace:
@@ -20,34 +21,6 @@ def parse_args(args: list | None = None) -> argparse.Namespace:
     )
 
     return parser.parse_args(args)
-
-
-def bold(s: str) -> str:
-    return f"{style("bold")}{s}{style("reset")}"
-
-
-def colorize(s: str, color: str) -> str:
-    return f"{fore(color)}{s}{style("reset")}"
-
-
-def green(s: str) -> str:
-    return colorize(s, color="green")
-
-
-def red(s: str) -> str:
-    return colorize(s, color="red")
-
-
-def hi(s: str) -> str:
-    return colorize(s, color="light_yellow")
-
-
-def ok(*fragments: str) -> None:
-    print(green(bold("✔")), *fragments)
-
-
-def ko(*fragments: str) -> None:
-    print(red(bold("✖")), *fragments)
 
 
 def do(*fragments: str) -> None:
@@ -82,22 +55,19 @@ def check_zsh(opts: argparse.Namespace) -> bool:
         run(f"chsh {zsh}")
         do("Zsh made the default shell. The change will only take effect AFTER you log-in again.")
 
-    files = (
-        (Path("../zsh/zshrc"), Path.home() / ".zshrc"),
-        (Path("../zsh/alias.zsh"), Path.home() / ".alias.zsh"),
+    config_files = (
+        ConfigFile(
+            reference=Path("../zsh/zinit/.zshrc"),
+            destination=Path.home() / ".zshrc",
+        ),
+        ConfigFile(
+            reference=Path("../zsh/alias.zsh"),
+            destination=Path.home() / ".alias.zsh",
+        ),
     )
 
-    for orig, dest in files:
-        if dest.is_file() and not opts.force:
-            ok("File", hi(str(dest)), "already exists")
-            continue
-
-        if not orig.is_file():
-            ko("Tried to install file", hi(str(orig)), "but it does not exist!")
-            return False
-
-        orig.copy(dest)
-        ok("Installed file", hi(str(dest)), "successfully")
+    for config_file in config_files:
+        config_file.deploy()
 
     return True
 
